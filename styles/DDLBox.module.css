@@ -1,0 +1,32 @@
+.border{
+    border:2px black solid;
+    border-radius: 0.25rem;
+}
+
+.titleCard{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.titleText{
+    width: fit-content;
+}
+
+.addButton{
+    width: fit-content;
+    height: 28px;
+}
+
+.addButtonContentContainer{
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+}
+
+.addButtonContentContainer span{
+    margin-right: 5px;
+}
+.addButtonContentContainer img{
+    height: 14px;
+}
