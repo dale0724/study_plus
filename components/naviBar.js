@@ -1,10 +1,11 @@
-import { Nav,Navbar,Container,NavDropdown } from 'react-bootstrap';
+import { Nav,Navbar,Container } from 'react-bootstrap';
+import Avatar from 'react-avatar';
 import styles from "../styles/NaviBar.module.css"
 
 export default function NaviBar(){
     return (
     <Navbar collapseOnSelect className={styles.bluebg}  expand="lg" variant="dark">
-    <Container>
+    <Container fluid>
     <Navbar.Brand href="#home">StudyPlus</Navbar.Brand>
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
@@ -14,10 +15,7 @@ export default function NaviBar(){
         <Nav.Link href="#anouncement">Anouncement</Nav.Link>
       </Nav>
       <Nav>
-        <Nav.Link href="#deets">More deets</Nav.Link>
-        <Nav.Link eventKey={2} href="#memes">
-          Dank memes
-        </Nav.Link>
+          <Avatar name="account" src="http://newtownsquarevet.com/wp-content/uploads/2013/05/Maltipoo.jpg" size="50" round={true}/>
       </Nav>
     </Navbar.Collapse>
     </Container>
