@@ -1,8 +1,10 @@
-import { Card,Row } from "react-bootstrap";
+import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
 import styles from "../styles/NewsBox.module.css";
 import Button from 'react-bootstrap/Button';
+import NewsCard from "./newsCard";
 
 export default function NewsBox() {
+    const abstract = 'For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.'
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >
@@ -17,31 +19,26 @@ export default function NewsBox() {
                         </Button>
                     </Card>
                 </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
+                <ListGroup style={{ overflow: 'hidden auto', height: '310px',width: '95%', margin: 'auto'}}>
+                    <ListGroupItem>
+                        <NewsCard abstract={abstract}/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <NewsCard abstract={abstract}/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <NewsCard abstract={abstract}/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <NewsCard abstract={abstract}/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <NewsCard abstract={abstract}/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <NewsCard abstract={abstract}/>
+                    </ListGroupItem>
+                </ListGroup>
             </div>
         </>
     );
