@@ -3,7 +3,7 @@ import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
 import MyCalendar from "../components/calendar";
 import TodoBox from "../components/todoBox";
-import AnouncementBox from "../components/anouncementBox";
+import AnnouncementBox from "../components/announcementBox";
 import NewsBox from "../components/newsBox";
 import QuoteBox from "../components/quoteBox";
 import DDLBox from "../components/ddlBox";
@@ -21,7 +21,7 @@ export default function Home() {
               </Container>
             </Col>
             <Col className="text-center" xxl='6' xl='6' lg='5'>
-              <AnouncementBox/>
+              <AnnouncementBox/>
               <NewsBox/>
             </Col>
             <Col className="text-center">

@@ -10,12 +10,14 @@ export default function NaviBar(){
     <Navbar.Toggle aria-controls="responsive-navbar-nav" />
     <Navbar.Collapse id="responsive-navbar-nav">
       <Nav className="me-auto">
-        <Nav.Link href="#index">Index Swapping</Nav.Link>
-        <Nav.Link href="#discussion">Discussion Board</Nav.Link>
-        <Nav.Link href="#anouncement">Anouncement</Nav.Link>
+        <Nav.Link href="/swappingIndex">Index Swapping</Nav.Link>
+        <Nav.Link href="/discussion">Discussion Board</Nav.Link>
+        <Nav.Link href="/announcement">Announcement</Nav.Link>
       </Nav>
       <Nav>
+          <Nav.Link href="#account">
           <Avatar name="account" src="http://newtownsquarevet.com/wp-content/uploads/2013/05/Maltipoo.jpg" size="50" round={true}/>
+          </Nav.Link>
       </Nav>
     </Navbar.Collapse>
     </Container>
