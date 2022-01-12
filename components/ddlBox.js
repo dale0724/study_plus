@@ -1,6 +1,7 @@
-import { Card,Row } from "react-bootstrap";
+import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
 import styles from "../styles/DDLBox.module.css";
 import Button from 'react-bootstrap/Button';
+import DeadlineCard from "./ddlCard";
 
 export default function DDLBox() {
     return (
@@ -8,7 +9,7 @@ export default function DDLBox() {
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
-                        <span className={styles.titleText}>Upcoming DDL</span>
+                        <span className={styles.titleText}>Upcoming Deadlines</span>
                         <Button variant="outline-dark" size="sm" className={styles.addButton}>
                             <div className={styles.addButtonContentContainer}>
                                 <span>New</span>
@@ -17,31 +18,26 @@ export default function DDLBox() {
                         </Button>
                     </Card>
                 </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
-                <Row className="m-0">
-                    <Card border="success">
-                        <Card.Body>Display Information</Card.Body>
-                    </Card>
-                </Row>
+                <ListGroup style={{ overflow: 'hidden auto', height: '310px',width: '95%', margin: 'auto'}}>
+                    <ListGroupItem>
+                        <DeadlineCard title="EE4717 Final Exam" dueDate="January 12, 2022 00:00:00 GMT+08:00"/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <DeadlineCard title="EE4717 Final Exam" dueDate="January 22, 2022 00:00:00 GMT+08:00"/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <DeadlineCard title="EE4717 Final Exam" dueDate="January 23, 2022 00:00:00 GMT+08:00"/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <DeadlineCard title="EE4717 Final Exam" dueDate="January 24, 2022 00:00:00 GMT+08:00"/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <DeadlineCard title="EE4717 Final Exam" dueDate="January 25, 2022 00:00:00 GMT+08:00"/>
+                    </ListGroupItem>
+                    <ListGroupItem>
+                        <DeadlineCard title="EE4717 Final Exam" dueDate="January 26, 2022 00:00:00 GMT+08:00"/>
+                    </ListGroupItem>
+                </ListGroup>
             </div>
         </>
     );
