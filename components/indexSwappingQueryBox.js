@@ -1,7 +1,7 @@
-import styles from "../styles/AnouncementBox.module.css";
-import {Card, Row} from "react-bootstrap";
+import styles from "../styles/indexSwappingQueryBox.module.css";
+import {Row, Col} from "react-bootstrap";
 import * as React from "react";
-import {Fragment, useState} from "react";
+import Button from 'react-bootstrap/Button'
 
 export default class IndexSwappingQueryBox extends React.Component {
 
@@ -34,7 +34,16 @@ export default class IndexSwappingQueryBox extends React.Component {
     }
 
     handleSubmit(event) {
-        alert('An index swapping request was submitted,  course code: ' + this.state.courseCode + ', current index: '+ this.state.currentIndex + ', wanted index: '+ this.state.wantedIndex+ '. Good Luck!');
+        let indexList = []
+        this.state.wantedIndexList.forEach(function (arrayItem) {
+            indexList.push(arrayItem.value);
+        });
+        if (this.state.courseCode!=""&this.state.currentIndex!=""&indexList.toString()!=""){
+            alert('An index swapping request was submitted,  course code: ' + this.state.courseCode + ', current index: '+ this.state.currentIndex + ', wanted index: '+ indexList.toString() + '. Good Luck!');
+        }
+        else {
+            alert("You need to input enough information to create a request!");
+        }
         event.preventDefault();
     }
 
@@ -58,35 +67,56 @@ export default class IndexSwappingQueryBox extends React.Component {
         return (
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
-                    <Card border="light" className={styles.titleCard}>
                         <span className={styles.titleText}>Submit A New Query Here</span>
-                    </Card>
                 </Row>
                 <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Course Code:
-                        <input type="text" name= "courseCode" value={this.state.courseCode} onChange={this.handleChange} />
-                    </label><br/>
-                    <label>
-                        Current Index:
-                        <input type="text" name= "currentIndex" value={this.state.currentIndex} onChange={this.handleChange} />
-                    </label><br/>
+                    <Row>
+                        <Col style={{textAlign:"right"}}>
+                            <label>
+                            Course Code:
+                            </label>
+                        </Col>
+                        <Col style={{textAlign:"left"}}>
+                            <label>
+                                <input type="text" name= "courseCode" value={this.state.courseCode} onChange={this.handleChange} />
+                            </label>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col style={{textAlign:"right"}}>
+                            <label>
+                                Current Index:
+                            </label>
+                        </Col>
+                        <Col style={{textAlign:"left"}}>
+                            <label>
+                                <input type="text" name= "currentIndex" value={this.state.currentIndex} onChange={this.handleChange} />
+                            </label>
+                        </Col>
+                    </Row>
                     {this.state.wantedIndexList.map((item, i) => {
                         return (
-                            <div>
-                            <label>Wanted Index {i+1}:
-                            <input
-                                type="text"
-                                name= "wantedIndex"
-                                value={item.value}
-                                onChange={this.handleChange}
-                                id={i}
-                            /></label></div>
+                            <Row>
+                                <Col style={{textAlign:"right"}}>
+                                    <label>Wanted Index {i+1}:</label>
+                                </Col>
+                                <Col style={{textAlign:"left"}}>
+                                    <label>
+                                        <input
+                                            type="text"
+                                            name="wantedIndex"
+                                            value={item.value}
+                                            onChange={this.handleChange}
+                                            id={i}
+                                        />
+                                    </label>
+                                </Col>
+                            </Row>
                         );
                     })}
-                    <input type="button" onClick={this.handleAdd} value="+" style={{display:"inline-block", margin:"1em"}}/>
-                    <input type="button" onClick={this.handleRemove} value="-"style={{display:"inline-block"}}/><br/>
-                    <input type="submit" value="Create a new request!" />
+                    <Button onClick={this.handleAdd} style={{display:"inline-block", margin:"1em", background:"#7BA1C7"}}>+</Button>
+                    <Button onClick={this.handleRemove} style={{display:"inline-block", margin:"1em", background:"#7BA1C7"}}>-</Button><br/>
+                    <Button as="input" type="submit" value="Create a new request!" style={{margin:"1em", background:"#7BA1C7"}}/>
                 </form>
             </div>
         );
