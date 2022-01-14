@@ -5,6 +5,7 @@ import en_SG from 'javascript-time-ago/locale/en-SG.json'
 
 TimeAgo.addDefaultLocale(en_SG)
 
+
 function MyApp({ Component, pageProps }) {
   return(
     <>
