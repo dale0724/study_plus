@@ -1,5 +1,6 @@
 import React from "react";
-import ReactTimeAgo from "react-time-ago";
+import styles from "../styles/indexSwappingRequestCard.module.css";
+import Link from "next/link";
 
 export default class IndexSwappingRequestCard extends React.Component {
     constructor(props) {
@@ -9,13 +10,12 @@ export default class IndexSwappingRequestCard extends React.Component {
         return (
             <>
                 <div>
-                    <div style={{ textAlign: 'left', margin: '0', fontSize: '0.5rem'}}>
-                        Last seen: <ReactTimeAgo date={new Date()} />
-                    </div>
                     <p style={{ textAlign: 'left', margin: '0' }}>
-                        <span id='courseNumber'> EE4717 </span>:
-                        <span id='anouncemenTitle'> Final Exam Seat Arrangement Released </span>
+                        <Link href={"/indexSwappingRequest/"+this.props.id} passHref><a className={styles.requestTitle}>{this.props.title}</a></Link>
                     </p>
+                    <div style={{ textAlign: 'left', margin: '0', fontSize: '0.75rem'}}>
+                        Dale created at {Date().toString()}
+                    </div>
                 </div>
             </>
         );

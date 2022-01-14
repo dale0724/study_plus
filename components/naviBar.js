@@ -6,7 +6,7 @@ export default function NaviBar() {
   return (
     <Navbar collapseOnSelect className={styles.bluebg} expand="lg" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#home">StudyPlus</Navbar.Brand>
+        <Navbar.Brand href="/">StudyPlus</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
