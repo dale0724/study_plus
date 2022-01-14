@@ -1,0 +1,39 @@
+.border{
+    border:2px black solid;
+    border-radius: 0.25rem;
+    margin-left: 3rem;
+    margin-right: 1rem;
+    min-height: 500px;
+}
+
+.titleCard{
+    flex-direction: row;
+    align-items: baseline;
+}
+
+.titleText{
+    font-size: 16px;
+    font-weight: bold;
+    width: fit-content;
+    margin: 0.2rem;
+    color: #7BA1C7;
+    text-decoration: none;
+}
+
+.addButton{
+    width: fit-content;
+    height: 28px;
+}
+
+.addButtonContentContainer{
+    display: flex;
+    justify-content: baseline;
+    align-items: center;
+}
+
+.addButtonContentContainer span{
+    margin-right: 5px;
+}
+.addButtonContentContainer img{
+    height: 14px;
+}

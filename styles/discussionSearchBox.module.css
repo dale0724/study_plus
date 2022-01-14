@@ -1,0 +1,16 @@
+.border label{
+    margin: 0.5rem;
+}
+
+.border{
+    border:none;
+    width: 500px;
+    margin-right: 3rem;
+}
+
+.titleText{
+    width: fit-content;
+    font-size: 20px;
+    font-weight: bold;
+    color: #7BA1C7;
+}
