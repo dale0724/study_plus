@@ -9,9 +9,9 @@ export default function IndexSwappingRequestBox(){
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
-                        <span className={styles.titleText}>My Requests</span>
+                        <a href="#myRequests"><span className={styles.titleText}>My Requests</span></a>
                         |
-                        <span className={styles.titleText}>All Requests</span>
+                        <a href="#allRequests"><span className={styles.titleText}>All Requests</span></a>
                     </Card>
                 </Row>
                 <ListGroup style={{ overflow: 'hidden auto', height: '300px',width: '95%', margin: 'auto'}}>
