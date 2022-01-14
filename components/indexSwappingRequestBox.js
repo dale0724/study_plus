@@ -1,6 +1,6 @@
 import styles from "../styles/AnouncementBox.module.css";
 import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
-import AnnouncementCard from "./announcementCard";
+import IndexSwappingRequestCard from "./indexSwappingRequestCard";
 
 export default function IndexSwappingRequestBox(){
     const abstract = 'For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.'
@@ -16,10 +16,10 @@ export default function IndexSwappingRequestBox(){
                 </Row>
                 <ListGroup style={{ overflow: 'hidden auto', height: '300px',width: '95%', margin: 'auto'}}>
                     <ListGroupItem>
-                        <AnnouncementCard abstract={abstract}/>
+                        <IndexSwappingRequestCard/>
                     </ListGroupItem>
                     <ListGroupItem>
-                        <AnnouncementCard abstract={abstract}/>
+                        <IndexSwappingRequestCard/>
                     </ListGroupItem>
                 </ListGroup>
             </div>
