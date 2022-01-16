@@ -14,3 +14,32 @@
     font-weight: bold;
     color: #7BA1C7;
 }
+
+.tagsContainer{
+    text-align: left;
+}
+
+.tagsContainer div{
+    display: flex;
+}
+
+.leftPanel{
+    display: flex;
+    padding: 5px;
+    border-right: 1px solid #000000;
+    transition: border-color 0.18s ease-in-out 0s;
+    min-width: 0px;
+    height: 25px;
+}
+
+.rightPanel{
+    display: flex;
+    height: 25px;
+    width: 25px;
+    padding: 2px;
+}
+
+.crossIcon{
+    font-size: 12px;
+
+}

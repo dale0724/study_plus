@@ -1,36 +1,26 @@
 import styles from "../styles/discussionSearchBox.module.css";
-import {Row, Col} from "react-bootstrap";
+import {Row} from "react-bootstrap";
 import * as React from "react";
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import CrossSvg from '../public/cross.svg';
 
 export default class DiscussionSearchBox extends React.Component {
-
     constructor(props) {
         super(props);
-        this.state = {courseCode: '', currentIndex:'', wantedIndexList:[{
+        this.state = {searchText: '', addedTagList:[{
                 type: "text",
                 id: 0,
                 value: ""
-            }]};
+            }], searchTagText:''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleAdd = this.handleAdd.bind(this);
-        this.handleRemove = this.handleRemove.bind(this);
+        this.handleTagAdd = this.handleTagAdd.bind(this);
+        this.handleTagRemove = this.handleTagRemove.bind(this);
+        this.handleTagSearch = this.handleTagSearch.bind(this);
     }
 
     handleChange(event) {
-        if (event.target.name=="courseCode"){
-            this.setState({courseCode: event.target.value});
-        }
-        else if (event.target.name=="currentIndex") {
-            this.setState({currentIndex: event.target.value});
-        }
-        else if (event.target.name=="wantedIndex") {
-            const index = event.target.id;
-            const newList = this.state.wantedIndexList.slice()
-            newList[index].value = event.target.value;
-            this.setState({wantedIndexList: newList});
-        }
+
     }
 
     handleSubmit(event) {
@@ -47,7 +37,7 @@ export default class DiscussionSearchBox extends React.Component {
         event.preventDefault();
     }
 
-    handleAdd(event) {
+    handleTagAdd(event) {
         event.preventDefault();
         this.setState({wantedIndexList: [...this.state.wantedIndexList, {
                 type: "text",
@@ -56,11 +46,15 @@ export default class DiscussionSearchBox extends React.Component {
             }]});
     }
 
-    handleRemove(event) {
+    handleTagRemove(event) {
         event.preventDefault();
         if (this.state.wantedIndexList.length >1){
             this.setState({wantedIndexList: [...this.state.wantedIndexList.slice(0, this.state.wantedIndexList.length-1)]});
         }
+    }
+
+    handleTagSearch(event) {
+        event.preventDefault();
     }
 
     render() {
@@ -68,49 +62,32 @@ export default class DiscussionSearchBox extends React.Component {
             <div className={`mt-3 ${styles.border}`} >
                 <form onSubmit={this.handleSubmit}>
                     <Row>
-                        <Col style={{textAlign:"right"}}>
-                            <label>
-                                Course Code:
-                            </label>
-                        </Col>
-                        <Col style={{textAlign:"left"}}>
-                            <label>
-                                <input type="text" name= "courseCode" value={this.state.courseCode} onChange={this.handleChange} />
-                            </label>
-                        </Col>
+                        <input type="text" name="searchText" style={{width:"50%", borderRadius:"0.25rem"}} value={this.state.searchText} onChange={this.handleChange} />
+                        <Button onClick={this.handleSubmit} style={{width:"30%", marginLeft:"1rem", display:"inline-block", background:"#7BA1C7"}}>Search</Button>
+                    </Row>
+                    <br/>
+                    <Row>
+                        <label style={{marginLeft:"0px", paddingLeft:"0px", fontSize:"18px", fontWeight:"bold", textAlign:"left"}}>Filters</label>
                     </Row>
                     <Row>
-                        <Col style={{textAlign:"right"}}>
-                            <label>
-                                Current Index:
-                            </label>
-                        </Col>
-                        <Col style={{textAlign:"left"}}>
-                            <label>
-                                <input type="text" name= "currentIndex" value={this.state.currentIndex} onChange={this.handleChange} />
-                            </label>
-                        </Col>
+                        <div className={styles.tagsContainer}>
+                            <Button style={{backgroundColor:"#FFFFFF", borderColor: "#000000", padding:"1px"}}>
+                                <div>
+                                    <div className={styles.leftPanel}>
+                                        <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>EE4717</span>
+                                    </div>
+                                    <div className={styles.rightPanel}>
+                                        <CrossSvg fill="#7BA1C7" className={styles.crossIcon}/>
+                                    </div>
+                                </div>
+                            </Button>
+                        </div>
                     </Row>
-                    {this.state.wantedIndexList.map((item, i) => {
-                        return (
-                            <Row key={i}>
-                                <Col style={{textAlign:"right"}}>
-                                    <label>Wanted Index {i+1}:</label>
-                                </Col>
-                                <Col style={{textAlign:"left"}}>
-                                    <label>
-                                        <input
-                                            type="text"
-                                            name="wantedIndex"
-                                            value={item.value}
-                                            onChange={this.handleChange}
-                                            id={i}
-                                        />
-                                    </label>
-                                </Col>
-                            </Row>
-                        );
-                    })}
+                    <Row>
+                        <label>
+                            <input type="text" name= "currentIndex" value={this.state.addedTagList} onChange={this.handleChange} />
+                        </label>
+                    </Row>
                     <Button onClick={this.handleAdd} style={{display:"inline-block", margin:"1em", background:"#7BA1C7"}}>+</Button>
                     <Button onClick={this.handleRemove} style={{display:"inline-block", margin:"1em", background:"#7BA1C7"}}>-</Button><br/>
                     <Button as="input" type="submit" value="Create a new request!" style={{margin:"1em", background:"#7BA1C7"}}/>
