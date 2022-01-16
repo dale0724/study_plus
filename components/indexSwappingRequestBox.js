@@ -1,25 +1,26 @@
-import styles from "../styles/AnouncementBox.module.css";
+import styles from "../styles/indexSwappingRequestBox.module.css";
 import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
-import AnnouncementCard from "./announcementCard";
+import IndexSwappingRequestCard from "./indexSwappingRequestCard";
+import Link from "next/link";
+import React from "react";
 
 export default function IndexSwappingRequestBox(){
-    const abstract = 'For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.'
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
-                        <a href="#myRequests"><span className={styles.titleText}>My Requests</span></a>
-                        |
-                        <a href="#allRequests"><span className={styles.titleText}>All Requests</span></a>
+                        <Link href="#myRequests" passHref><a className={styles.titleText}>My Requests</a></Link>
+                        <span className={styles.titleText}>{''}|{''}</span>
+                        <Link href="#allRequests" passHref><a className={styles.titleText}>All Pending Requests</a></Link>
                     </Card>
                 </Row>
                 <ListGroup style={{ overflow: 'hidden auto', height: '300px',width: '95%', margin: 'auto'}}>
                     <ListGroupItem>
-                        <AnnouncementCard abstract={abstract}/>
+                        <IndexSwappingRequestCard title={"EE4717 | 30277 -> 30278"} id={"0"}/>
                     </ListGroupItem>
                     <ListGroupItem>
-                        <AnnouncementCard abstract={abstract}/>
+                        <IndexSwappingRequestCard title={"EE4717 | 30277 -> 30278"} id={"1"}/>
                     </ListGroupItem>
                 </ListGroup>
             </div>

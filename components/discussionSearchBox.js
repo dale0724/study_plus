@@ -1,9 +1,9 @@
-import styles from "../styles/indexSwappingQueryBox.module.css";
+import styles from "../styles/discussionSearchBox.module.css";
 import {Row, Col} from "react-bootstrap";
 import * as React from "react";
 import Button from 'react-bootstrap/Button'
 
-export default class IndexSwappingQueryBox extends React.Component {
+export default class DiscussionSearchBox extends React.Component {
 
     constructor(props) {
         super(props);
@@ -50,10 +50,10 @@ export default class IndexSwappingQueryBox extends React.Component {
     handleAdd(event) {
         event.preventDefault();
         this.setState({wantedIndexList: [...this.state.wantedIndexList, {
-            type: "text",
-            id: this.state.wantedIndexList.length,
-            value: ""
-        }]});
+                type: "text",
+                id: this.state.wantedIndexList.length,
+                value: ""
+            }]});
     }
 
     handleRemove(event) {
@@ -66,14 +66,11 @@ export default class IndexSwappingQueryBox extends React.Component {
     render() {
         return (
             <div className={`mt-3 ${styles.border}`} >
-                <Row className="m-0">
-                        <span className={styles.titleText}>Submit A New Query Here</span>
-                </Row>
                 <form onSubmit={this.handleSubmit}>
                     <Row>
                         <Col style={{textAlign:"right"}}>
                             <label>
-                            Course Code:
+                                Course Code:
                             </label>
                         </Col>
                         <Col style={{textAlign:"left"}}>

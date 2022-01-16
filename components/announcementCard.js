@@ -1,7 +1,7 @@
 import React from "react";
 import ReactTimeAgo from "react-time-ago";
 
-export default class AnnouncementBox extends React.Component {
+export default class AnnouncementCard extends React.Component {
     constructor(props) {
         super(props);
         this.length = this.props.abstract.length;

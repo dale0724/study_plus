@@ -3,8 +3,9 @@
 }
 
 .border{
-    border:2px black solid;
-    border-radius: 0.25rem;
+    border:none;
+    width: 500px;
+    margin-right: 3rem;
 }
 
 .titleText{
