@@ -17,6 +17,8 @@
 
 .tagsContainer{
     text-align: left;
+    margin-top: 0.5rem;
+    padding-left: 0px;
 }
 
 .tagsContainer div{
@@ -25,21 +27,27 @@
 
 .leftPanel{
     display: flex;
-    padding: 5px;
+    padding: 2px;
     border-right: 1px solid #000000;
     transition: border-color 0.18s ease-in-out 0s;
-    min-width: 0px;
-    height: 25px;
+    min-width: 1px;
+    height: 20px;
+    fontSize: 15px;
 }
 
 .rightPanel{
     display: flex;
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     padding: 2px;
+    align-self: center;
 }
 
-.crossIcon{
-    font-size: 12px;
-
+.searchTagsResultContainer{
+    text-align: left;
+    margin-top: 1rem;
+    padding-left: 0px;
+}
+.searchTagsResultContainer div{
+    display: flex;
 }
