@@ -96,7 +96,7 @@ export default class IndexSwappingQueryBox extends React.Component {
                     </Row>
                     {this.state.wantedIndexList.map((item, i) => {
                         return (
-                            <Row>
+                            <Row key={i}>
                                 <Col style={{textAlign:"right"}}>
                                     <label>Wanted Index {i+1}:</label>
                                 </Col>

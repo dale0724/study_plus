@@ -1,18 +1,20 @@
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import Avatar from 'react-avatar';
 import styles from "../styles/NaviBar.module.css"
+import Link from "next/link";
+import React from "react";
 
 export default function NaviBar() {
   return (
     <Navbar collapseOnSelect className={styles.bluebg} expand="lg" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#home">StudyPlus</Navbar.Brand>
+        <Link href="/" passHref><Navbar.Brand>StudyPlus</Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="/swapping_index">Index Swapping</Nav.Link>
-            <Nav.Link href="/discussion">Discussion Board</Nav.Link>
-            <Nav.Link href="/announcement">Announcement</Nav.Link>
+            <Link href="/swapping_index" passHref><Nav.Link>Index Swapping</Nav.Link></Link>
+            <Link href="/discussion" passHref><Nav.Link>Discussion Board</Nav.Link></Link>
+            <Link href="/announcement" passHref><Nav.Link>Announcement</Nav.Link></Link>
           </Nav>
           <Nav>
             <Nav.Link href="#account">
