@@ -15,6 +15,9 @@ export default function DiscussionBox(){
                         <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Recent</a></Link>
                         <span className={styles.titleText}>{''}|{''}</span>
                         <Link href="#mostVotes" passHref><a className={styles.titleText}>Most Votes</a></Link>
+                        <span className={styles.addNew}>
+                        <Link href="#newPost" passHref><span>+</span></Link>
+                        </span>
                     </Card>
                 </Row>
                 <ListGroup style={{ overflow: 'hidden auto', width: '95%', margin: 'auto'}}>

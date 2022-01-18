@@ -5,7 +5,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import DiscussionBox from "../components/discussionBox";
 import DiscussionSearchBox from "../components/discussionSearchBox";
 
-export default function SwapIndex() {
+export default function Discussion() {
     return (
         <>
             <SSRProvider>

@@ -14,3 +14,40 @@
     font-weight: bold;
     color: #7BA1C7;
 }
+
+.tagsContainer{
+    text-align: left;
+    margin-top: 0.5rem;
+    padding-left: 0px;
+}
+
+.tagsContainer div{
+    display: flex;
+}
+
+.leftPanel{
+    display: flex;
+    padding: 2px;
+    border-right: 1px solid #000000;
+    transition: border-color 0.18s ease-in-out 0s;
+    min-width: 1px;
+    height: 20px;
+    fontSize: 15px;
+}
+
+.rightPanel{
+    display: flex;
+    height: 20px;
+    width: 20px;
+    padding: 2px;
+    align-self: center;
+}
+
+.searchTagsResultContainer{
+    text-align: left;
+    margin-top: 1rem;
+    padding-left: 0px;
+}
+.searchTagsResultContainer div{
+    display: flex;
+}
