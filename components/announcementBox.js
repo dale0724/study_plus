@@ -2,6 +2,8 @@ import { Card,Row } from "react-bootstrap";
 import styles from "../styles/AnouncementBox.module.css";
 import { ListGroup,ListGroupItem } from "react-bootstrap";
 import AnnouncementCard from "./announcementCard";
+import React from "react";
+import Link from "next/link";
 
 
 export default function AnnouncementBox(){
@@ -11,7 +13,7 @@ export default function AnnouncementBox(){
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
-                        <span className={styles.titleText}>Announcement</span>
+                        <Link href="/announcement" passHref><a className={styles.titleText}>Announcement</a></Link>
                     </Card>
                 </Row>
                 <ListGroup style={{ overflow: 'hidden auto', height: '300px',width: '95%', margin: 'auto'}}>
