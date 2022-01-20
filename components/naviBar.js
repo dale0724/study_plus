@@ -18,9 +18,9 @@ export default function NaviBar() {
             <Link href="/news" passHref><Nav.Link>Campus News</Nav.Link></Link>
           </Nav>
           <Nav>
-            <Nav.Link href="#account">
+            <Link href="/sign_in" passHref><Nav.Link>
               <Avatar name="account" src="http://newtownsquarevet.com/wp-content/uploads/2013/05/Maltipoo.jpg" size="50" round={true} />
-            </Nav.Link>
+            </Nav.Link></Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
