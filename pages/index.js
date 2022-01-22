@@ -9,6 +9,7 @@ import QuoteBox from "../components/quoteBox";
 import DDLBox from "../components/ddlBox";
 
 export default function Home() {
+
   return (
     <>
       <SSRProvider>

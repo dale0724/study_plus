@@ -1,10 +1,12 @@
-import { Nav, Navbar, Container } from 'react-bootstrap';
+import { Nav, Navbar, Container} from 'react-bootstrap';
 import Avatar from 'react-avatar';
 import styles from "../styles/NaviBar.module.css"
 import Link from "next/link";
 import React from "react";
 
+
 export default function NaviBar() {
+
   return (
     <Navbar collapseOnSelect className={styles.bluebg} expand="lg" variant="dark">
       <Container fluid>
@@ -17,7 +19,7 @@ export default function NaviBar() {
             <Link href="/announcement" passHref><Nav.Link>Announcement</Nav.Link></Link>
           </Nav>
           <Nav>
-            <Nav.Link href="#account">
+            <Nav.Link href="account">
               <Avatar name="account" src="http://newtownsquarevet.com/wp-content/uploads/2013/05/Maltipoo.jpg" size="50" round={true} />
             </Nav.Link>
           </Nav>
