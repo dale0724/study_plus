@@ -2,8 +2,7 @@ import React from "react";
 import Layout from "../components/layout"
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
-import AnnouncementPostBox from "../components/announcementPostBox";
-import AnnouncementSearchBox from "../components/announcementSearchBox";
+import NewsMap from "../components/newsMap";
 
 export default function Discussion() {
     return (
@@ -13,11 +12,8 @@ export default function Discussion() {
                     <Row>
                         <Col className="text-center">
                             <Container fluid className="p-0" >
-                                <AnnouncementPostBox/>
+                                <NewsMap/>
                             </Container>
-                        </Col>
-                        <Col className="text-center" xxl='6' xl='6' lg='5' style={{flex:"0.03"}}>
-                            <AnnouncementSearchBox/>
                         </Col>
                     </Row>
                 </Layout>
