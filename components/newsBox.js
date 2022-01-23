@@ -2,6 +2,8 @@ import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
 import styles from "../styles/NewsBox.module.css";
 import Button from 'react-bootstrap/Button';
 import NewsCard from "./newsCard";
+import Link from "next/link";
+import React from "react";
 
 export default function NewsBox() {
     const abstract = 'For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.'
@@ -10,7 +12,7 @@ export default function NewsBox() {
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
-                        <span className={styles.titleText}>News</span>
+                        <Link href="/news" passHref><a className={styles.titleText}>News</a></Link>
                         <Button variant="outline-dark" size="sm" className={styles.addButton}>
                             <div className={styles.addButtonContentContainer}>
                                 <span>New</span>

@@ -55,12 +55,12 @@ export default function SignUp() {
     }
 
     return (
-        <Container fluid style={{ background: '#b8e5f8', height: '100vh' }}>
+        <Container fluid style={{ background: '#7BA1C7', height: '100vh' }}>
             <div className='mx-auto mb-3 text-center'>
                 <Image style={{ width: '128px', height: '128px' }} src='https://cdn4.iconfinder.com/data/icons/education-759/2050/Education_flat-11-512.png' />
                 <h2>StudyPlus</h2>
             </div>
-            <Card border='secondary' className='mx-auto p-3' style={{ width: '400px' }}>
+            <Card border='secondary' className='mx-auto p-3' style={{ width: '400px', background: 'rgb(245, 245, 245)' }}>
                 <Avatar className='align-self-center shadow-sm mb-3' round={true} size='70' src='https://inews.gtimg.com/newsapp_bt/0/13392595208/1000' />
                 <Formik
                     initialValues={{ email: '', name: '', password: '', passwordConfirm: '', userType: '' }}
@@ -116,7 +116,7 @@ export default function SignUp() {
                                     {formik.errors.passwordConfirm}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Button variant="primary" type="submit">
+                            <Button type="submit" style={{background:'#7BA1C7', border:'none'}}>
                                 Sign Up
                             </Button>
                             <Link href='/sign_in'>

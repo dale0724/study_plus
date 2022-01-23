@@ -1,16 +1,16 @@
-import styles from "../styles/discussionSearchBox.module.css";
+import styles from "../styles/AnnouncementSearchBox.module.css";
 import {Col, Row} from "react-bootstrap";
 import * as React from "react";
 import Button from 'react-bootstrap/Button';
 import CrossSvg from '../public/cross.svg';
 
-export default class DiscussionSearchBox extends React.Component {
+export default class AnnouncementSearchBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {searchText: '', addedTagList:[{
                 type: "text",
                 id: 0,
-                value: "EE4717"
+                value: "EE4414"
             }], searchTagText:'', id:"0"};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -66,7 +66,7 @@ export default class DiscussionSearchBox extends React.Component {
             <div className={`mt-3 ${styles.border}`} >
                 <form onSubmit={this.handleSubmit}>
                     <Row>
-                        <input type="text" name="searchText" style={{width:"50%", borderRadius:"0.25rem"}} value={this.state.searchText} onChange={this.handleChange} placeholder={"search posts..."}/>
+                        <input type="text" name="searchText" style={{width:"50%", borderRadius:"0.25rem"}} value={this.state.searchText} onChange={this.handleChange} placeholder={"search announcements..."}/>
                         <Button onClick={this.handleSubmit} style={{width:"30%", marginLeft:"1rem", display:"inline-block", background:"#7BA1C7"}}>Search</Button>
                     </Row>
                     <br/>
@@ -99,30 +99,30 @@ export default class DiscussionSearchBox extends React.Component {
                     </Row>
                     <Row>
                         <div className={styles.searchTagsResultContainer}>
-                            <Button value="javascript" style={{backgroundColor:"rgb(245, 245, 245)", borderColor: "#000000", padding:"2px", marginRight:"0.25rem"}} onClick={this.handleTagAdd}>
+                            <Button value="EE4717" style={{backgroundColor:"rgb(245, 245, 245)", borderColor: "#000000", padding:"2px", marginRight:"0.25rem"}} onClick={this.handleTagAdd}>
                                 <div>
                                     <div className={styles.leftPanel}>
-                                        <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>javascript</span>
+                                        <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>EE4717</span>
                                     </div>
                                     <div className={styles.rightPanel}>
                                         <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>20</span>
                                     </div>
                                 </div>
                             </Button>
-                            <Button value="PHP" style={{backgroundColor:"rgb(245, 245, 245)", borderColor: "#000000", padding:"2px", marginRight:"0.25rem"}} onClick={this.handleTagAdd}>
+                            <Button value="quiz" style={{backgroundColor:"rgb(245, 245, 245)", borderColor: "#000000", padding:"2px", marginRight:"0.25rem"}} onClick={this.handleTagAdd}>
                                 <div>
                                     <div className={styles.leftPanel}>
-                                        <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>PHP</span>
+                                        <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>quiz</span>
                                     </div>
                                     <div className={styles.rightPanel}>
                                         <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>18</span>
                                     </div>
                                 </div>
                             </Button>
-                            <Button value="Mysql DB" style={{backgroundColor:"rgb(245, 245, 245)", borderColor: "#000000", padding:"2px", marginRight:"0.25rem"}} onClick={this.handleTagAdd}>
+                            <Button value="Exam" style={{backgroundColor:"rgb(245, 245, 245)", borderColor: "#000000", padding:"2px", marginRight:"0.25rem"}} onClick={this.handleTagAdd}>
                                 <div>
                                     <div className={styles.leftPanel}>
-                                        <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>Mysql DB</span>
+                                        <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>Exam</span>
                                     </div>
                                     <div className={styles.rightPanel}>
                                         <span style={{color:"#000000", fontSize:"15px", alignSelf:"center"}}>25</span>
@@ -131,7 +131,7 @@ export default class DiscussionSearchBox extends React.Component {
                             </Button>
                         </div>
                     </Row>
-                    </form>
+                </form>
             </div>
         );
     }
