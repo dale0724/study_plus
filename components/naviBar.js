@@ -1,13 +1,11 @@
-import { Nav, Navbar, Container} from 'react-bootstrap';
+import { Nav, Navbar, Container } from 'react-bootstrap';
 import Avatar from 'react-avatar';
 import styles from "../styles/NaviBar.module.css"
 import Link from "next/link";
 import React from "react";
 import UserAvatar from './userAvatar';
 
-
 export default function NaviBar() {
-
   return (
     <Navbar collapseOnSelect className={styles.bluebg} expand="lg" variant="dark">
       <Container fluid>
@@ -18,6 +16,7 @@ export default function NaviBar() {
             <Link href="/swapping_index" passHref><Nav.Link>Index Swapping</Nav.Link></Link>
             <Link href="/discussion" passHref><Nav.Link>Discussion Board</Nav.Link></Link>
             <Link href="/announcement" passHref><Nav.Link>Announcement</Nav.Link></Link>
+            <Link href="/news" passHref><Nav.Link>Campus News</Nav.Link></Link>
           </Nav>
           <Nav>
             <Nav.Link href="account">

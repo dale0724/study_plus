@@ -11,6 +11,8 @@
 
 .titleText{
     width: fit-content;
+    text-decoration: none;
+    color: black;
 }
 
 .addButton{

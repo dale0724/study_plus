@@ -9,7 +9,7 @@ export default function TodoBox() {
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
-                        <span className={styles.titleText}>Today Todos</span>
+                        <span className={styles.titleText}>Today's To-Dos</span>
                         <Button variant="outline-dark" size="sm" className={styles.addButton}>
                             <div className={styles.addButtonContentContainer}>
                                 <span>New</span>
