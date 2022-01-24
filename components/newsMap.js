@@ -26,7 +26,7 @@ export default class NewsMap extends Component {
                 latitude: null,
                 value: null
             },
-            markers: [],
+            markers: [], /*Connect to DB and fetch posts data*/
             selectedMarker: null
         }
         this.handleViewportChange = this.handleViewportChange.bind(this)
@@ -86,10 +86,10 @@ export default class NewsMap extends Component {
                     value: null
                 }
             }))
+            /*Connect to DB and send data*/
         }else {
             alert("you must fill in the required field or select a location to post this campus news!")
         }
-
     }
     handleMarkerClick(marker) {
         this.setState({
