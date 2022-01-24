@@ -7,31 +7,42 @@ import AnnouncementBox from "../components/announcementBox";
 import NewsBox from "../components/newsBox";
 import QuoteBox from "../components/quoteBox";
 import DDLBox from "../components/ddlBox";
+import useSWR from 'swr';
+import Router, { useRouter } from 'next/router';
+import { useLoggedUserData } from "../tools/helper";
+import MySpinner from "../components/mySpinner";
 
 export default function Home() {
-
+  const {isLoading, isError } = useLoggedUserData()
+  if (isLoading) {
+    return <MySpinner />;
+  }
+  if (isError) {
+    Router.push('/sign_in')
+  }
   return (
     <>
-      <SSRProvider>
-        <Layout>
-          <Row>
-            <Col className="text-center">
-              <Container fluid className="p-0" >
-                <MyCalendar />
-                <TodoBox/>
-              </Container>
-            </Col>
-            <Col className="text-center" xxl='6' xl='6' lg='5'>
-              <AnnouncementBox/>
-              <NewsBox/>
-            </Col>
-            <Col className="text-center">
-              <QuoteBox/>
-              <DDLBox/>
-            </Col>
-          </Row>
-        </Layout>
-      </SSRProvider>
+      {isError ? <MySpinner /> :
+        <SSRProvider>
+          <Layout>
+            <Row>
+              <Col className="text-center">
+                <Container fluid className="p-0" >
+                  <MyCalendar />
+                  <TodoBox />
+                </Container>
+              </Col>
+              <Col className="text-center" xxl='6' xl='6' lg='5'>
+                <AnnouncementBox />
+                <NewsBox />
+              </Col>
+              <Col className="text-center">
+                <QuoteBox />
+                <DDLBox />
+              </Col>
+            </Row>
+          </Layout>
+        </SSRProvider>}
     </>
   );
 };
