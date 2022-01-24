@@ -3,6 +3,7 @@ import Avatar from 'react-avatar';
 import styles from "../styles/NaviBar.module.css"
 import Link from "next/link";
 import React from "react";
+import UserAvatar from './userAvatar';
 
 export default function NaviBar() {
   return (
@@ -18,9 +19,9 @@ export default function NaviBar() {
             <Link href="/news" passHref><Nav.Link>Campus News</Nav.Link></Link>
           </Nav>
           <Nav>
-            <Link href="/sign_in" passHref><Nav.Link>
-              <Avatar name="account" src="http://newtownsquarevet.com/wp-content/uploads/2013/05/Maltipoo.jpg" size="50" round={true} />
-            </Nav.Link></Link>
+            <Nav.Link href="account">
+              <UserAvatar size='50' round={true}/>
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

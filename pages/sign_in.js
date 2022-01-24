@@ -16,12 +16,11 @@ const validateSchema = yup.object().shape({
 });
 
 function processSuccessfulSignIn(resData){
-    cookie.set('token', generateToken(resData.email), { expires: 2 })
+    cookie.set('token', generateToken(resData.email, resData.name, resData.user_type), { expires: 2 })
 }
 
 
 export default function SignIn() {
-
     function handleSubmit(inputValues) {
         //call api
         fetch(API_url.sign_in, {
@@ -35,18 +34,18 @@ export default function SignIn() {
             }),
         })
             .then((res) => {
-                return res.json();
+                if (res.ok){
+                    return res.json();
+                }
+                return res.json().then((resData)=>{throw new Error(resData.message)})
             })
             .then((resData) => {
-                if (resData.error) {
-                    alert(resData.message)
-                }
-                else {
                     processSuccessfulSignIn(resData)
-                    Router.push('/');
-                }
-
-            });
+                    Router.push('/');  
+            })
+            .catch(error => {
+                console.log(error);
+              });
     }
     return (
         <Container fluid style={{ background: '#7BA1C7', height: '100vh' }}>
@@ -64,7 +63,6 @@ export default function SignIn() {
                             setSubmitting(false);
                         }, 400);
                     }}>
-
                     {formik => (
                         <Form noValidate  onSubmit={formik.handleSubmit} >
                             <Form.Group className="mb-3">
