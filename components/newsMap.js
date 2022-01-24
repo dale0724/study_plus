@@ -3,6 +3,8 @@ import ReactMapGl, {Marker, Popup} from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {Row, Col} from "react-bootstrap";
 import Link from "next/link";
+import Button from "react-bootstrap/Button";
+import styles from "../styles/newsMap.module.css";
 
 const mapboxToken = 'pk.eyJ1IjoicWlhbmhhbnllIiwiYSI6ImNreXJjOXBoYTBzbXYydXFqbjd4ZGVrZmEifQ.ap779frR1JOxLSpYd1Z5kQ'
 export default class NewsMap extends Component {
@@ -74,15 +76,20 @@ export default class NewsMap extends Component {
     }
     addMarker() {
         const {currMarker} = this.state
-        this.setState(prevState => ({
-            markers: [...prevState.markers, currMarker],
-            currMarker: {
-                name: null,
-                longitude: null,
-                latitude: null,
-                value: null
-            }
-        }))
+        if(currMarker.longitude&&currMarker.latitude&&currMarker.name&&currMarker.value){
+            this.setState(prevState => ({
+                markers: [...prevState.markers, currMarker],
+                currMarker: {
+                    name: null,
+                    longitude: null,
+                    latitude: null,
+                    value: null
+                }
+            }))
+        }else {
+            alert("you must fill in the required field or select a location to post this campus news!")
+        }
+
     }
     handleMarkerClick(marker) {
         this.setState({
@@ -95,8 +102,9 @@ export default class NewsMap extends Component {
         })
     }
     render() {
-        const {viewportConst, viewportVar, markers, selectedMarker} = this.state
+        const {viewportConst, viewportVar, markers, currMarker, selectedMarker} = this.state
         return (
+            <div className={`mt-3 ${styles.border}`} >
             <Row>
                 <Col>
                     <ReactMapGl
@@ -107,7 +115,18 @@ export default class NewsMap extends Component {
                         mapStyle="mapbox://styles/mapbox/streets-v10"
                         onClick={this.handleClick}
                         scrollZoom={false}
+                        style={{margin: "1rem"}}
                     >
+                        {currMarker.latitude && currMarker.longitude &&
+                        <Marker
+                            latitude={currMarker.latitude}
+                            longitude={currMarker.longitude}
+                            offsetLeft={-15}
+                            offsetTop={-45.5}
+                        >
+                            <img src="https://www.clipartmax.com/png/full/151-1517460_icon-contact-flat-web-business-symbol-blue-location-pin-icon-png.png" width='30px' height='45px' alt="marker"/>
+                        </Marker>
+                        }
                         {markers.map((marker, idx) => {
                             return (
                                 <Marker
@@ -115,6 +134,8 @@ export default class NewsMap extends Component {
                                     latitude={marker.latitude}
                                     longitude={marker.longitude}
                                     onClick={() => this.handleMarkerClick(marker)}
+                                    offsetLeft={-26}
+                                    offsetTop={-50}
                                 >
                                     <img src="https://www.freepnglogos.com/uploads/pin-png/location-pin-connectsafely-37.png" width='50px' alt="marker"/>
                                 </Marker>
@@ -137,6 +158,8 @@ export default class NewsMap extends Component {
                     </ReactMapGl>
                 </Col>
                 <Col>
+                    <br/>
+                    <Row><span className={styles.titleText}>Post the Latest Campus News Here</span></Row>
                     <Row>
                         <Col style={{textAlign:"right"}}>
                             <label>
@@ -157,16 +180,17 @@ export default class NewsMap extends Component {
                         </Col>
                         <Col style={{textAlign:"left"}}>
                             <label>
-                                <input type="text" name= "newsContent" value={this.state.currMarker.value} onChange={this.handleChange} />
+                                <textarea type="text" rows="3" name= "newsContent" value={this.state.currMarker.value} onChange={this.handleChange}/>
                             </label>
                         </Col>
                     </Row>
                     <Row>
                         <span>Don't forget to select your post location on the map before you submit!</span>
                     </Row>
-                    <button onClick={this.addMarker}>Add</button>
+                    <Button onClick={this.addMarker} style={{display:"inline-block", margin:"1em", background:"#7BA1C7"}}>Post a Campus News</Button>
                 </Col>
             </Row>
+            </div>
         )
     }
 }
