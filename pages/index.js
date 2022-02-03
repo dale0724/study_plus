@@ -2,7 +2,7 @@ import Layout from "../components/layout"
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
 import MyCalendar from "../components/calendar";
-import TodoBox from "../components/todoBox";
+import TodoBox from "../components/todo/todoBox";
 import AnnouncementBox from "../components/announcementBox";
 import NewsBox from "../components/newsBox";
 import QuoteBox from "../components/quoteBox";

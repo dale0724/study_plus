@@ -1,5 +1,5 @@
 import { Card, ListGroup, ListGroupItem, Row } from "react-bootstrap";
-import styles from "../styles/TodoBox.module.css";
+import styles from "../../styles/TodoBox.module.css";
 import Button from 'react-bootstrap/Button';
 import TodoCard from "./todoCard";
 
