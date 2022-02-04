@@ -2,10 +2,15 @@ import { Card, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import styles from "../../styles/TodoBox.module.css";
 import Button from 'react-bootstrap/Button';
 import TodoCard from "./todoCard";
-
+import { useLoggedUserData } from "../../tools/helper";
+import useSWR from 'swr'
+import { API_url } from "../../app_config";
+import MySpinner from "../../components/mySpinner";
 export default function TodoBox() {
-    return (
-        <>
+
+    const { user, isLoading } = useLoggedUserData()
+    const Box = ({ children }) => {
+        return (
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
@@ -18,23 +23,54 @@ export default function TodoBox() {
                         </Button>
                     </Card>
                 </Row>
-                <ListGroup style={{ overflow: 'hidden auto', height: '300px',width: '95%', margin: 'auto'}}>
-                    <ListGroupItem>
-                        <TodoCard />
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        <TodoCard />
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        <TodoCard />
-                    </ListGroupItem>
-                    <ListGroupItem>
-                        <TodoCard />
-                    </ListGroupItem>
-                </ListGroup>
-
-
+                {children}
             </div>
+        )
+    }
+    var todos = []
+    if (!isLoading) {
+        const fetcher = (...args) => fetch(...args).
+            then((res) => {
+                if (res.ok) {
+                    return res.json()
+                } else {
+                    throw new Error('Fetch User Todo Data Failed')
+                }
+            })
+        const {data, error} = useSWR(API_url.get_todos_by_email + user.email, fetcher);
+        if (error) {
+            console.error(error)
+            return (
+                <Box>
+                    <h2>Error</h2>
+                </Box>
+            )
+        }
+        if (!data) {
+            return (
+                <Box>
+                    <MySpinner />
+                </Box>
+            )
+        }
+        else{
+            console.debug(data)
+            todos = data['data'].map(todo_json=>JSON.parse(todo_json))
+            console.debug(todos)
+        }
+    }
+    return (
+        <>
+            <Box>
+                <ListGroup style={{ overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto' }}>
+                    {
+                        todos.map((todo) =>
+                            <ListGroupItem key={todo.todo_id}>
+                                <TodoCard data={todo} />
+                            </ListGroupItem>)
+                    }
+                </ListGroup>
+            </Box>
         </>
     );
 }
