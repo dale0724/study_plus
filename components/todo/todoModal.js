@@ -6,46 +6,78 @@ import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from 'yup';
 import { format } from 'date-fns';
+import { useLoggedUserData } from "../../tools/helper";
+import PropTypes from 'prop-types';
 
-
-export default function TodoModal(props) {
+function TodoModal(props) {
+    const { user } = useLoggedUserData()
     const SUMMARY_MAX_LENGTH = 20
     const DETAIL_MAX_LENGTH = 200
     const validateSchema = yup.object().shape({
         summary: yup.string().max(SUMMARY_MAX_LENGTH).required('Required!'),
         detail: yup.string().max(DETAIL_MAX_LENGTH),
-        start_datetime: yup.date().min(new Date(), "At least start today").required('Required!'),
+        start_datetime: yup.date().required('Required!'),
         end_datetime: yup.date().required('Required!').test('', 'end datetime must later than the start datetime', function (value) {
             return this.parent.start_datetime < value
         })
     });
 
     function handleSubmit(inputValues) {
-         //call api
-         fetch(API_url.modify_todo + props.todoID, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                summary: inputValues.summary,
-                detail: inputValues.detail,
-                start_datetime: inputValues.start_datetime,
-                end_datetime: inputValues.end_datetime
-            }),
-        })
-            .then((res) => {
-                if (res.ok){
-                    return res.json();
-                }
-                return res.json().then((resData)=>{throw new Error(resData.message)})
+        if (props.mode == "modify") {
+            //call api
+            fetch(API_url.modify_todo + props.data.todo_id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    summary: inputValues.summary,
+                    detail: inputValues.detail,
+                    start_datetime: inputValues.start_datetime,
+                    end_datetime: inputValues.end_datetime
+                }),
             })
-            .then((resData) => {
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    return res.json().then((resData) => { throw new Error(resData.message) })
+                })
+                .then((resData) => {
                     props.handleClose()
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        } else {
+            //call api
+            fetch(API_url.add_todo, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    summary: inputValues.summary,
+                    detail: inputValues.detail,
+                    start_datetime: inputValues.start_datetime,
+                    end_datetime: inputValues.end_datetime,
+                    user_email: user.email
+                }),
             })
-            .catch(error => {
-                console.error(error);
-              });
+                .then((res) => {
+                    if (res.ok) {
+                        return res.json();
+                    }
+                    return res.json().then((resData) => { throw new Error(resData.message) })
+                })
+                .then((resData) => {
+                    props.handleClose()
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
     }
 
     return (
@@ -54,7 +86,12 @@ export default function TodoModal(props) {
                 <Modal.Header closeButton>
                     <Modal.Title>My Todo</Modal.Title>
                 </Modal.Header>
-                <Formik initialValues={{ summary: '', detail: ''}}
+                <Formik initialValues={
+                    // { summary: '', detail: '' }
+                    props.mode=='add'
+                    ? { summary: '', detail: '' }
+                    : {summary: props.data.summary,detail: props.data.detail, start_datetime: props.data.start_datetime, end_datetime: props.data.end_datetime}
+                }
                     validationSchema={validateSchema}
                     onSubmit={(inputValues, { setSubmitting }) => {
                         setTimeout(() => {
@@ -99,7 +136,7 @@ export default function TodoModal(props) {
                                     Close
                                 </Button>
                                 <Button variant="primary" type="submit">
-                                    Save Changes
+                                    { props.mode=='add'? "Add" : "Save Changes" }
                                 </Button>
                             </Modal.Footer>
                         </Form>
@@ -111,3 +148,21 @@ export default function TodoModal(props) {
         </>
     );
 }
+TodoModal.propTypes={
+    mode: PropTypes.string,
+    show: PropTypes.bool.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    data: PropTypes.shape({
+        todo_id: PropTypes.number,
+        summary: PropTypes.string,
+        detail: PropTypes.string,
+        finished: PropTypes.bool,
+        start_datetime: PropTypes.string,
+        end_datetime: PropTypes.string
+    })
+}
+TodoModal.defaultProps = {
+    mode: "add"
+}
+
+export default TodoModal
