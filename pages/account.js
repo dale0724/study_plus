@@ -1,4 +1,3 @@
-import Avatar from "react-avatar";
 import { Modal, Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import Layout from "../components/layout"
@@ -17,7 +16,7 @@ export default function Account() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     if (isLoading) {
-        return <MySpinner />
+        return <MySpinner/>
     }
     const formData = new FormData()
     const hanldeSubmit = (event) => {
@@ -85,7 +84,6 @@ export default function Account() {
                     </Form>
                 </Modal>
             </Layout>}
-
         </>
     );
 }
