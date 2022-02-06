@@ -1,13 +1,12 @@
 import { Modal } from "react-bootstrap";
 import { API_url } from "../../app_config";
-import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { Formik } from "formik";
 import * as yup from 'yup';
-import { format } from 'date-fns';
 import { useLoggedUserData } from "../../tools/helper";
 import PropTypes from 'prop-types';
+import { fetchWrapper } from "../../tools/fetchWrapper";
 
 function TodoModal(props) {
     const { user } = useLoggedUserData()
@@ -24,53 +23,27 @@ function TodoModal(props) {
 
     function handleSubmit(inputValues) {
         if (props.mode == "modify") {
-            //call api
-            fetch(API_url.modify_todo + props.data.todo_id, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            fetchWrapper.put(API_url.modify_todo + props.data.todo_id,
+                {
                     summary: inputValues.summary,
                     detail: inputValues.detail,
                     start_datetime: inputValues.start_datetime,
                     end_datetime: inputValues.end_datetime
-                }),
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    return res.json().then((resData) => { throw new Error(resData.message) })
-                })
-                .then((resData) => {
+                }) .then(() => {
                     props.handleClose()
                 })
                 .catch(error => {
                     console.error(error);
                 });
         } else {
-            //call api
-            fetch(API_url.add_todo, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            fetchWrapper.post(API_url.add_todo,
+                {
                     summary: inputValues.summary,
                     detail: inputValues.detail,
                     start_datetime: inputValues.start_datetime,
                     end_datetime: inputValues.end_datetime,
                     user_email: user.email
-                }),
-            })
-                .then((res) => {
-                    if (res.ok) {
-                        return res.json();
-                    }
-                    return res.json().then((resData) => { throw new Error(resData.message) })
-                })
-                .then((resData) => {
+                }).then(() => {
                     props.handleClose()
                 })
                 .catch(error => {
