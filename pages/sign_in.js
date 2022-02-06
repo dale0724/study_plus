@@ -9,43 +9,32 @@ import cookie from 'js-cookie';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { generateToken } from '../tools/helper';
+import { fetchWrapper } from '../tools/fetchWrapper';
 
 const validateSchema = yup.object().shape({
     email: yup.string().email('Invalid email address').required('Required'),
     password: yup.string().required('Required!'),
 });
 
-function processSuccessfulSignIn(resData){
+function processSuccessfulSignIn(resData) {
     cookie.set('token', generateToken(resData.email, resData.name, resData.user_type), { expires: 2 })
 }
 
 
 export default function SignIn() {
     function handleSubmit(inputValues) {
-        //call api
-        fetch(API_url.sign_in, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        fetchWrapper.post(
+            API_url.sign_in,
+            {
                 email: inputValues.email,
                 password: inputValues.password
-            }),
-        })
-            .then((res) => {
-                if (res.ok){
-                    return res.json();
-                }
-                return res.json().then((resData)=>{throw new Error(resData.message)})
-            })
-            .then((resData) => {
-                    processSuccessfulSignIn(resData)
-                    Router.push('/');  
+            }).then((resData) => {
+                processSuccessfulSignIn(resData)
+                Router.push('/');
             })
             .catch(error => {
-                console.log(error);
-              });
+                console.error(error);
+            });
     }
     return (
         <Container fluid style={{ background: '#7BA1C7', height: '100vh' }}>
@@ -53,7 +42,7 @@ export default function SignIn() {
                 <Image style={{ width: '128px', height: '128px' }} src='https://cdn4.iconfinder.com/data/icons/education-759/2050/Education_flat-11-512.png' />
                 <h2>StudyPlus</h2>
             </div>
-            <Card border='secondary' className='mx-auto p-3' style={{ width: '400px', background: 'rgb(245, 245, 245)'}}>
+            <Card border='secondary' className='mx-auto p-3' style={{ width: '400px', background: 'rgb(245, 245, 245)' }}>
                 <Avatar className='align-self-center shadow-sm mb-3' round={true} size='70' src='https://inews.gtimg.com/newsapp_bt/0/13392595208/1000' />
                 <Formik initialValues={{ email: '', password: '' }}
                     validationSchema={validateSchema}
@@ -64,7 +53,7 @@ export default function SignIn() {
                         }, 400);
                     }}>
                     {formik => (
-                        <Form noValidate  onSubmit={formik.handleSubmit} >
+                        <Form noValidate onSubmit={formik.handleSubmit} >
                             <Form.Group className="mb-3">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control type="email" placeholder="Enter email" isInvalid={formik.touched.email && formik.errors.email} {...formik.getFieldProps('email')} />
@@ -79,7 +68,7 @@ export default function SignIn() {
                                     {formik.errors.password}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Button type="submit" style={{background:'#7BA1C7', border:'none'}}>
+                            <Button type="submit" style={{ background: '#7BA1C7', border: 'none' }}>
                                 Sign In
                             </Button>
                             <Link href='/sign_up'>

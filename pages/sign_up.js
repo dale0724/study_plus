@@ -8,6 +8,7 @@ import cookie from 'js-cookie';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import { generateToken } from '../tools/helper';
+import { fetchWrapper } from '../tools/fetchWrapper';
 
 const validateSchema = yup.object().shape({
     email: yup.string().email('Invalid email address').required('Required'),
@@ -21,36 +22,24 @@ const validateSchema = yup.object().shape({
 });
 
 function processSuccessfulSignUpResponse(resData) {
-    cookie.set('token', generateToken(resData.email), { expires: 2 })
+    cookie.set('token', generateToken(resData.email, resData.name, resData.user_type), { expires: 2 })
 }
 
 export default function SignUp() {
 
     function handleSubmit(inputValues) {
-        //call api
-        fetch(API_url.sign_up, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
+        fetchWrapper.post(API_url.sign_up,
+            {
                 email: inputValues.email,
                 password: inputValues.password,
                 name: inputValues.name,
                 user_type: inputValues.userType,
-            }),
-        })
-            .then((res) => {
-                return res.json();
-            })
-            .then((resData) => {
-                if (resData.error) {
-                    alert(resData.message)
-                }
-                else {
-                    processSuccessfulSignUpResponse(resData)
-                    Router.push('/');
-                }
+            }).then((resData) => {
+                processSuccessfulSignUpResponse(resData)
+                Router.push('/');
+            }
+            ).catch(error => {
+                console.error(error);
             });
     }
 
@@ -82,7 +71,7 @@ export default function SignUp() {
                                         {formik.errors.name}
                                     </Form.Control.Feedback>
                                 </Form.Group>
-                                <Form.Group className="mb-3" style={{width:'200px'}}>
+                                <Form.Group className="mb-3" style={{ width: '200px' }}>
                                     <Form.Label>User Type</Form.Label>
                                     <Form.Select aria-label="Default select example" isInvalid={formik.touched.userType && formik.errors.userType} isValid={formik.touched.userType && !formik.errors.userType} {...formik.getFieldProps('userType')}>
                                         <option>N/A</option>
@@ -116,7 +105,7 @@ export default function SignUp() {
                                     {formik.errors.passwordConfirm}
                                 </Form.Control.Feedback>
                             </Form.Group>
-                            <Button type="submit" style={{background:'#7BA1C7', border:'none'}}>
+                            <Button type="submit" style={{ background: '#7BA1C7', border: 'none' }}>
                                 Sign Up
                             </Button>
                             <Link href='/sign_in'>

@@ -32,6 +32,9 @@ export function useLoggedUserData(){
         console.error(error)
         Router.push('/sign_in')
     }
+    if(data){
+        console.debug(data)
+    }
     return {
     user: data,
     isLoading: !error && !data,
