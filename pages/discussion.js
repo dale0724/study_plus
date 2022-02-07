@@ -2,8 +2,8 @@ import React from "react";
 import Layout from "../components/layout"
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
-import DiscussionBox from "../components/discussionBox";
-import DiscussionSearchBox from "../components/discussionSearchBox";
+import DiscussionBox from "../components/discussion/discussionBox"
+import DiscussionSearchBox from "../components/discussion/discussionSearchBox";
 
 export default function Discussion() {
     return (

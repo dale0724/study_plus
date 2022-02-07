@@ -1,8 +1,8 @@
-import styles from "../styles/discussionSearchBox.module.css";
+import styles from "../../styles/discussionSearchBox.module.css";
 import {Col, Row} from "react-bootstrap";
 import * as React from "react";
 import Button from 'react-bootstrap/Button';
-import CrossSvg from '../public/cross.svg';
+import CrossSvg from '../../public/cross.svg';
 
 export default class DiscussionSearchBox extends React.Component {
     constructor(props) {

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { fetchWrapper } from "../../tools/fetchWrapper";
 import MyForm from "../helpers/myForm";
 
-function TodoModal(props) {
+function TestModal(props) {
     const { user } = useLoggedUserData()
     const SUMMARY_MAX_LENGTH = 20
     const DETAIL_MAX_LENGTH = 200
@@ -21,7 +21,6 @@ function TodoModal(props) {
             return this.parent.start_datetime < value
         })
     });
-    const formID = "todoModalForm"
     const formFields = [
         {
             name: "summary",
@@ -57,6 +56,7 @@ function TodoModal(props) {
             }
         },
     ]
+    const formID = "todoModalForm"
     function handleSubmit(inputValues) {
         if (props.mode == "modify") {
             fetchWrapper.put(API_url.modify_todo + props.data.todo_id,
@@ -125,7 +125,7 @@ function TodoModal(props) {
         </>
     );
 }
-TodoModal.propTypes = {
+TestModal.propTypes = {
     mode: PropTypes.string,
     show: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired,
@@ -138,8 +138,8 @@ TodoModal.propTypes = {
         end_datetime: PropTypes.string
     })
 }
-TodoModal.defaultProps = {
+TestModal.defaultProps = {
     mode: "add"
 }
 
-export default TodoModal
+export default TestModal

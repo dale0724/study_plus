@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/discussionCard.module.css";
+import styles from "../../styles/discussionCard.module.css";
 import Link from "next/link";
 import Avatar from "react-avatar";
 import {Row,Col} from "react-bootstrap";
