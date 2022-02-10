@@ -1,10 +1,15 @@
 import styles from "../../styles/discussionBox.module.css";
 import { Card, ListGroup, ListGroupItem, Row, Button } from "react-bootstrap";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import DiscussionCard from "./discussionCard";
+import DiscussionAddModal from "./discussionAddModal";
+
 
 export default function DiscussionBox() {
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >
@@ -18,7 +23,7 @@ export default function DiscussionBox() {
                             <Link href="#mostVotes" passHref><a className={styles.titleText}>Most Votes</a></Link>
                         </div>
                         <div>
-                            <a className={styles.addNew} style={{ cursor: "pointer" }}>New +</a>
+                            <a className={styles.addNew} style={{ cursor: "pointer" }} onClick={handleShow}>New +</a>
                         </div>
                     </Card>
                 </Row>
@@ -30,6 +35,7 @@ export default function DiscussionBox() {
                         <DiscussionCard title={"[EE4717] I have no clue about week 4's content. Please help!"} id={"1"} />
                     </ListGroupItem>
                 </ListGroup>
+                <DiscussionAddModal show={show} handleClose={handleClose}></DiscussionAddModal>
             </div>
         </>
     );

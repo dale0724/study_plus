@@ -149,9 +149,9 @@ export default function MediaEditor() {
                 </div>
                 <div style={styles.editor}>
                     <Editor
-                        blockRendererFn={mediaBlockRenderer}
                         editorState={editorState}
                         onChange={setEditorState}
+                        blockRendererFn={mediaBlockRenderer}
                         placeholder="Enter some text..."
                         editorKey="foobaz"
                         handleKeyCommand={ _handleKeyCommand }
