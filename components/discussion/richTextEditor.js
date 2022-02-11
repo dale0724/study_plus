@@ -122,14 +122,13 @@ function RichTextEditor(props) {
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={() => toggleBlockType('header-one')}>H</Button>
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={() => toggleBlockType('unordered-list-item')}>UL</Button>
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={handleShow}>img</Button>
-            <div style={{minHeight: "100px"}} >
+            <div style={{minHeight: "300px"}} >
                 <Editor {...props}
                 blockRendererFn={mediaBlockRenderer}
                 placeholder="Enter some text..."
                 editorKey="foobaz"
                 handleKeyCommand={_handleKeyCommand} />
             </div>
-            
             {imageAddModal}
         </div>
     )

@@ -1,6 +1,6 @@
-import { Modal } from "react-bootstrap";
+import { Form, Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { useState } from "react";
 import RichTextEditor from "./richTextEditor";
@@ -23,29 +23,38 @@ function DiscussionAddModal(props) {
     });
     const { user } = useLoggedUserData()
     const [editorState, setEditorState] = useState(EditorState.createWithContent(emptyContentState));
+    const [titleValue, setTitleValue] = useState('')
+
     function handleAddClick() {
         const rawContent = convertToRaw(editorState.getCurrentContent())
         console.log(convertToRaw(editorState.getCurrentContent()))
         fetchWrapper.post(API_url.add_discussion_post,
             {
-                title: 'title',
+                title: titleValue,
                 content: JSON.stringify(rawContent),
                 user_email: user.email,
-            }).then(resData =>{
+            }).then(resData => {
                 console.log(resData.message)
                 props.handleClose()
-            }).catch(error =>{
+            }).catch(error => {
                 console.error(error)
             })
     }
 
     return (
         <>
-            <Modal show={props.show} onHide={props.handleClose}>
+            <Modal show={props.show} onHide={props.handleClose} size='lg'>
                 <Modal.Header closeButton>
                     <Modal.Title>New Post</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>    
+                <Modal.Body>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control type="text" placeholder="Key in your title" value={titleValue} onChange={(e) => { setTitleValue(e.target.value) }} required />
+                        <Form.Control.Feedback type="invalid">
+                            Please choose a username.
+                        </Form.Control.Feedback>
+                    </Form.Group>
                     <RichTextEditor editorState={editorState} onChange={setEditorState} />
                 </Modal.Body>
                 <Modal.Footer>
