@@ -32,7 +32,6 @@ export default function DiscussionBox() {
         boxContent = <MySpinner></MySpinner>
     }
     }
-   
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >

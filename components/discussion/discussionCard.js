@@ -15,10 +15,10 @@ export default function DiscussionCard(props){
             </Col>
             <Col>
                 <p style={{ textAlign: 'left', margin: '0' }}>
-                    <Link href={"/discussion/"+ metaData.id} passHref><a className={styles.discussionTitle}>{metaData.title}</a></Link>
+                    <Link href={`/discussion/${encodeURIComponent(metaData.id)}`} passHref><a className={styles.discussionTitle}>{metaData.title}</a></Link>
                 </p>
                 <div style={{ textAlign: 'left', margin: '0', fontSize: '0.75rem'}}>
-                    Dale created at {metaData.create_time}
+                    {metaData.user_email} created at {metaData.create_time}
                 </div>
             </Col>
             </Row>
