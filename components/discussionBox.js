@@ -10,14 +10,14 @@ export default function DiscussionBox(){
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
+                        <div className={styles.left}>
                         <Link href="#mostRelevant" passHref><a className={styles.titleText}>Most Relevant</a></Link>
                         <span className={styles.titleText}>{''}|{''}</span>
                         <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Recent</a></Link>
                         <span className={styles.titleText}>{''}|{''}</span>
                         <Link href="#mostVotes" passHref><a className={styles.titleText}>Most Votes</a></Link>
-                        <span className={styles.addNew}>
-                        <Link href="#newPost" passHref><span>+</span></Link>
-                        </span>
+                        </div>
+                        <Link href="/discussion/new_post" passHref><a className={styles.titleText}>+Add New</a></Link>
                     </Card>
                 </Row>
                 <ListGroup style={{ overflow: 'hidden auto', width: '95%', margin: 'auto'}}>

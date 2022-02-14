@@ -1,5 +1,4 @@
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import Avatar from 'react-avatar';
 import styles from "../styles/NaviBar.module.css"
 import Link from "next/link";
 import React from "react";
