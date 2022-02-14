@@ -7,6 +7,7 @@ import * as yup from 'yup';
 import { useLoggedUserData } from "../../tools/helper";
 import PropTypes from 'prop-types';
 import { fetchWrapper } from "../../tools/fetchWrapper";
+import MyForm from "../helpers/myForm";
 
 function TodoModal(props) {
     const { user } = useLoggedUserData()
@@ -20,7 +21,42 @@ function TodoModal(props) {
             return this.parent.start_datetime < value
         })
     });
-
+    const formID = "todoModalForm"
+    const formFields = [
+        {
+            name: "summary",
+            label: "Summary",
+            props: {
+                type: "text",
+                size: "lg"
+            }
+        },
+        {
+            name: "detail",
+            label: "Detail",
+            props: {
+                as: "textarea",
+                size: "lg",
+                rows: 3
+            }
+        },
+        {
+            name: "start_datetime",
+            label: "Start Datetime",
+            props: {
+                type: "datetime-local",
+                size: "lg"
+            }
+        },
+        {
+            name: "end_datetime",
+            label: "End Datetime",
+            props: {
+                type: "datetime-local",
+                size: "lg"
+            }
+        },
+    ]
     function handleSubmit(inputValues) {
         if (props.mode == "modify") {
             fetchWrapper.put(API_url.modify_todo + props.data.todo_id,
@@ -29,7 +65,7 @@ function TodoModal(props) {
                     detail: inputValues.detail,
                     start_datetime: inputValues.start_datetime,
                     end_datetime: inputValues.end_datetime
-                }) .then(() => {
+                }).then(() => {
                     props.handleClose()
                 })
                 .catch(error => {
@@ -59,69 +95,37 @@ function TodoModal(props) {
                 <Modal.Header closeButton>
                     <Modal.Title>My Todo</Modal.Title>
                 </Modal.Header>
-                <Formik initialValues={
-                    // { summary: '', detail: '' }
-                    props.mode=='add'
-                    ? { summary: '', detail: '' }
-                    : {summary: props.data.summary,detail: props.data.detail, start_datetime: props.data.start_datetime, end_datetime: props.data.end_datetime}
-                }
-                    validationSchema={validateSchema}
-                    onSubmit={(inputValues, { setSubmitting }) => {
-                        setTimeout(() => {
-                            handleSubmit(inputValues)
-                            setSubmitting(false);
-                        }, 400);
-                    }}>
-                    {formik => (
-                        <Form noValidate onSubmit={formik.handleSubmit}>
-                            <Modal.Body>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Summary</Form.Label>
-                                    <Form.Control size="lg" type="text" placeholder="Large text" isInvalid={formik.touched.summary && formik.errors.summary} {...formik.getFieldProps('summary')} />
-                                    <Form.Control.Feedback type="invalid">
-                                        {formik.errors.summary}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Detail</Form.Label>
-                                    <Form.Control as="textarea" rows={3} isInvalid={formik.touched.detail && formik.errors.detail} {...formik.getFieldProps('detail')} />
-                                    <Form.Control.Feedback type="invalid">
-                                        {formik.errors.detail}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Start Time</Form.Label>
-                                    <Form.Control size="lg" type="datetime-local" isInvalid={formik.touched.start_datetime && formik.errors.start_datetime} {...formik.getFieldProps('start_datetime')} />
-                                    <Form.Control.Feedback type="invalid">
-                                        {formik.errors.start_datetime}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                                <Form.Group className="mb-3">
-                                    <Form.Label>End Time</Form.Label>
-                                    <Form.Control size="lg" type="datetime-local" isInvalid={formik.touched.end_datetime && formik.errors.end_datetime} {...formik.getFieldProps('end_datetime')} />
-                                    <Form.Control.Feedback type="invalid">
-                                        {formik.errors.end_datetime}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={props.handleClose}>
-                                    Close
-                                </Button>
-                                <Button variant="primary" type="submit">
-                                    { props.mode=='add'? "Add" : "Save Changes" }
-                                </Button>
-                            </Modal.Footer>
-                        </Form>
-                    )
-                    }
-                </Formik>
-
+                <Modal.Body>
+                    <MyForm
+                        fields={formFields}
+                        formID={formID}
+                        initialValues=
+                        {
+                            props.mode == 'add' ?
+                                { summary: '', detail: '' } :
+                                {
+                                    summary: props.data.summary,
+                                    detail: props.data.detail,
+                                    start_datetime: props.data.start_datetime,
+                                    end_datetime: props.data.end_datetime
+                                }
+                        }
+                        validateSchema={validateSchema}
+                        handleSubmit={handleSubmit} />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={props.handleClose}>
+                        Close
+                    </Button>
+                    <Button form={formID} variant="primary" type="submit">
+                        {props.mode == 'add' ? "Add" : "Save Changes"}
+                    </Button>
+                </Modal.Footer>
             </Modal>
         </>
     );
 }
-TodoModal.propTypes={
+TodoModal.propTypes = {
     mode: PropTypes.string,
     show: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired,

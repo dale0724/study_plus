@@ -12,6 +12,7 @@ export default function Layout({children}) {
                 <meta
                     name="description"
                     content="StudyPlus WebSite"
+                    charset="utf-8"
                 />
             </Head>
             <main>{children}</main>

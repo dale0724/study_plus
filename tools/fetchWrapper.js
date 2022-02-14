@@ -4,7 +4,8 @@ export const fetchWrapper = {
     get,
     post,
     put,
-    delete: _delete
+    delete: _delete,
+    postFormData
 };
 
 async function get(url) {
@@ -20,6 +21,15 @@ async function post(url, body) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(body)
+    };
+    const response = await fetch(url, requestOptions);
+    return handleResponse(response);
+}
+
+async function postFormData(url, body) {
+    const requestOptions = {
+        method: 'POST',
+        body: body
     };
     const response = await fetch(url, requestOptions);
     return handleResponse(response);

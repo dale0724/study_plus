@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { Button, Container } from "react-bootstrap";
+import DiscussionAddModal from "../components/discussion/discussionAddModal";
+import MediaEditor from "../components/discussion/mediaEditor";
+import MediaEditorExample from "../components/discussion/mediaEditorExample";
+import MyForm from "../components/helpers/myForm";
 import TodoModal from "../components/todo/todoModal";
 
-export default function Test(){
-    const [show, setShow] = useState(false)
-    function handleClose(){
-        setShow(false)
-        console
+export default function Test() {
+    const [showAddModal, setShowAddModal] = useState(false)
+    function handleAddModalClose(){
+        setShowAddModal(false)
     }
-    function handleShow(){
-        setShow(true)
-        console.log(show)
+    function handleAddModalShow(){
+        setShowAddModal(true)
     }
+
 
     return (
         <Container className="text-center">
-            <Button className="mt-3" onClick={handleShow}>Click Me! </Button>
-            <TodoModal show={show} handleClose={handleClose} todoID='6' />
+            <DiscussionAddModal show={showAddModal} handleClose={handleAddModalClose}/>
+            <Button className="mt-3" onClick={handleAddModalShow }>Click Me! </Button>
+            <MediaEditor></MediaEditor>
         </Container>
     )
 }

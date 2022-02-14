@@ -2,10 +2,17 @@ import React from "react";
 import Layout from "../components/layout"
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
-import DiscussionBox from "../components/discussionBox";
-import DiscussionSearchBox from "../components/discussionSearchBox";
+import DiscussionBox from "../components/discussion/discussionBox"
+import DiscussionSearchBox from "../components/discussion/discussionSearchBox";
+import { useLoggedUserData } from "../tools/helper";
+import UserAvatar from "../components/userAvatar";
+import MySpinner from "../components/mySpinner";
 
 export default function Discussion() {
+    const {isLoading} = useLoggedUserData()
+    if(isLoading){
+        return <MySpinner/>
+    }
     return (
         <>
             <SSRProvider>
