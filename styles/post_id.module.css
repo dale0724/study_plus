@@ -1,0 +1,23 @@
+.main{
+    min-height: 500px;
+    min-width: 900px;
+    margin-top: 2rem;
+}
+
+.titleBox{
+    border:2px black solid;
+    border-bottom: 1px black solid;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.contentBox{
+    border:2px black solid;
+    border-top: 1px black solid;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.voteCol{
+    width: 80px;
+}

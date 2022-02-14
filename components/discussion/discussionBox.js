@@ -49,7 +49,7 @@ export default function DiscussionBox() {
                         </div>
                     </Card>
                 </Row>
-                <ListGroup style={{ overflow: 'hidden auto', width: '95%', margin: 'auto' }}>
+                <ListGroup style={{ overflow: 'hidden auto', height: '600px', width: '95%', margin: 'auto' }}>
                     {
                        boxContent
                     }
