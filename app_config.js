@@ -10,7 +10,9 @@ export const API_url = {
     add_discussion_post: host + 'discussion',
     get_discussion_posts_by_email: host + 'discussion_posts/email/',
     get_all_discussion_posts_meta: host + 'discussion_posts/all',
-    get_discussion_post_by_id: host + 'discussion_post/id/'
+    get_discussion_post_by_id: host + 'discussion_post/id/',
+    upload_discussion_post_img: host + 'discussion_post_img',
+    get_discussion_post_img: host + 'discussion_post_img'
 }
 
 

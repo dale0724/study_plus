@@ -11,7 +11,8 @@ function RichTextEditor(props) {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [imgs, setImgs] = useState({})
+    var imgs = props.imgs
+    const setImgs = props.setImgs
     let editorState = props.editorState
     let setEditorState = props.onChange
     const fileInput = React.createRef();
@@ -85,6 +86,13 @@ function RichTextEditor(props) {
             ))
     }
 
+
+    function toggleInlineStyle(inlineStyle) {
+        props.onChange(RichUtils.toggleInlineStyle(props.editorState, inlineStyle));
+    }
+    function toggleBlockType(blockType) {
+        props.onChange(RichUtils.toggleBlockType(props.editorState, blockType));
+    }
     const imageAddModal = (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -108,26 +116,32 @@ function RichTextEditor(props) {
             </Form>
         </Modal>
     )
-    function toggleInlineStyle(inlineStyle) {
-        props.onChange(RichUtils.toggleInlineStyle(props.editorState, inlineStyle));
-    }
-    function toggleBlockType(blockType) {
-        props.onChange(RichUtils.toggleBlockType(props.editorState, blockType));
-    }
-    return (
-        <div>
+
+    const toolBar = (
+        <>
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={() => { toggleInlineStyle('BOLD') }}>B</Button>
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={() => toggleInlineStyle('ITALIC')}>I</Button>
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={() => toggleInlineStyle('CODE')}>{`</>`}</Button>
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={() => toggleBlockType('header-one')}>H</Button>
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={() => toggleBlockType('unordered-list-item')}>UL</Button>
             <Button variant="outline-secondary" size='sm' style={{ width: "40px" }} className="border-0" onClick={handleShow}>img</Button>
-            <div style={{minHeight: "300px"}} >
+        </>
+    )
+
+
+    return (
+        <div>
+            {
+                props.readOnly ? <></> : toolBar
+
+            }
+
+            <div style={{ minHeight: "300px" }} >
                 <Editor {...props}
-                blockRendererFn={mediaBlockRenderer}
-                placeholder="Enter some text..."
-                editorKey="foobaz"
-                handleKeyCommand={_handleKeyCommand} />
+                    blockRendererFn={mediaBlockRenderer}
+                    placeholder="Enter some text..."
+                    editorKey="foobaz"
+                    handleKeyCommand={_handleKeyCommand} />
             </div>
             {imageAddModal}
         </div>

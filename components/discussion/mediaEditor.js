@@ -99,7 +99,7 @@ export default function MediaEditor() {
 
     function handlePostSubmit(e){
         let currentContent = editorState.getCurrentContent()
-        console.log( convertToRaw(currentContent))
+        console.log(convertToRaw(currentContent))
         const entityMap = convertToRaw(currentContent).entityMap
         const entityUrls = []
         for(let i=0;i<5;i++){

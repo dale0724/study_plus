@@ -1,11 +1,12 @@
 import { useRouter } from 'next/router'
 import {stateToHTML} from 'draft-js-export-html';
 import { API_url } from '../../app_config';
-import { convertFromRaw, Editor, EditorState } from 'draft-js';
+import { convertFromRaw, convertToRaw, Editor, EditorState } from 'draft-js';
 import MySpinner from '../../components/mySpinner';
 import Layout from '../../components/layout';
 import useSWR from 'swr';
 import { fetchWrapper } from '../../tools/fetchWrapper';
+import RichTextEditor from '../../components/discussion/richTextEditor';
 
 export async function getServerSideProps() {
   
@@ -29,6 +30,7 @@ export default function DiscussionDtailPage(props){
         if(data){
             const postDetail = JSON.parse(data['data'])
             const rawContent =  JSON.parse(postDetail.content)
+            console.log(rawContent)
             const currentContent = convertFromRaw(rawContent)
             editorState = EditorState.createWithContent(currentContent)
         }
@@ -36,7 +38,10 @@ export default function DiscussionDtailPage(props){
     return (
         <>
             <Layout>
-                <Editor editorState={editorState} readOnly={true}  editorKey="editor"/>
+                <div className='mx-auto w-50' >
+                    <RichTextEditor editorState={editorState} readOnly={true}  editorKey="editor"/>
+                </div>
+                
             </Layout>
         </>
     )
