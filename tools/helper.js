@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import useSWR from "swr";
 import Router  from "next/router";
 
-export function generateToken(email, name, userType, expireInSeconds=3000){
+export function generateToken(email, name, userType, expireInSeconds=30000){
     return jwt.sign(
         { email,name,userType},
         JWT_SECRET,
@@ -31,6 +31,9 @@ export function useLoggedUserData(){
     if(error){
         console.error(error)
         Router.push('/sign_in')
+    }
+    if(data){
+        console.debug(data)
     }
     return {
     user: data,
