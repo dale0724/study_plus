@@ -19,5 +19,39 @@
 }
 
 .voteCol{
-    width: 80px;
+    margin-top: 1rem;
+    width: 50px;
+}
+
+.back{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 0.2rem;
+    text-decoration: none;
+    color: #7BA1C7;
+}
+
+.back:hover{
+    cursor: pointer;
+    color: #0070f3;
+}
+
+.voteNum:hover{
+    cursor:default;
+}
+
+.voteNum{
+    text-align: center;
+}
+
+.userEmail {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+}
+
+.lastEdit {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
 }
