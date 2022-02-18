@@ -11,14 +11,19 @@ import useSWR from 'swr';
 import Router, { useRouter } from 'next/router';
 import { useLoggedUserData } from "../tools/helper";
 import MySpinner from "../components/mySpinner";
+import registerServiceWorkerAndSubscribeServer, {isSubscribedToServer} from "../tools/subscribe";
 
 export default function Home() {
-  const {isLoading, isError } = useLoggedUserData()
+  const { user, isLoading, isError } = useLoggedUserData()
   if (isLoading) {
     return <MySpinner />;
   }
   if (isError) {
     Router.push('/sign_in')
+  }
+  console.log(isSubscribedToServer)
+  if(!isSubscribedToServer){
+    registerServiceWorkerAndSubscribeServer(user.email)
   }
   return (
     <>
