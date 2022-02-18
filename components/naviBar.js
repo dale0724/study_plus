@@ -1,5 +1,4 @@
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import Avatar from 'react-avatar';
 import styles from "../styles/NaviBar.module.css"
 import Link from "next/link";
 import React from "react";
@@ -19,7 +18,7 @@ export default function NaviBar() {
             <Link href="/news" passHref><Nav.Link>Campus News</Nav.Link></Link>
           </Nav>
           <Nav>
-            <Nav.Link href="account">
+            <Nav.Link href="/account">
               <UserAvatar size='50' round={true}/>
             </Nav.Link>
           </Nav>

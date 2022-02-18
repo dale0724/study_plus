@@ -1,0 +1,89 @@
+.main{
+    min-height: 500px;
+    min-width: 900px;
+    margin-top: 2rem;
+}
+
+.titleBox{
+    border:2px black solid;
+    border-bottom: 1px black solid;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+}
+
+.contentBox{
+    border:2px black solid;
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+}
+
+.commentHeader{
+    border-left:2px black solid;
+    border-right: 2px black solid;
+    border-top: 1px black solid;
+}
+
+.commentBox{
+    border:2px black solid;
+    border-top: 0px;
+    border-bottom-left-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.commentList {
+    border-top: 2px black solid;
+}
+
+.voteCol{
+    margin-top: 1rem;
+    width: 50px;
+}
+
+.commentAvatarCol{
+    margin: 1rem;
+    width: 50px;
+    display: inline-block;
+}
+
+
+.back{
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    margin-left: 0.2rem;
+    text-decoration: none;
+    color: #7BA1C7;
+}
+
+.back:hover{
+    cursor: pointer;
+    color: #0070f3;
+}
+
+.voteNum:hover{
+    cursor:default;
+}
+
+.voteNum{
+    text-align: center;
+}
+
+.userEmail {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+}
+
+.lastEdit {
+    padding-top: 2rem;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+}
+
+.comment {
+    margin-left: 5rem;
+}
+
+.commentVote{
+    margin-left: 1rem;
+    width: 200px;
+}

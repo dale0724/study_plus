@@ -12,6 +12,10 @@
     align-items: baseline;
 }
 
+.left {
+    margin-right: auto!important;
+}
+
 .titleText{
     font-size: 16px;
     font-weight: bold;
@@ -19,16 +23,6 @@
     margin: 0.2rem;
     color: #7BA1C7;
     text-decoration: none;
-}
-
-.addNew{
-    font-size: 16px;
-    font-weight: bold;
-    width: fit-content;
-    margin: 0.2rem;
-    color: #7BA1C7;
-    text-decoration: none;
-    text-align: right;
 }
 
 .addButton{
