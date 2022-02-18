@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../styles/indexSwappingRequestCard.module.css";
+import styles from "../../styles/indexSwappingRequestCard.module.css";
 import Link from "next/link";
 
 export default class IndexSwappingRequestCard extends React.Component {

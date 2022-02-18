@@ -2,8 +2,8 @@ import React from "react";
 import Layout from "../components/layout"
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
-import IndexSwappingRequestBox from "../components/indexSwappingRequestBox";
-import IndexSwappingQueryBox from "../components/indexSwappingQueryBox";
+import IndexSwappingRequestBox from "../components/indexSwapping/indexSwappingRequestBox";
+import IndexSwappingQueryBox from "../components/indexSwapping/indexSwappingQueryBox";
 
 export default function SwapIndex() {
     return (

@@ -1,4 +1,4 @@
-import styles from "../styles/indexSwappingQueryBox.module.css";
+import styles from "../../styles/indexSwappingQueryBox.module.css";
 import {Row, Col} from "react-bootstrap";
 import * as React from "react";
 import Button from 'react-bootstrap/Button'
