@@ -14,8 +14,24 @@
 .contentBox{
     border:2px black solid;
     border-top: 1px black solid;
+    border-bottom: 1px black solid;
+}
+
+.commentHeader{
+    border:2px black solid;
+    border-top: 1px black solid;
+    border-bottom: 1px black solid;
+}
+
+.commentBox{
+    border:2px black solid;
+    border-top: 1px black solid;
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
+}
+
+.commentList {
+    border-bottom: 2px black solid;
 }
 
 .voteCol{
@@ -54,4 +70,8 @@
     padding-top: 2rem;
     padding-bottom: 1rem;
     margin-bottom: 0;
+}
+
+.comment {
+    padding-top: 0;
 }
