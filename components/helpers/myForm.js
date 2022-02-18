@@ -49,7 +49,7 @@ MyForm.propTypes={
         PropTypes.shape(
             {
                 name: PropTypes.string.isRequired,
-                lable: PropTypes.string.isRequired,
+                label: PropTypes.string.isRequired,
                 props: PropTypes.object
             }
         )

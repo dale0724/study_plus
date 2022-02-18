@@ -12,7 +12,10 @@ export const API_url = {
     get_all_discussion_posts_meta: host + 'discussion_posts/all',
     get_discussion_post_by_id: host + 'discussion_post/id/',
     upload_discussion_post_img: host + 'discussion_post_img',
-    get_discussion_post_img: host + 'discussion_post_img'
+    get_discussion_post_img: host + 'discussion_post_img',
+    get_VAPID_public_key: host + 'VAPID_public_key',
+    subscribe: host + 'subscribe',
+    unsubscribe: host + 'unsubscribe'
 }
 
 
