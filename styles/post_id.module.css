@@ -18,26 +18,33 @@
 }
 
 .commentHeader{
-    border:2px black solid;
+    border-left:2px black solid;
+    border-right: 2px black solid;
     border-top: 1px black solid;
-    border-bottom: 1px black solid;
 }
 
 .commentBox{
     border:2px black solid;
-    border-top: 1px black solid;
+    border-top: 0px;
     border-bottom-left-radius: 0.25rem;
     border-bottom-right-radius: 0.25rem;
 }
 
 .commentList {
-    border-bottom: 2px black solid;
+    border-top: 2px black solid;
 }
 
 .voteCol{
     margin-top: 1rem;
     width: 50px;
 }
+
+.commentAvatarCol{
+    margin: 1rem;
+    width: 50px;
+    display: inline-block;
+}
+
 
 .back{
     margin-bottom: 1rem;
@@ -73,5 +80,10 @@
 }
 
 .comment {
-    padding-top: 0;
+    margin-left: 5rem;
+}
+
+.commentVote{
+    margin-left: 1rem;
+    width: 200px;
 }
