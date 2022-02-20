@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 import { useState } from "react";
-import RichTextEditor from "./richTextEditor";
+import RichTextEditor from "../helpers/richTextEditor";
 import { fetchWrapper } from "../../tools/fetchWrapper";
 import { API_url } from "../../app_config";
 import { useLoggedUserData } from "../../tools/helper";

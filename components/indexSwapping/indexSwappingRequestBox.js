@@ -1,4 +1,4 @@
-import styles from "../styles/indexSwappingRequestBox.module.css";
+import styles from "../../styles/indexSwappingRequestBox.module.css";
 import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
 import IndexSwappingRequestCard from "./indexSwappingRequestCard";
 import Link from "next/link";
