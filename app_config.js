@@ -15,7 +15,9 @@ export const API_url = {
     get_discussion_post_img: host + 'discussion_post_img',
     get_VAPID_public_key: host + 'VAPID_public_key',
     subscribe: host + 'subscribe',
-    unsubscribe: host + 'unsubscribe'
+    unsubscribe: host + 'unsubscribe',
+    discussion_add_vote_number: host + 'discussion_post_votes',
+    get_discussion_post_reply: host + 'discussion_replies_main'
 }
 
 
