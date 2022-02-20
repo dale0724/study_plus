@@ -61,7 +61,7 @@ function RichTextEditorWithoutImg(props) {
 
 RichTextEditorWithoutImg.propTypes = {
     editorState: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired,
+    onChange: PropTypes.func,
     readOnly: PropTypes.bool
 }
 

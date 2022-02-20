@@ -1,12 +1,12 @@
 import {useRouter} from 'next/router'
-import {stateToHTML} from 'draft-js-export-html';
 import {API_url} from '../../app_config';
 import {convertFromRaw, convertToRaw, Editor, EditorState} from 'draft-js';
 import MySpinner from '../../components/mySpinner';
 import Layout from '../../components/layout';
-import useSWR from 'swr';
+import useSWR, {mutate} from 'swr';
 import {fetchWrapper} from '../../tools/fetchWrapper';
-import RichTextEditor from '../../components/discussion/richTextEditor';
+import RichTextEditor from '../../components/helpers/richTextEditor';
+import RichTextEditorWithoutImg from '../../components/helpers/richTextEditorWithoutImg';
 import styles from "../../styles/post_id.module.css";
 import React, {useState} from "react";
 import {Col, Row} from "react-bootstrap";
@@ -21,22 +21,24 @@ export async function getServerSideProps() {
 }
 
 export default function DiscussionDetailPage(props) {
+    const [increase, setIncrease] = useState(true)
     const router = useRouter();
     const {post_id} = router.query;
     var postTitle = '';
     var postVotes = 0
     var userEmail = ''
-    var postComments = [{
-        commentID: '1', userName: "ye zhen", userEmail: "yezhen974@gmail.com", comment: "This is great!",
-        votes: 2, replyTo: 0
-    }, {
-        commentID: '2', userName: "Dale", userEmail: "lihang0722@gmail.com",
-        comment: "This is awesome man!", votes: 1, replyTo: 0
-    }]
-    /* get postComments from db later*/
+    var postComments = []
+    //     [{
+    //     id: '1', user_email: "yezhen974@gmail.com", content: "This is great!",
+    //     votes: 2
+    // }, {
+    //     id: '2', user_email: "lihang0722@gmail.com",
+    //     content: "This is awesome man!", votes: 1
+    // }]
 
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const {data, error} = useSWR(API_url.get_discussion_post_by_id + post_id, fetcher)
+    const {data:commentData, error:commentError} = useSWR(API_url.get_discussion_post_by_id + post_id, fetcher)
+    const {data:replyData, error: replyError} = useSWR(API_url.get_discussion_post_reply + post_id, fetcher)
 
     const emptyContentState = convertFromRaw({
         entityMap: {},
@@ -50,11 +52,17 @@ export default function DiscussionDetailPage(props) {
         ],
     });
     var editorState = EditorState.createWithContent(emptyContentState)
-    if (error) {
-        return <h1>{error}</h1>
+    if (commentError||replyError) {
+        if (commentError) {
+            return <h1>Error</h1>
+        }
+        else {
+            return <h1>Error</h1>
+        }
+
     } else {
-        if (data) {
-            const postDetail = JSON.parse(data['data'])
+        if (commentData) {
+            const postDetail = JSON.parse(commentData['data'])
             const rawContent = JSON.parse(postDetail.content)
             postTitle = postDetail.title
             postVotes = postDetail.votes
@@ -62,7 +70,41 @@ export default function DiscussionDetailPage(props) {
             const currentContent = convertFromRaw(rawContent)
             editorState = EditorState.createWithContent(currentContent)
         }
+        if(replyData){
+            const repliesDetail = replyData['data']
+            console.log(repliesDetail)
+            repliesDetail.forEach(item => {
+                let parsedItem = JSON.parse(item)
+                console.log(parsedItem)
+                const rawReply = JSON.parse(parsedItem.content)
+                console.log(rawReply)
+                const currentReply = convertFromRaw(rawReply)
+                const replyEditorState = EditorState.createWithContent(currentReply)
+                parsedItem['content'] = replyEditorState
+                postComments.push(parsedItem)
+                console.log(postComments)
+            }
+            )
+
+        }
     }
+
+    function handleVoteUp(event, increase) {
+        event.preventDefault();
+        fetchWrapper.put(API_url.discussion_add_vote_number,
+            {
+                post_id: post_id,
+                increase: increase
+            }).then(() => {
+                mutate(API_url.get_discussion_post_by_id + post_id)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        setIncrease(!increase);
+    }
+
+
     return (
         <>
             <Layout>
@@ -86,8 +128,8 @@ export default function DiscussionDetailPage(props) {
                         <Row style={{margin: "1rem", width: "850px"}}>
                             <div className={styles.voteCol}>
                                 <Col>
-                                    <Row>
-                                        <UPVoteSVG size={'30'}/>
+                                    <Row><span onClick={(e) => {handleVoteUp(e, increase)}}>
+                                        <UPVoteSVG size={'30'} /></span>
                                     </Row>
                                     <Row><h5 className={styles.voteNum}>{postVotes}</h5></Row>
                                 </Col>
@@ -129,20 +171,22 @@ export default function DiscussionDetailPage(props) {
                     <div className={styles.commentBox}>
                         {postComments.map((item) => {
                             return (
-                                <React.Fragment key={item.commentID}>
+                                <React.Fragment key={item.id}>
                                     <div className={styles.commentList}>
                                         <Row>
                                             <div className={styles.commentAvatarCol}>
                                                 <Col>
-                                                    <AvatarByEmail email={item.userEmail} size='50px' round={true}/>
+                                                    <AvatarByEmail email={item.user_email} size='50px' round={true}/>
                                                 </Col>
                                             </div>
                                             <Col>
-                                                <h6 className={styles.userEmail}>{item.userName}</h6>
+                                                <h6 className={styles.userEmail}>{item.user_email}</h6>
                                             </Col>
                                         </Row>
                                         <Row>
-                                            <div className={styles.comment}>{item.comment}</div>
+                                            <div className={styles.comment}>
+                                                <RichTextEditorWithoutImg editorState={item.content} readOnly={true} editorKey="editor"/>
+                                            </div>
                                         </Row>
                                         <Row>
                                             <div className={styles.commentVote}>

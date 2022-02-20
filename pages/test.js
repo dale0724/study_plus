@@ -4,7 +4,7 @@ import DiscussionAddModal from "../components/discussion/discussionAddModal";
 import MediaEditor from "../components/discussion/mediaEditor";
 import MediaEditorExample from "../components/discussion/mediaEditorExample";
 import MyForm from "../components/helpers/myForm";
-import RichTextEditorWithoutImg from "../components/helpers/richTestEditorWithoutImg";
+import RichTextEditorWithoutImg from "../components/helpers/richTextEditorWithoutImg";
 import TodoModal from "../components/todo/todoModal";
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 
