@@ -17,7 +17,7 @@ export const API_url = {
     subscribe: host + 'subscribe',
     unsubscribe: host + 'unsubscribe',
     discussion_add_vote_number: host + 'discussion_post_votes',
-    get_discussion_post_reply: host + 'discussion_replies_main',
+    get_discussion_post_reply: host + 'discussion_replies_main/id/',
     add_index_swapping_post: host + 'index_swapping_post'
 }
 
