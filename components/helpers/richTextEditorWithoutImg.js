@@ -49,9 +49,9 @@ function RichTextEditorWithoutImg(props) {
 
             }
 
-            <div style={{ minHeight: "300px" }} >
+            <div style={{ minHeight: "150px" }} >
                 <Editor {...props}
-                    placeholder="Enter some text..."
+                    placeholder={props.placeholer}
                     editorKey="foobaz"
                     handleKeyCommand={_handleKeyCommand} />
             </div>

@@ -1,0 +1,10 @@
+.textEditor {
+    border-left:2px black solid;
+    border-right: 2px black solid;
+    border-top: 2px black solid;
+    margin: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #afc8db;
+    background-clip: content-box;
+}
