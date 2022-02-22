@@ -6,7 +6,7 @@ import MySpinner from '../../components/mySpinner';
 import Layout from '../../components/layout';
 import useSWR from 'swr';
 import {fetchWrapper} from '../../tools/fetchWrapper';
-import RichTextEditor from '../../components/discussion/richTextEditor';
+import RichTextEditor from '../../components/helpers/richTextEditor';
 import styles from "../../styles/post_id.module.css";
 import React, {useState} from "react";
 import {Col, Row} from "react-bootstrap";
