@@ -1,9 +1,7 @@
-import React, {useState} from "react";
-import {useRouter} from "next/router";
-import useSWR, {mutate} from "swr";
+import React from "react";
+import useSWR from "swr";
 import {API_url} from "../../app_config";
 import {convertFromRaw, EditorState} from "draft-js";
-import {fetchWrapper} from "../../tools/fetchWrapper";
 import styles from "../../styles/post_id.module.css";
 import {Col, Row} from "react-bootstrap";
 import Link from "next/link";
@@ -12,7 +10,6 @@ import AvatarByEmail from "../AvatarByEmail";
 import RichTextEditor from "../helpers/richTextEditor";
 
 export default function DiscussionPostMain(props) {
-    const [increase, setIncrease] = useState(true)
     var postTitle = '';
     var postVotes = 0
     var userEmail = ''
@@ -47,21 +44,6 @@ export default function DiscussionPostMain(props) {
         }
     }
 
-    function handleVoteUp(event, increase) {
-        event.preventDefault();
-        fetchWrapper.put(API_url.discussion_add_vote_number,
-            {
-                post_id: post_id,
-                increase: increase
-            }).then(() => {
-            mutate(API_url.get_discussion_post_by_id + post_id)
-        })
-            .catch(error => {
-                console.error(error);
-            });
-        setIncrease(!increase);
-    }
-
 
     return (
         <>
@@ -84,10 +66,9 @@ export default function DiscussionPostMain(props) {
                 <Row style={{margin: "1rem", width: "850px"}}>
                     <div className={styles.voteCol}>
                         <Col>
-                            <Row><span onClick={(e) => {
-                                handleVoteUp(e, increase)
-                            }}>
-                                        <UPVoteSVG size={'30'}/></span>
+                            <Row>
+                                        <UPVoteSVG type='post' id={props.postID} size={'30'}
+                                                   APIPutPath={API_url.discussion_add_vote_number} APIMutatePath={API_url.get_discussion_post_by_id + props.postID}/>
                             </Row>
                             <Row><h5 className={styles.voteNum}>{postVotes}</h5></Row>
                         </Col>
