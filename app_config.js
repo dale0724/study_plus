@@ -16,7 +16,9 @@ export const API_url = {
     get_VAPID_public_key: host + 'VAPID_public_key',
     subscribe: host + 'subscribe',
     unsubscribe: host + 'unsubscribe',
-    add_index_swapping_post: host + 'index_swapping_post'
+    add_index_swapping_post: host + 'index_swapping_post',
+    get_all_index_swapping_posts: host + 'index_swapping_posts/all',
+    get_unread_index_matched_number: host + 'unread_index_record_number/'
 }
 
 
