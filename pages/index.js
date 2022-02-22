@@ -22,7 +22,7 @@ export default function Home() {
     Router.push('/sign_in')
   }
   console.log(isSubscribedToServer)
-  if(!isSubscribedToServer){
+  if(!isSubscribedToServer & user){
     registerServiceWorkerAndSubscribeServer(user.email)
   }
   return (
