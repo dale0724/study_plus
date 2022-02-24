@@ -24,6 +24,8 @@ export const API_url = {
     get_discussion_post_reply: host + 'discussion_replies_main/id/',
     add_discussion_post_reply: host + 'discussion_reply_main',
     discussion_reply_add_vote_number: host + 'discussion_reply_main_votes',
+    get_my_index_swapping_posts_by_email: host + 'index_swapping_posts/email/',
+    get_matched_index_swapping_posts_by_email: host + 'matched_index_swapping_posts/email/',
 }
 
 
