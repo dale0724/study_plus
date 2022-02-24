@@ -1,11 +1,15 @@
-import React from "react";
-import Link from "next/link";
+import React, {useState} from "react";
 import Avatar from "react-avatar";
 import {Row,Col} from "react-bootstrap";
 import { API_url } from "../../app_config";
-import styles from "../../styles/discussionCard.module.css";
+import styles from "../../styles/indexSwappingRequestCard.module.css";
+import IndexSwappingModal from "./indexSwappingModal";
 export default function IndexSwappingCard(props){
     const metaData = props.metaData
+    const [showModifyModal, setShowModifyModal] = useState(false)
+    function handleTextClick() {
+        setShowModifyModal(true)
+    }
     var title = `[${metaData.course_title}]: ${metaData.current_index} -> `
     return(
         <>
@@ -16,13 +20,14 @@ export default function IndexSwappingCard(props){
             </Col>
             <Col>
                 <p style={{ textAlign: 'left', margin: '0' }}>
-                    <Link href={`/discussion/${encodeURIComponent(metaData.id)}`} passHref><a className={styles.discussionTitle}>{title}</a></Link>
+                    <a className={styles.requestTitle} style={{ cursor: "pointer" }} onClick={handleTextClick}>{title}</a>
                 </p>
                 <div style={{ textAlign: 'left', margin: '0', fontSize: '0.75rem'}}>
                     {metaData.user_email} created at {metaData.create_time}
                 </div>
             </Col>
             </Row>
+            <IndexSwappingModal show={showModifyModal} handleClose={(e) => {setShowModifyModal(false)}} title={title} content={metaData.content} />
         </div>
     </>
     )
