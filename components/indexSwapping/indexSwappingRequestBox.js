@@ -1,43 +1,78 @@
 import styles from "../../styles/indexSwappingRequestBox.module.css";
 import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
-import IndexSwappingRequestCard from "./indexSwappingRequestCard";
-import Link from "next/link";
-import React from "react";
-import { API_url } from "../../app_config";
+import React, {useState} from "react";
+import {API_url} from "../../app_config";
 import IndexSwappingCard from "./indexSwappingCard";
 import useSWR from "swr";
 import MySpinner from "../mySpinner";
 
-export default function IndexSwappingRequestBox(){
+export default function IndexSwappingRequestBox() {
+    const [displayState, SetState] = useState('all');
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data, error } = useSWR(API_url.get_all_index_swapping_posts, fetcher)
-    var boxContent
-    if(error){
-        boxContent = "Error"
+    const {data: user} = useSWR('/api/auth', fetcher);
+    var boxContent = ''
+    if (displayState=='all'){
+        const {data:allRequestData, error: allRequestErr} = useSWR(API_url.get_all_index_swapping_posts, fetcher)
+        if (allRequestErr) {
+            boxContent = "Error"
+        } else {
+            if (allRequestData) {
+                const postMetaDataList = allRequestData['data'].map(jsonData => JSON.parse(jsonData))
+                boxContent = postMetaDataList.map(postMetaData =>
+                    <ListGroupItem key={postMetaData.id}>
+                        <IndexSwappingCard metaData={postMetaData}/>
+                    </ListGroupItem>)
+            } else {
+                boxContent = <MySpinner></MySpinner>
+            }
+        }
+    }else if (displayState=='my') {
+        const {data:myRequestData, error: myRequestErr} = useSWR(() =>API_url.get_my_index_swapping_posts_by_email+user.email, fetcher)
+        if (myRequestErr) {
+            boxContent = "Error"
+        } else {
+            if (myRequestData) {
+                const postMetaDataList = myRequestData['data'].map(jsonData => JSON.parse(jsonData))
+                boxContent = postMetaDataList.map(postMetaData =>
+                    <ListGroupItem key={postMetaData.id}>
+                        <IndexSwappingCard metaData={postMetaData}/>
+                    </ListGroupItem>)
+            } else {
+                boxContent = <MySpinner></MySpinner>
+            }
+        }
     }
-    else{
-         if (data) {
-        const postMetaDataList = data['data'].map(jsonData=>JSON.parse(jsonData))
-        boxContent = postMetaDataList.map(postMetaData =>
-            <ListGroupItem key={postMetaData.id}>
-                <IndexSwappingCard metaData={postMetaData} />
-            </ListGroupItem>)
+    else if (displayState=='matched'){
+        const {data:matchedRequestData, error: matchedRequestErr} = useSWR(() =>API_url.get_matched_index_swapping_posts_by_email+user.email, fetcher)
+        if (matchedRequestErr) {
+            boxContent = "Error"
+        } else {
+            if (matchedRequestData) {
+                const postMetaDataList = matchedRequestData['data'].map(jsonData => JSON.parse(jsonData))
+                boxContent = postMetaDataList.map(postMetaData =>
+                    <ListGroupItem key={postMetaData.id}>
+                        <IndexSwappingCard metaData={postMetaData}/>
+                    </ListGroupItem>)
+            } else {
+                boxContent = <MySpinner></MySpinner>
+            }
+        }
     }
-    else{
-        boxContent = <MySpinner></MySpinner>
-    }
-    }
+
     return (
         <>
-            <div className={`mt-3 ${styles.border}`} style={{  height: '70vh'}} >
+            <div className={`mt-3 ${styles.border}`} style={{height: '70vh'}}>
                 <Row className="m-0">
                     <Card border="light" className={styles.titleCard}>
-                        <Link href="#myRequests" passHref><a className={styles.titleText}>My Requests</a></Link>
+                        <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={()=>{SetState('all')}}>All Pending Requests</a>
                         <span className={styles.titleText}>{''}|{''}</span>
-                        <Link href="#allRequests" passHref><a className={styles.titleText}>All Pending Requests</a></Link>
+                        <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={()=>{SetState('my')}}>My Requests</a>
+                        <span className={styles.titleText}>{''}|{''}</span>
+                        <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={()=>{SetState('matched')}}>All Pending
+                            Requests</a>
                     </Card>
                 </Row>
-                <ListGroup style={{ overflow: 'hidden auto', height: '90%', width: '95%', margin: 'auto'}}>
+                <ListGroup style={{overflow: 'hidden auto', height: '90%', width: '95%', margin: 'auto'}}>
                     {boxContent}
                 </ListGroup>
             </div>
