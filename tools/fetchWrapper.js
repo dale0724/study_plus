@@ -62,3 +62,5 @@ function handleResponse(response) {
         return response.json()
     }
 }
+
+export const fetcher = (...args) => fetch(...args).then((res) => res.json())
