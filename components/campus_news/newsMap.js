@@ -5,6 +5,8 @@ import {Row, Col} from "react-bootstrap";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
 import styles from "../../styles/newsMap.module.css";
+import useSWR from "swr";
+import { fetchWrapper } from "../../tools/fetchWrapper";
 
 const mapboxToken = 'pk.eyJ1IjoicWlhbmhhbnllIiwiYSI6ImNreXJjOXBoYTBzbXYydXFqbjd4ZGVrZmEifQ.ap779frR1JOxLSpYd1Z5kQ'
 export default class NewsMap extends Component {
@@ -102,7 +104,15 @@ export default class NewsMap extends Component {
         })
     }
     render() {
-        const {viewportConst, viewportVar, markers, currMarker, selectedMarker} = this.state
+        var {viewportConst, viewportVar, markers, currMarker, selectedMarker} = this.state
+        fetchWrapper.get('http://localhost:3000/api/campus_news/all_posts').then(resData => {
+                markers = resData['data'].map(news =>
+                JSON.parse(news)
+                )
+                console.log(markers)
+            }).catch(error => {
+                console.error(error)
+            })
         return (
             <div className={`mt-3 ${styles.border}`} >
             <Row>
@@ -193,4 +203,9 @@ export default class NewsMap extends Component {
             </div>
         )
     }
+}
+function apiCall(url){
+    const fetcher = (...args) => fetch(...args).then((res) => res.json())
+    const { data, error } = useSWR(url, fetcher)
+    return {data, error}
 }
