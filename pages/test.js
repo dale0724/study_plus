@@ -7,24 +7,23 @@ import MyForm from "../components/helpers/myForm";
 import RichTextEditorWithoutImg from "../components/helpers/richTextEditorWithoutImg";
 import TodoModal from "../components/todo/todoModal";
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
+import { fetcher, fetchWrapper } from "../tools/fetchWrapper";
+import useSWR from "swr";
 
 export default function Test() {
-    const emptyContentState = convertFromRaw({
-        entityMap: {},
-        blocks: [
-            {
-                text: '',
-                key: 'foo',
-                type: 'unstyled',
-                entityRanges: [],
-            },
-        ],
-    });
-    const [editorState, setEditorState] = useState(EditorState.createWithContent(emptyContentState));
+    
+    const {data, error} = useSWR("/api/hello", fetcher)
+    console.log(data)
+    if(error){
+        console.log(error)
+    }
     return (
         <Container className="text-center">
-             <RichTextEditorWithoutImg editorState={editorState} onChange={setEditorState}></RichTextEditorWithoutImg>
-             <Button onClick={()=>console.log(convertToRaw(editorState.getCurrentContent()))}>Click!</Button>
+                <h1>
+                    {
+                        data?data.message:'No data'
+                    }
+                </h1>
         </Container>
     )
 }
