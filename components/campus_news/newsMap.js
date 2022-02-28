@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import {Row, Col} from "react-bootstrap";
 import Link from "next/link";
 import Button from "react-bootstrap/Button";
-import styles from "../styles/newsMap.module.css";
+import styles from "../../styles/newsMap.module.css";
 
 const mapboxToken = 'pk.eyJ1IjoicWlhbmhhbnllIiwiYSI6ImNreXJjOXBoYTBzbXYydXFqbjd4ZGVrZmEifQ.ap779frR1JOxLSpYd1Z5kQ'
 export default class NewsMap extends Component {

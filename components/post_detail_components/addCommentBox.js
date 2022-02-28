@@ -9,7 +9,7 @@ import { useSWRConfig } from "swr";
 import RichTextEditorWithoutImg from "../helpers/richTextEditorWithoutImg";
 import ReplySVG from "./replySVG";
 
-function DiscussionAddReply(props) {
+function AddCommentBox(props) {
     const emptyContentState = convertFromRaw({
         entityMap: {},
         blocks: [
@@ -71,4 +71,4 @@ function DiscussionAddReply(props) {
 }
 
 
-export default DiscussionAddReply
+export default AddCommentBox

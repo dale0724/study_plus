@@ -5,8 +5,8 @@ import {fetchWrapper} from '../../tools/fetchWrapper';
 import RichTextEditor from '../../components/helpers/richTextEditor';
 import styles from "../../styles/post_id.module.css";
 import React from "react";
-import DiscussionPostMain from "../../components/discussion/discussionPostMain";
-import DiscussionReplyMain from "../../components/discussion/discussionReplyMain";
+import DiscussionPostMain from "../../components/post_detail_components/postMain";
+import DiscussionReplyMain from "../../components/post_detail_components/replyMain";
 
 export async function getServerSideProps() {
 

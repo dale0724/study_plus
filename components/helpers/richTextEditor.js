@@ -139,7 +139,7 @@ function RichTextEditor(props) {
             <div style={{ minHeight: "300px" }} >
                 <Editor {...props}
                     blockRendererFn={mediaBlockRenderer}
-                    placeholder="Enter some text..."
+                    placeholder="Enter your content here"
                     editorKey="foobaz"
                     handleKeyCommand={_handleKeyCommand} />
             </div>

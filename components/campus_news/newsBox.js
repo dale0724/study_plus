@@ -1,5 +1,5 @@
 import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
-import styles from "../styles/NewsBox.module.css";
+import styles from "../../styles/NewsBox.module.css";
 import Button from 'react-bootstrap/Button';
 import NewsCard from "./newsCard";
 import Link from "next/link";
