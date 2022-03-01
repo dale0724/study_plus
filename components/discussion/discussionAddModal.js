@@ -7,7 +7,7 @@ import RichTextEditor from "../helpers/richTextEditor";
 import { fetchWrapper } from "../../tools/fetchWrapper";
 import { API_url } from "../../app_config";
 import { useLoggedUserData } from "../../tools/helper";
-import FormData from 'form-data'
+import FormData from 'form-data';
 import { useSWRConfig } from "swr";
 
 function DiscussionAddModal(props) {
