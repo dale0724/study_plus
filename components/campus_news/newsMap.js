@@ -24,9 +24,9 @@ export default function NewsMap(props){
         longitude: 103.685030,
         latitude: 1.348,
       });
-    const{longitude, setLongitude} = useState(null)
-    const{latitude, setLatitude} = useState(null)
-    const{selectedMarker, setSelectedMarker} = useState(null)
+    const[longitude, setLongitude] = useState(null)
+    const[latitude, setLatitude] = useState(null)
+    const[selectedMarker, setSelectedMarker] = useState(null)
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const { data, error } = useSWR('http://localhost:3000/api/campus_news/all_posts', fetcher)
     var markersContent
@@ -38,7 +38,7 @@ export default function NewsMap(props){
     else{
          if (data) {
             const markerList = data['data'].map(jsonData=>JSON.parse(jsonData))
-            console.log(markerList)
+            //console.log(markerList)
             markersContent = markerList.map(marker=>
                 <Marker
                     key={marker.id}
@@ -51,7 +51,7 @@ export default function NewsMap(props){
                     <img src="https://www.freepnglogos.com/uploads/pin-png/location-pin-connectsafely-37.png" width='50px' alt="marker"/>
                 </Marker>
             )
-            console.log(markersContent)
+            //console.log(markersContent)
         }
         else{
             markersContent = <MySpinner></MySpinner>
@@ -73,17 +73,18 @@ export default function NewsMap(props){
     if (selectedMarker){
         popupContent = <Popup
                             mapRef={mapRef}
-                            latitude={selectedMarker.latitude}
-                            longitude={selectedMarker.longitude}
+                            latitude={parseFloat(selectedMarker.latitude)}
+                            longitude={parseFloat(selectedMarker.longitude)}
                             closeButton={true}
                             closeOnClick={false}
                             onClose={handleClose}
                         >
-                            <h5><Link href={`/campus_news/${encodeURIComponent(marker.id)}`} passHref><span>{selectedMarker.title}</span></Link></h5>
+                            <h5><Link href={`/campus_news/${encodeURIComponent(selectedMarker.id)}`} passHref><span>{selectedMarker.title}</span></Link></h5>
                             {selectedMarker.content}
                         </Popup>
+    }
 
-    function handleClose = () => {
+    function handleClose() {
         setSelectedMarker(null)
     }
 
@@ -112,7 +113,7 @@ export default function NewsMap(props){
                     >{markersContent}{tempMarker}{popupContent}
                     </Map>
                 </Col>
-                <NewsAddNewBox longitude={longitude} latitude={latitude}/>
+                <NewsAddNewBox longitude={longitude} latitude={latitude} reset={()=>{setLatitude(null);setLongitude(null)}} />
             </Row>
             </div>
         </>

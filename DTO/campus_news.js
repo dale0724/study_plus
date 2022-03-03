@@ -1,5 +1,5 @@
 export default class newsDTO {
-    constructor(id=0, user_email, latitude, longitude, votes=0, title, content) {
+    constructor(id, user_email, latitude, longitude, votes, title, content) {
         this.id = id;
         this.user_email = user_email;
         this.latitude = latitude;
