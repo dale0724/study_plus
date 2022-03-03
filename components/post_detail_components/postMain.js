@@ -9,7 +9,7 @@ import UPVoteSVG from "./upVoteSVG";
 import AvatarByEmail from "../AvatarByEmail";
 import RichTextEditor from "../helpers/richTextEditor";
 
-export default function DiscussionPostMain(props) {
+export default function PostMain(props) {
     var postTitle = '';
     var postVotes = 0
     var userEmail = ''

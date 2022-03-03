@@ -24,12 +24,14 @@ export default function NewsMap(props){
         longitude: 103.685030,
         latitude: 1.348,
       });
-    const{longitude, setLongitude} = useState('')
-    const{latitude, setLatitude} = useState('')
+    const{longitude, setLongitude} = useState(null)
+    const{latitude, setLatitude} = useState(null)
+    const{selectedMarker, setSelectedMarker} = useState(null)
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const { data, error } = useSWR('http://localhost:3000/api/campus_news/all_posts', fetcher)
     var markersContent
     var tempMarker
+    var popupContent
     if(error){
         markersContent = "Error"
     }
@@ -42,6 +44,7 @@ export default function NewsMap(props){
                     key={marker.id}
                     latitude={parseFloat(marker.latitude)}
                     longitude={parseFloat(marker.longitude)}
+                    onClick = {() => setSelectedMarker(marker)}
                     offsetLeft={-26}
                     offsetTop={-50}
                 >
@@ -67,38 +70,29 @@ export default function NewsMap(props){
         tempMarker = null
     }
     const mapRef = React.createRef()
+    if (selectedMarker){
+        popupContent = <Popup
+                            mapRef={mapRef}
+                            latitude={selectedMarker.latitude}
+                            longitude={selectedMarker.longitude}
+                            closeButton={true}
+                            closeOnClick={false}
+                            onClose={handleClose}
+                        >
+                            <h5><Link href={`/campus_news/${encodeURIComponent(marker.id)}`} passHref><span>{selectedMarker.title}</span></Link></h5>
+                            {selectedMarker.content}
+                        </Popup>
+
+    function handleClose = () => {
+        setSelectedMarker(null)
+    }
+
 
     function handleClick (event) {
         setLongitude(event.lngLat[0]);
         setLatitude(event.lngLat[1]);
     }
 
-//    handleMarkerClick(marker) {
-//        this.setState({
-//            selectedMarker: marker
-//        })
-//    }
-//    handleClose = () => {
-//        this.setState({
-//            selectedMarker: null
-//        })
-//    }
-//    setMarkers(markersFromDB) {
-//        this.setState({
-//        markers: markersFromDB
-//        }
-//        )
-//    }
-
-//    fetchWrapper.get('http://localhost:3000/api/campus_news/all_posts').then(resData => {
-//            const markersFromDB = resData['data'].map(news =>
-//                JSONToInstance(news)
-//            )
-//            this.setMarkers(markersFromDB)
-//            //console.log(markers)
-//        }).catch(error => {
-//            console.error(error)
-//        })
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >
@@ -115,7 +109,7 @@ export default function NewsMap(props){
                         onClick={handleClick}
                         //scrollZoom={false}
                         style={{margin: "1rem"}}
-                    >{markersContent}
+                    >{markersContent}{tempMarker}{popupContent}
                     </Map>
                 </Col>
                 <NewsAddNewBox longitude={longitude} latitude={latitude}/>
