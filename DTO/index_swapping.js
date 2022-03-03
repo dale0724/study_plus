@@ -1,4 +1,4 @@
-export default class indexSwappingDTO {
+export default class IndexSwappingDTO {
     constructor(id, user_email, create_time, course_title, current_index, content) {
         this.id = id;
         this.user_email = user_email;
@@ -7,11 +7,13 @@ export default class indexSwappingDTO {
         this.current_index = current_index;
         this.content = content;
     }
-}
-export function ObjectToInstance(obj){
-    return new indexSwappingDTO(obj.id, obj.user_email, obj.create_time, obj.course_title, obj.current_index, obj.content)
-}
-export function JSONToInstance(json){
-    const obj = JSON.parse(json)
-    return new indexSwappingDTO(obj.id, obj.user_email, obj.create_time, obj.course_title, obj.current_index, obj.content)
+
+    static function ObjectToInstance(obj){
+       return new IndexSwappingDTO(obj.id, obj.user_email, obj.create_time, obj.course_title, obj.current_index, obj.content)
+    }
+
+    static function JSONToInstance(json){
+       const obj = JSON.parse(json)
+       return new IndexSwappingDTO(obj.id, obj.user_email, obj.create_time, obj.course_title, obj.current_index, obj.content)
+    }
 }

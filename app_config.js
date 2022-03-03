@@ -27,7 +27,12 @@ export const API_url = {
     get_my_index_swapping_posts_by_email: host + 'index_swapping_posts/email/',
     get_matched_index_swapping_posts_by_email: host + 'matched_index_swapping_posts/email/',
     get_all_campus_news_post: host + 'campus_news_post/all',
-    add_new_campus_post: host + 'campus_news_post'
+    add_new_campus_post: host + 'campus_news_post',
+    campus_news_add_vote_number: host + 'campus_news_post_votes',
+    get_campus_news_post_reply: host + 'campus_news_replies_main/post_id/',
+    add_campus_news_post_reply: host + 'campus_news_replies_main',
+    campus_news_reply_add_vote_number: host + 'campus_news_reply_main_votes',
+    get_campus_news_post_by_id: host + 'campus_news_post/id/',
 }
 
 

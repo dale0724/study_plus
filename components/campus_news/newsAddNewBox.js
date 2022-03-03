@@ -1,5 +1,5 @@
 import { fetchWrapper } from "../../tools/fetchWrapper";
-import {newsDTO, JSONToInstance, ObjectToInstance} from "../../DTO/campus_news";
+import NewsDTO from "../../DTO/campus_news_post";
 import { useLoggedUserData } from "../../tools/helper";
 import {useState} from "react";
 import { useSWRConfig } from "swr";
@@ -8,8 +8,8 @@ import styles from "../../styles/newsMap.module.css";
 import Button from "react-bootstrap/Button";
 
 export default function NewsAddNewBox(props){
-    const{title, setTitle} = useState("")
-    const{content, setContent} = useState("")
+    const[title, setTitle] = useState("")
+    const[content, setContent] = useState("")
     const { user } = useLoggedUserData()
     const { mutate } = useSWRConfig()
 
@@ -19,13 +19,15 @@ export default function NewsAddNewBox(props){
          const user_email = user.email;
          if(longitude&&latitude&&title&&content){
              /*Connect to DB and send data*/
+             const dto = new NewsDTO(0, user_email, latitude, longitude, 0, title, content)
              fetchWrapper.post('http://localhost:3000/api/campus_news/add_new',
-                 new newsDTO(user_email=user_email, longitude = longitude, latitude = latitude, title = title, content = content)
-                 ).then(resData => {
+                 dto).then(resData => {
                      //console.log(resData.message)
                      setTitle("");
                      setContent("");
+                     props.reset();
                      mutate('http://localhost:3000/api/campus_news/all_posts')
+                     alert("Your post has been created successfully!")
                  }).catch(error => {
                      console.error(error)
                  })

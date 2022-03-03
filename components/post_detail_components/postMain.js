@@ -1,6 +1,5 @@
 import React from "react";
 import useSWR from "swr";
-import {API_url} from "../../app_config";
 import {convertFromRaw, EditorState} from "draft-js";
 import styles from "../../styles/post_id.module.css";
 import {Col, Row} from "react-bootstrap";
@@ -16,7 +15,7 @@ export default function PostMain(props) {
     var createdTime = ''
 
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const {data: commentData, error: commentError} = useSWR(API_url.get_discussion_post_by_id + props.postID, fetcher)
+    const {data: commentData, error: commentError} = useSWR(props.apiGetUrl + props.postID, fetcher)
     const emptyContentState = convertFromRaw({
         entityMap: {},
         blocks: [
@@ -33,14 +32,30 @@ export default function PostMain(props) {
         return <h1>Error</h1>
     } else {
         if (commentData) {
+            console.log(commentData)
             const postDetail = JSON.parse(commentData['data'])
-            const rawContent = JSON.parse(postDetail.content)
+            console.log(postDetail)
+            if (typeof postDetail.content === 'string' || postDetail.content instanceof String){
+                const currentContent = convertFromRaw({
+                        entityMap: {},
+                        blocks: [
+                            {
+                                text: postDetail.content,
+                                key: 'foo',
+                                type: 'unstyled',
+                                entityRanges: [],
+                            },
+                        ],
+                    })
+            }else{
+                const rawContent = JSON.parse(postDetail.content)
+                const currentContent = convertFromRaw(rawContent)
+            }
+            editorState = EditorState.createWithContent(currentContent)
             postTitle = postDetail.title
             postVotes = postDetail.votes
             userEmail = postDetail.user_email
             createdTime = postDetail.create_time
-            const currentContent = convertFromRaw(rawContent)
-            editorState = EditorState.createWithContent(currentContent)
         }
     }
 
@@ -50,7 +65,7 @@ export default function PostMain(props) {
             <div className={styles.titleBox}>
                 <Row>
                     <div style={{width: "120px"}}>
-                        <Col><Link href="/discussion" passHref><h5 className={styles.back}>{`<<`} Back</h5>
+                        <Col><Link href={props.backHref} passHref><h5 className={styles.back}>{`<<`} Back</h5>
                         </Link></Col>
                     </div>
                     <div style={{width: "50px"}}>
@@ -67,8 +82,8 @@ export default function PostMain(props) {
                     <div className={styles.voteCol}>
                         <Col>
                             <Row>
-                                        <UPVoteSVG type='post' id={props.postID} size={'30'}
-                                                   APIPutPath={API_url.discussion_add_vote_number} APIMutatePath={API_url.get_discussion_post_by_id + props.postID}/>
+                                        <UPVoteSVG type='post' id={parseInt(props.postID)} size={'30'}
+                                                   APIPutPath={props.apiUpVoteUrl} APIMutatePath={props.apiGetUrl + props.postID}/>
                             </Row>
                             <Row><h5 className={styles.voteNum}>{postVotes}</h5></Row>
                         </Col>
