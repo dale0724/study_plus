@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import styles from "../../styles/newsMap.module.css";
 import useSWR from "swr";
 import { fetchWrapper } from "../../tools/fetchWrapper";
-import {newsDTO, JSONToInstance, ObjectToInstance} from "../../DTO/campus_news";
 import { useLoggedUserData } from "../../tools/helper";
 import NewsAddNewBox from "./newsAddNewBox";
 import {useState} from "react";

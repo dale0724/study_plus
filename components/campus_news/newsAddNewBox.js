@@ -1,5 +1,5 @@
 import { fetchWrapper } from "../../tools/fetchWrapper";
-import newsDTO, {JSONToInstance, ObjectToInstance} from "../../DTO/campus_news";
+import NewsDTO from "../../DTO/campus_news_post";
 import { useLoggedUserData } from "../../tools/helper";
 import {useState} from "react";
 import { useSWRConfig } from "swr";
@@ -19,7 +19,7 @@ export default function NewsAddNewBox(props){
          const user_email = user.email;
          if(longitude&&latitude&&title&&content){
              /*Connect to DB and send data*/
-             const dto = new newsDTO(0, user_email, latitude, longitude, 0, title, content)
+             const dto = new NewsDTO(0, user_email, latitude, longitude, 0, title, content)
              fetchWrapper.post('http://localhost:3000/api/campus_news/add_new',
                  dto).then(resData => {
                      //console.log(resData.message)
