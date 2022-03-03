@@ -6,7 +6,7 @@ import AvatarByEmail from "../AvatarByEmail";
 import RichTextEditorWithoutImg from "../helpers/richTextEditorWithoutImg";
 import UPVoteSVG from "./upVoteSVG";
 
-export default function DiscussionCommentBox(props) {
+export default function CommentBox(props) {
     const postComments = props.replies
     return (
         <div className={styles.commentBox}>

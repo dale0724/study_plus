@@ -3,10 +3,10 @@ import useSWR from "swr";
 import {API_url} from "../../app_config";
 import {convertFromRaw, EditorState} from "draft-js";
 import CommentHeader from "./commentHeader";
-import DiscussionAddReply from "./discussionAddReply";
-import DiscussionCommentBox from "./discussionCommentBox";
+import AddCommentBox from "./addCommentBox";
+import CommentBox from './commentBox'
 
-export default function DiscussionReplyMain(props) {
+export default function ReplyMain(props) {
     var postComments = []
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const {data:replyData, error: replyError} = useSWR(API_url.get_discussion_post_reply + props.postID, fetcher)
@@ -35,8 +35,8 @@ export default function DiscussionReplyMain(props) {
     return (
         <>
             <CommentHeader commentLength={postComments.length}/>
-            <DiscussionAddReply postID={props.postID}/>
-            <DiscussionCommentBox replies={postComments} postID={props.postID}/>
+            <AddCommentBox postID={props.postID}/>
+            <CommentBox replies={postComments} postID={props.postID}/>
         </>
     )
 }

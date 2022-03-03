@@ -27,10 +27,11 @@ export default function DiscussionBox() {
             <ListGroupItem key={postMetaData.id}>
                 <DiscussionCard metaData={postMetaData} />
             </ListGroupItem>)
-    }
-    else{
-        boxContent = <MySpinner></MySpinner>
-    }
+            //console.log(boxContent)
+        }
+        else{
+            boxContent = <MySpinner></MySpinner>
+        }
     }
     return (
         <>

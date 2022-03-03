@@ -7,7 +7,7 @@ import RichTextEditor from "../helpers/richTextEditor";
 import { fetchWrapper } from "../../tools/fetchWrapper";
 import { API_url } from "../../app_config";
 import { useLoggedUserData } from "../../tools/helper";
-import FormData from 'form-data'
+import FormData from 'form-data';
 import { useSWRConfig } from "swr";
 
 function DiscussionAddModal(props) {
@@ -29,9 +29,23 @@ function DiscussionAddModal(props) {
     const { mutate } = useSWRConfig()
 
     function handleAddClick() {
-        uploadImgs()
-        uploadTextContent()
-        clearModalInput()
+        if (validateNotEmpty()){
+            uploadImgs()
+            uploadTextContent()
+            clearModalInput()
+        }else {
+            alert('Title and content of a new post cannot be empty!')
+        }
+    }
+
+    function validateNotEmpty(){
+        const rawContent = convertToRaw(editorState.getCurrentContent())
+        if (titleValue&&(JSON.stringify(rawContent.blocks[0].text)!="\"\"")){
+            //console.log(JSON.stringify(rawContent.blocks[0].text))
+            return true
+        }else{
+            return false
+        }
     }
 
     function uploadTextContent() {
@@ -42,7 +56,7 @@ function DiscussionAddModal(props) {
                 content: JSON.stringify(rawContent),
                 user_email: user.email,
             }).then(resData => {
-                console.log(resData.message)
+                //console.log(resData.message)
                 props.handleClose()
                 mutate(API_url.get_all_discussion_posts_meta)
             }).catch(error => {
@@ -51,7 +65,7 @@ function DiscussionAddModal(props) {
     }
 
     function uploadImgs() {
-        console.log(imgs)
+        //console.log(imgs)
         const rawContent = convertToRaw(editorState.getCurrentContent())
         const entityMap = rawContent.entityMap
         const entityUrls = []
@@ -59,7 +73,7 @@ function DiscussionAddModal(props) {
         for (let i = 0; i < entitySize; i++) {
             entityUrls.push(entityMap[i.toString()].data.src)
         }
-        console.log(entityUrls)
+        //console.log(entityUrls)
         entityUrls.forEach(url => {
             const file = imgs[url][1]
             const filename = file.name
@@ -67,11 +81,11 @@ function DiscussionAddModal(props) {
             const newFilename = Date.now() + '.' + fileExtension
             let currentContent = editorState.getCurrentContent()
             currentContent.replaceEntityData(imgs[url][0], { src: API_url.get_discussion_post_img + '/' + newFilename })
-            console.log(newFilename)
+            //console.log(newFilename)
 
             let formData = new FormData()
             formData.append("file", file)
-            console.log(file)
+            //console.log(file)
             formData.append("file_name", newFilename)
             fetchWrapper.postFormData(API_url.upload_discussion_post_img, formData).catch(error => console.error(error))
         });

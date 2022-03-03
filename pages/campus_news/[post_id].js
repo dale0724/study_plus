@@ -14,7 +14,7 @@ export async function getServerSideProps() {
     return {props: {}}
 }
 
-export default function DiscussionDetailPage() {
+export default function CampusNewsDetailPage() {
     const router = useRouter();
     const {post_id} = router.query;
 
@@ -22,8 +22,8 @@ export default function DiscussionDetailPage() {
         <>
             <Layout>
                 <div className={`mx-auto w-50 ${styles.main}`}>
-                    <DiscussionPostMain postID={post_id}/>
-                    <DiscussionReplyMain postID={post_id}/>
+                    <PostMain postID={post_id}/>
+                    <ReplyMain postID={post_id}/>
                 </div>
             </Layout>
         </>

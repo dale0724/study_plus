@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "../components/layout"
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
-import NewsMap from "../components/newsMap";
+import NewsMap from "../components/campus_news/newsMap";
 
 export default function Discussion() {
     return (
