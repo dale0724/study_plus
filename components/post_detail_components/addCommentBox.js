@@ -2,7 +2,6 @@ import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'dr
 import 'draft-js/dist/Draft.css';
 import React, { useState } from "react";
 import { fetchWrapper } from "../../tools/fetchWrapper";
-import { API_url } from "../../app_config";
 import { useLoggedUserData } from "../../tools/helper";
 import styles from "../../styles/discussionAddReply.module.css"
 import { useSWRConfig } from "swr";
@@ -34,15 +33,26 @@ function AddCommentBox(props) {
 
     function uploadTextContent() {
         const rawContent = convertToRaw(editorState.getCurrentContent())
+        var toPost = {}
+        /*remove following check when dto is created*/
+        if (props.type=='discussion'){
+            toPost = {
+            content: JSON.stringify(rawContent),
+            user_email: user.email,
+            discussion_post_id: props.postID
+            }
+        }else if (props.type=='campus_news'){
+            toPost = {
+            content: JSON.stringify(rawContent),
+            user_email: user.email,
+            campus_news_id: props.postID
+            }
+        }
         if (rawContent.blocks[0].text){
-            fetchWrapper.post(API_url.add_discussion_post_reply,
-                {
-                    content: JSON.stringify(rawContent),
-                    user_email: user.email,
-                    discussion_post_id: props.postID
-                }).then(resData => {
+            fetchWrapper.post(props.apiAddReplyUrl,
+                toPost).then(resData => {
                 console.log(resData.message)
-                mutate(API_url.get_discussion_post_reply)
+                mutate(props.apiMutateUrl)
                 alert("Your reply has been posted!")
             }).catch(error => {
                 console.error(error)

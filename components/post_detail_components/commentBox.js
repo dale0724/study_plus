@@ -1,5 +1,4 @@
 import React from "react";
-import {API_url} from "../../app_config";
 import styles from "../../styles/post_id.module.css";
 import {Col, Row} from "react-bootstrap";
 import AvatarByEmail from "../AvatarByEmail";
@@ -33,7 +32,7 @@ export default function CommentBox(props) {
                                 <div className={styles.commentVote}>
                                     <Col>
                                             <UPVoteSVG type='reply' id={item.id} size='20'
-                                                       APIPutPath={API_url.discussion_reply_add_vote_number} APIMutatePath={API_url.get_discussion_post_reply+props.postID}/>
+                                                       APIPutPath={props.apiUpVoteUrl} APIMutatePath={props.apiMutateUrl+props.postID}/>
                                         {item.votes}
                                     </Col>
                                 </div>

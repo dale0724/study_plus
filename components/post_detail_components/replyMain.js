@@ -1,6 +1,5 @@
 import React from "react";
 import useSWR from "swr";
-import {API_url} from "../../app_config";
 import {convertFromRaw, EditorState} from "draft-js";
 import CommentHeader from "./commentHeader";
 import AddCommentBox from "./addCommentBox";
@@ -9,7 +8,7 @@ import CommentBox from './commentBox'
 export default function ReplyMain(props) {
     var postComments = []
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const {data:replyData, error: replyError} = useSWR(API_url.get_discussion_post_reply + props.postID, fetcher)
+    const {data:replyData, error: replyError} = useSWR(props.apiGetUrl + props.postID, fetcher)
 
     if (replyError) {
         return <h1>Error</h1>
@@ -35,8 +34,9 @@ export default function ReplyMain(props) {
     return (
         <>
             <CommentHeader commentLength={postComments.length}/>
-            <AddCommentBox postID={props.postID}/>
-            <CommentBox replies={postComments} postID={props.postID}/>
+            <AddCommentBox postID={props.postID} type={props.type} apiAddReplyUrl={props.apiAddReplyUrl} apiMutateUrl={props.apiGetUrl}/>
+            <CommentBox replies={postComments} postID={props.postID} apiUpVoteUrl={props.apiUpVoteUrl}
+            apiMutateUrl={props.apiGetUrl}/>
         </>
     )
 }

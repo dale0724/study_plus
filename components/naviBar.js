@@ -26,7 +26,7 @@ export default function NaviBar() {
             <Link href="/swapping_index" passHref><Nav.Link>Index Swapping {unread_records_number ? <Badge>{unread_records_number}</Badge> : ''}</Nav.Link></Link>
             <Link href="/discussion" passHref><Nav.Link>Discussion Board</Nav.Link></Link>
             <Link href="/announcement" passHref><Nav.Link>Announcement</Nav.Link></Link>
-            <Link href="/news" passHref><Nav.Link>Campus News</Nav.Link></Link>
+            <Link href="/campus_news" passHref><Nav.Link>Campus News</Nav.Link></Link>
           </Nav>
           <Nav>
             <Nav.Link href="/account">
