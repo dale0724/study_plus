@@ -10,7 +10,10 @@ export default function IndexSwappingCard(props){
     function handleTextClick() {
         setShowModifyModal(true)
     }
-    const wanted_indexes_str = metaData.wanted_indexes.join(',')
+    var wanted_indexes_str = ""
+    if (metaData.wanted_indexes){
+        wanted_indexes_str = metaData.wanted_indexes.join(',')
+    }
     var title = `[${metaData.course_title}]: ${metaData.current_index} -> ${wanted_indexes_str}`
     return(
         <>
