@@ -28,13 +28,6 @@ export function useLoggedUserData(){
         }
     })
     const {data, error} = useSWR('/api/auth', fetcher);
-    if(error){
-        console.error(error)
-        Router.push('/sign_in')
-    }
-    if(data){
-        console.debug(data)
-    }
     return {
     user: data,
     isLoading: !error && !data,
@@ -43,3 +36,10 @@ export function useLoggedUserData(){
 }
 
 
+function getNow(){
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()+ ":" +today.getMilliseconds();
+    var dateTime = date+' '+time;
+    return dateTime
+  }
