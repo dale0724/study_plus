@@ -1,4 +1,5 @@
-const host = 'http://192.168.1.104:5000/api/'
+const host = 'http://127.0.0.1:5000/api/'
+// 'http://192.168.1.104:5000/api/'
 export const API_url = {
     sign_in: host + 'sign_in',
     sign_up: host + 'sign_up',
