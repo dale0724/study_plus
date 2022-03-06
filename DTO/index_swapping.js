@@ -1,17 +1,4 @@
 export default class IndexSwappingDTO {
-    constructor(
-        id = undefined, user_email = undefined,
-        create_time = undefined, course_title = undefined,
-        current_index = undefined, wanted_indexes = undefined, content = undefined
-    ) {
-        this.id = id;
-        this.user_email = user_email;
-        this.create_time = create_time;
-        this.course_title = course_title;
-        this.current_index = current_index;
-        this.wanted_indexes = wanted_indexes
-        this.content = content;
-    }
 
     static ObjectToInstance(obj) {
         var dtoInstance = new IndexSwappingDTO()
@@ -28,3 +15,11 @@ export default class IndexSwappingDTO {
         return this.ObjectToInstance(obj)
     }
 }
+
+IndexSwappingDTO.prototype.id = undefined
+IndexSwappingDTO.prototype.content = undefined
+IndexSwappingDTO.prototype.course_title = undefined
+IndexSwappingDTO.prototype.current_index = undefined
+IndexSwappingDTO.prototype.wanted_indexes = undefined
+IndexSwappingDTO.prototype.user_email = undefined
+IndexSwappingDTO.prototype.create_time = undefined
