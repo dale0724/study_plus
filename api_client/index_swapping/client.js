@@ -23,7 +23,7 @@ export class IndexSwappingClient {
         var dto_list = null
         if(data){
             let postMetaDataList = data['data'].map(jsonData => JSON.parse(jsonData))
-            dto_list = postMetaDataList.map(postMetaData => IndexSwappingDTO.ObjectToInstance(postMetaData))
+            dto_list = postMetaDataList.map(postMetaData => IndexSwappingDTO.objectToInstance(postMetaData))
         }
         return {
             data: dto_list,
