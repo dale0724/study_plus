@@ -26,7 +26,7 @@ export default function Test() {
         content: "Hi",
         user_email: "lihang0722@gmail.com"
     }
-    const instance = IndexSwappingDTO.ObjectToInstance(test_object)
+    const instance = IndexSwappingDTO.objectToInstance(test_object)
     console.log(instance)
     return (
         <Container className="text-center">

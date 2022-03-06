@@ -1,6 +1,6 @@
 export default class IndexSwappingDTO {
 
-    static ObjectToInstance(obj) {
+    static objectToInstance(obj) {
         var dtoInstance = new IndexSwappingDTO()
         for(var k in dtoInstance){
             if (obj.hasOwnProperty(k)){
@@ -12,7 +12,7 @@ export default class IndexSwappingDTO {
 
     static JSONToInstance(json) {
         const obj = JSON.parse(json)
-        return this.ObjectToInstance(obj)
+        return this.objectToInstance(obj)
     }
 }
 
