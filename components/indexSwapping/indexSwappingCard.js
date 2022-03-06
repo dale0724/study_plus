@@ -2,8 +2,11 @@ import React, {useState} from "react";
 import Avatar from "react-avatar";
 import {Row,Col} from "react-bootstrap";
 import { API_url } from "../../app_config";
+import IndexSwappingDTO from "../../DTO/index_swapping";
 import styles from "../../styles/indexSwappingRequestCard.module.css";
 import IndexSwappingModal from "./indexSwappingModal";
+import PropTypes from 'prop-types';
+
 export default function IndexSwappingCard(props){
     const metaData = props.metaData
     const [showModifyModal, setShowModifyModal] = useState(false)
@@ -35,4 +38,8 @@ export default function IndexSwappingCard(props){
         </div>
     </>
     )
+}
+
+IndexSwappingCard.prototype ={
+    metaData: PropTypes.instanceOf(IndexSwappingDTO)
 }
