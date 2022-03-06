@@ -2,8 +2,8 @@ import React from "react";
 import Layout from "../components/layout"
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
-import AnnouncementPostBox from "../components/announcementPostBox";
-import AnnouncementSearchBox from "../components/announcementSearchBox";
+import AnnouncementPostBox from "../components/announcement/announcementPostBox";
+import AnnouncementSearchBox from "../components/announcement/announcementSearchBox";
 
 export default function Discussion() {
     return (

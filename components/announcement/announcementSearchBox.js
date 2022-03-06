@@ -1,8 +1,8 @@
-import styles from "../styles/AnnouncementSearchBox.module.css";
+import styles from "../../styles/AnnouncementSearchBox.module.css";
 import {Col, Row} from "react-bootstrap";
 import * as React from "react";
 import Button from 'react-bootstrap/Button';
-import CrossSvg from '../public/cross.svg';
+import CrossSvg from '../../public/cross.svg';
 
 export default class AnnouncementSearchBox extends React.Component {
     constructor(props) {

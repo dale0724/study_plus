@@ -1,5 +1,5 @@
 import { Card,Row } from "react-bootstrap";
-import styles from "../styles/AnouncementBox.module.css";
+import styles from "../../styles/AnouncementBox.module.css";
 import { ListGroup,ListGroupItem } from "react-bootstrap";
 import AnnouncementCard from "./announcementCard";
 import React from "react";

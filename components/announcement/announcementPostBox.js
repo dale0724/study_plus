@@ -1,4 +1,4 @@
-import styles from "../styles/AnnouncementPostBox.module.css";
+import styles from "../../styles/AnnouncementPostBox.module.css";
 import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
 import Link from "next/link";
 import React from "react";
