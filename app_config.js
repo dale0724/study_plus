@@ -1,4 +1,6 @@
-const host = 'http://192.168.1.104:5000/api/'
+const host = 'http://127.0.0.1:5000/api/'
+// 'http://127.0.0.1:5000/api/'
+// 'http://192.168.1.104:5000/api/'
 export const API_url = {
     sign_in: host + 'sign_in',
     sign_up: host + 'sign_up',
@@ -33,6 +35,9 @@ export const API_url = {
     add_campus_news_post_reply: host + 'campus_news_replies_main',
     campus_news_reply_add_vote_number: host + 'campus_news_reply_main_votes',
     get_campus_news_post_by_id: host + 'campus_news_post/id/',
+    get_all_announcement_post: host + 'announcement_post/all',
+    add_new_announcement_post: host + 'announcement_post',
+    get_announcement_post_by_id: host + 'announcement_post/id/',
 }
 
 

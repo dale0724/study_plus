@@ -31,26 +31,26 @@ export default function PostMain(props) {
     if (commentError) {
         return <h1>Error</h1>
     } else {
+        var rawContent
         if (commentData) {
             console.log(commentData)
             const postDetail = JSON.parse(commentData['data'])
-            console.log(postDetail)
-            if (typeof postDetail.content === 'string' || postDetail.content instanceof String){
-                const currentContent = convertFromRaw({
-                        entityMap: {},
-                        blocks: [
-                            {
-                                text: postDetail.content,
-                                key: 'foo',
-                                type: 'unstyled',
-                                entityRanges: [],
-                            },
-                        ],
-                    })
-            }else{
-                const rawContent = JSON.parse(postDetail.content)
-                const currentContent = convertFromRaw(rawContent)
-            }
+            try {
+                    rawContent = JSON.parse(postDetail.content);
+                } catch(e) {
+                    rawContent = {
+                                     entityMap: {},
+                                     blocks: [
+                                         {
+                                             text: postDetail.content,
+                                             key: 'foo',
+                                             type: 'unstyled',
+                                             entityRanges: [],
+                                         },
+                                     ],
+                                 }
+                }
+            const currentContent = convertFromRaw(rawContent)
             editorState = EditorState.createWithContent(currentContent)
             postTitle = postDetail.title
             postVotes = postDetail.votes

@@ -1,21 +1,22 @@
-import styles from "../../styles/discussionBox.module.css";
-import { Card, ListGroup, ListGroupItem, Row, Button } from "react-bootstrap";
+import styles from "../../styles/AnnouncementPostBox.module.css";
+import {Card, ListGroup, ListGroupItem, Row} from "react-bootstrap";
 import Link from "next/link";
-import React, { useState } from "react";
-import DiscussionCard from "./discussionCard";
-import AddNewModal from "../add_new_modal/addNewModal";
-import { useLoggedUserData } from "../../tools/helper";
+import React from "react";
+import { fetchWrapper } from "../../tools/fetchWrapper";
+import {useState} from "react";
 import useSWR from "swr";
-import { API_url } from "../../app_config";
 import MySpinner from "../mySpinner";
+import AnnouncementCard from "./announcementCard";
+import AddNewModal from "../add_new_modal/addNewModal";
+import { API_url } from "../../app_config";
 
-export default function DiscussionBox() {
+export default function AnnouncementPostBox(){
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data, error } = useSWR(API_url.get_all_discussion_posts_meta, fetcher)
+    const { data, error } = useSWR('http://localhost:3000/api/announcement/all_posts', fetcher)
     var boxContent
     if(error){
         boxContent = "Error"
@@ -25,7 +26,7 @@ export default function DiscussionBox() {
         const postMetaDataList = data['data'].map(jsonData=>JSON.parse(jsonData))
         boxContent = postMetaDataList.map(postMetaData =>
             <ListGroupItem key={postMetaData.id}>
-                <DiscussionCard metaData={postMetaData} />
+                <AnnouncementCard metaData={postMetaData} />
             </ListGroupItem>)
             //console.log(boxContent)
         }
@@ -36,28 +37,24 @@ export default function DiscussionBox() {
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >
-                <Row className="m-2">
-                    <Card className={`justify-content-between border-0 ${styles.titleCard}`}>
+                <Row className="m-0">
+                    <Card border="light" className={`justify-content-between border-0 ${styles.titleCard}`}>
                         <div>
                             <Link href="#mostRelevant" passHref><a className={styles.titleText}>Most Relevant</a></Link>
                             <span className={styles.titleText}>{''}|{''}</span>
                             <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Recent</a></Link>
-                            <span className={styles.titleText}>{''}|{''}</span>
-                            <Link href="#mostVotes" passHref><a className={styles.titleText}>Most Votes</a></Link>
                         </div>
                         <div>
                             <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={handleShow}>New +</a>
                         </div>
                     </Card>
                 </Row>
-                <ListGroup style={{ overflow: 'hidden auto', height: '600px', width: '95%', margin: 'auto' }}>
-                    {
-                       boxContent
-                    }
+                <ListGroup style={{ overflow: 'hidden auto', width: '95%', margin: 'auto'}}>
+                    {boxContent}
                 </ListGroup>
                 <AddNewModal show={show} handleClose={handleClose}
-                addURL={API_url.add_discussion_post} mutateURL={API_url.get_all_discussion_posts_meta}
-                imgAllowed={true}/>
+                 addURL={'http://localhost:3000/api/announcement/add_new'} mutateURL={'http://localhost:3000/api/announcement/all_posts'}
+                 imgAllowed={false}/>
             </div>
         </>
     );

@@ -3,7 +3,7 @@ import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
 import MyCalendar from "../components/calendar";
 import TodoBox from "../components/todo/todoBox";
-import AnnouncementBox from "../components/announcementBox";
+import AnnouncementBox from "../components/announcement/announcementBox";
 import NewsBox from "../components/campus_news/newsBox";
 import QuoteBox from "../components/quoteBox";
 import DDLBox from "../components/ddlBox";
