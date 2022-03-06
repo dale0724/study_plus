@@ -3,7 +3,7 @@ import { Card, ListGroup, ListGroupItem, Row, Button } from "react-bootstrap";
 import Link from "next/link";
 import React, { useState } from "react";
 import DiscussionCard from "./discussionCard";
-import DiscussionAddModal from "./discussionAddModal";
+import AddNewModal from "../add_new_modal/addNewModal";
 import { useLoggedUserData } from "../../tools/helper";
 import useSWR from "swr";
 import { API_url } from "../../app_config";
@@ -46,7 +46,7 @@ export default function DiscussionBox() {
                             <Link href="#mostVotes" passHref><a className={styles.titleText}>Most Votes</a></Link>
                         </div>
                         <div>
-                            <a className={styles.addNew} style={{ cursor: "pointer" }} onClick={handleShow}>New +</a>
+                            <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={handleShow}>New +</a>
                         </div>
                     </Card>
                 </Row>
@@ -55,7 +55,9 @@ export default function DiscussionBox() {
                        boxContent
                     }
                 </ListGroup>
-                <DiscussionAddModal show={show} handleClose={handleClose}></DiscussionAddModal>
+                <AddNewModal show={show} handleClose={handleClose}
+                addURL={API_url.add_discussion_post} mutateURL={API_url.get_all_discussion_posts_meta}
+                imgAllowed={true}/>
             </div>
         </>
     );

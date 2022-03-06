@@ -13,6 +13,7 @@ TimeAgo.addDefaultLocale(en_SG)
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [authorized, setAuthorized] = useState(false);
+  const host = "http://localhost:3000"
 
   useEffect(() => {
 
@@ -63,7 +64,7 @@ function MyApp({ Component, pageProps }) {
 
   async function auth() {
     return new Promise((resolve, reject) => {
-      fetchWrapper.get("api/auth").then(userData => { resolve(userData) }).catch(err => reject(err))
+      fetchWrapper.get(host+"/api/auth").then(userData => { resolve(userData) }).catch(err => reject(err))
     });
   }
 

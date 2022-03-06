@@ -5,7 +5,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import AnnouncementPostBox from "../components/announcement/announcementPostBox";
 import AnnouncementSearchBox from "../components/announcement/announcementSearchBox";
 
-export default function Discussion() {
+export default function Announcement() {
     return (
         <>
             <SSRProvider>

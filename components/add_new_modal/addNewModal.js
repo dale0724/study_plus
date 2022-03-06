@@ -4,13 +4,14 @@ import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'dr
 import 'draft-js/dist/Draft.css';
 import { useState } from "react";
 import RichTextEditor from "../helpers/richTextEditor";
+import RichTextEditorWithoutImg from "../helpers/richTextEditorWithoutImg"
 import { fetchWrapper } from "../../tools/fetchWrapper";
 import { API_url } from "../../app_config";
 import { useLoggedUserData } from "../../tools/helper";
 import FormData from 'form-data';
 import { useSWRConfig } from "swr";
 
-function DiscussionAddModal(props) {
+export default function AddNewModal(props) {
     const emptyContentState = convertFromRaw({
         entityMap: {},
         blocks: [
@@ -50,7 +51,7 @@ function DiscussionAddModal(props) {
 
     function uploadTextContent() {
         const rawContent = convertToRaw(editorState.getCurrentContent())
-        fetchWrapper.post(API_url.add_discussion_post,
+        fetchWrapper.post(props.addURL,
             {
                 title: titleValue,
                 content: JSON.stringify(rawContent),
@@ -58,7 +59,7 @@ function DiscussionAddModal(props) {
             }).then(resData => {
                 //console.log(resData.message)
                 props.handleClose()
-                mutate(API_url.get_all_discussion_posts_meta)
+                mutate(props.mutateURL)
             }).catch(error => {
                 console.error(error)
             })
@@ -97,7 +98,13 @@ function DiscussionAddModal(props) {
     }
     function _handleClose(){
         props.handleClose()
-                    clearModalInput()
+        clearModalInput()
+    }
+    var editorChoice
+    if (props.imgAllowed){
+        editorChoice = <RichTextEditor editorState={editorState} onChange={setEditorState} imgs={imgs} setImgs={setImgs} />
+    }else{
+        editorChoice = <RichTextEditorWithoutImg editorState={editorState} onChange={setEditorState}/>
     }
 
     return (
@@ -115,7 +122,7 @@ function DiscussionAddModal(props) {
                             Please choose a username.
                         </Form.Control.Feedback>
                     </Form.Group>
-                    <RichTextEditor editorState={editorState} onChange={setEditorState} imgs={imgs} setImgs={setImgs} />
+                    {editorChoice}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={_handleClose}>
@@ -129,6 +136,3 @@ function DiscussionAddModal(props) {
         </>
     );
 }
-
-
-export default DiscussionAddModal
