@@ -18,6 +18,7 @@ export async function getServerSideProps() {
 export default function CampusNewsDetailPage() {
     const router = useRouter();
     const {post_id} = router.query;
+    const host = "http://localhost:3000/"
 
     return (
         <>

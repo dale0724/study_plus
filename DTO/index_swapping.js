@@ -1,5 +1,4 @@
 export default class IndexSwappingDTO {
-
     static objectToInstance(obj) {
         var dtoInstance = new IndexSwappingDTO()
         for(var k in dtoInstance){
