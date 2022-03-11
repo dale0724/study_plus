@@ -2,7 +2,7 @@ import React from "react";
 import useSWR from "swr";
 import {convertFromRaw, EditorState} from "draft-js";
 import styles from "../../styles/post_id.module.css";
-import {Col, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import Link from "next/link";
 import UPVoteSVG from "./upVoteSVG";
 import AvatarByEmail from "../AvatarByEmail";
@@ -10,8 +10,13 @@ import RichTextEditor from "../helpers/richTextEditor";
 import {fetcher} from "../../tools/fetchWrapper";
 import PropTypes from "prop-types";
 import {API_url} from "../../app_config";
+import {useLoggedUserData} from "../../tools/helper";
+import DiscussionClient from "../../api_client/discussion/client";
 
 export default function PostMain(props) {
+
+    let show = false
+    const {user} = useLoggedUserData()
 
     let postTitle = '';
     let postVotes = 0;
@@ -19,6 +24,7 @@ export default function PostMain(props) {
     let createdTime = '';
     let getDataURL = ''
     let voteURL = ''
+    let apiClient = undefined
 
     const emptyContentState = convertFromRaw({
         entityMap: {},
@@ -33,10 +39,11 @@ export default function PostMain(props) {
     });
     let editorState = EditorState.createWithContent(emptyContentState);
 
-    switch (props.contentType){
+    switch (props.contentType) {
         case "discussion":
             getDataURL = API_url.get_discussion_post_by_id
             voteURL = API_url.discussion_vote
+            apiClient = new DiscussionClient()
             break
         case "campusNews":
             getDataURL = API_url.get_campus_news_post_by_id
@@ -45,7 +52,7 @@ export default function PostMain(props) {
     }
 
     console.log(getDataURL)
-    const {data: postData, error: getPostError} = useSWR(getDataURL+ props.postID, fetcher)
+    const {data: postData, error: getPostError} = useSWR(getDataURL + props.postID, fetcher)
 
     if (getPostError) {
         console.error(getPostError)
@@ -57,7 +64,7 @@ export default function PostMain(props) {
             const postDetail = JSON.parse(postData['data'])
             try {
                 rawContent = JSON.parse(postDetail.content);
-            } catch(e) {
+            } catch (e) {
                 rawContent = {
                     entityMap: {},
                     blocks: [
@@ -76,8 +83,22 @@ export default function PostMain(props) {
             postVotes = postDetail.votes
             userEmail = postDetail.user_email
             createdTime = postDetail.create_time
+
+            if (user && user.email === userEmail){
+                show = true
+            }
         }
     }
+
+    function handleDelete() {
+        apiClient.delete_post_by_id(props.postID).then(r => alert("deleted!")).catch(e => console.error(e))
+    }
+
+    const deleteButton = <Button variant="outline-dark"
+                                 style={{marginTop: "1rem", marginBottom: "1rem", marginRight: "1rem"}}
+                                 onClick={handleDelete}>
+        Delete
+    </Button>
 
 
     return (
@@ -85,15 +106,22 @@ export default function PostMain(props) {
             <div className={styles.titleBox}>
                 <Row>
                     <div style={{width: "120px"}}>
-                        <Col><Link href={props.backHref} passHref><h5 className={styles.back}>{`<<`} Back</h5>
-                        </Link></Col>
-                    </div>
-                    <div style={{width: "50px"}}>
-                        <Col><h5 style={{marginTop: "1rem", marginBottom: "1rem", color: "#7BA1C7"}}>|</h5>
+                        <Col>
+                            <Link href={props.backHref} passHref>
+                                <h5 className={styles.back}>{`<<`} Back</h5>
+                            </Link>
                         </Col>
                     </div>
-                    <Col><h5
-                        style={{marginTop: "1rem", marginBottom: "1rem", color: "#7BA1C7"}}>{postTitle}</h5>
+                    <div style={{width: "50px"}}>
+                        <Col>
+                            <h5 style={{marginTop: "1rem", marginBottom: "1rem", color: "#7BA1C7"}}>|</h5>
+                        </Col>
+                    </div>
+                    <Col>
+                        <h5 style={{marginTop: "1rem", marginBottom: "1rem", color: "#7BA1C7"}}>{postTitle}</h5>
+                    </Col>
+                    <Col style={{textAlign: "right"}}>
+                        {show && deleteButton}
                     </Col>
                 </Row>
             </div>
