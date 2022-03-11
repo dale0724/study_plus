@@ -46,9 +46,11 @@ async function put(url, body) {
 }
 
 // prefixed with underscored because delete is a reserved word in javascript
-async function _delete(url) {
+async function _delete(url, body) {
     const requestOptions = {
         method: 'DELETE',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
     };
     const response = await fetch(url, requestOptions);
     return handleResponse(response);

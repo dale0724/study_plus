@@ -2,20 +2,32 @@ import React from "react";
 import useSWR from "swr";
 import {convertFromRaw, EditorState} from "draft-js";
 import styles from "../../styles/post_id.module.css";
-import {Col, Row} from "react-bootstrap";
+import {Button, Col, Row} from "react-bootstrap";
 import Link from "next/link";
 import UPVoteSVG from "./upVoteSVG";
 import AvatarByEmail from "../AvatarByEmail";
 import RichTextEditor from "../helpers/richTextEditor";
+import {fetcher} from "../../tools/fetchWrapper";
+import PropTypes from "prop-types";
+import {API_url} from "../../app_config";
+import {useLoggedUserData} from "../../tools/helper";
+import DiscussionClient from "../../api_client/discussion/client";
+import {useRouter} from "next/router";
 
 export default function PostMain(props) {
-    var postTitle = '';
-    var postVotes = 0
-    var userEmail = ''
-    var createdTime = ''
+    const router = useRouter()
 
-    const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const {data: commentData, error: commentError} = useSWR(props.apiGetUrl + props.postID, fetcher)
+    let show = false
+    const {user} = useLoggedUserData()
+
+    let postTitle = '';
+    let postVotes = 0;
+    let userEmail = '';
+    let createdTime = '';
+    let getDataURL = ''
+    let voteURL = ''
+    let apiClient = undefined
+
     const emptyContentState = convertFromRaw({
         entityMap: {},
         blocks: [
@@ -27,37 +39,71 @@ export default function PostMain(props) {
             },
         ],
     });
-    var editorState = EditorState.createWithContent(emptyContentState)
-    if (commentError) {
+    let editorState = EditorState.createWithContent(emptyContentState);
+
+    switch (props.contentType) {
+        case "discussion":
+            getDataURL = API_url.get_discussion_post_by_id
+            voteURL = API_url.discussion_vote
+            apiClient = new DiscussionClient()
+            break
+        case "campusNews":
+            getDataURL = API_url.get_campus_news_post_by_id
+            voteURL = API_url.campus_news_vote
+            break
+    }
+
+    console.log(getDataURL)
+    const {data: postData, error: getPostError} = useSWR(getDataURL + props.postID, fetcher)
+
+    if (getPostError) {
+        console.error(getPostError)
         return <h1>Error</h1>
     } else {
-        var rawContent
-        if (commentData) {
-            console.log(commentData)
-            const postDetail = JSON.parse(commentData['data'])
+        let rawContent;
+        if (postData) {
+            console.log('post data:' + postData)
+            const postDetail = JSON.parse(postData['data'])
             try {
-                    rawContent = JSON.parse(postDetail.content);
-                } catch(e) {
-                    rawContent = {
-                                     entityMap: {},
-                                     blocks: [
-                                         {
-                                             text: postDetail.content,
-                                             key: 'foo',
-                                             type: 'unstyled',
-                                             entityRanges: [],
-                                         },
-                                     ],
-                                 }
+                rawContent = JSON.parse(postDetail.content);
+            } catch (e) {
+                rawContent = {
+                    entityMap: {},
+                    blocks: [
+                        {
+                            text: postDetail.content,
+                            key: 'foo',
+                            type: 'unstyled',
+                            entityRanges: [],
+                        },
+                    ],
                 }
+            }
             const currentContent = convertFromRaw(rawContent)
             editorState = EditorState.createWithContent(currentContent)
             postTitle = postDetail.title
             postVotes = postDetail.votes
             userEmail = postDetail.user_email
             createdTime = postDetail.create_time
+
+            if (user && user.email === userEmail){
+                show = true
+            }
         }
     }
+
+    function handleDelete() {
+        apiClient.delete_post_by_id(props.postID).then(() => {
+            alert("deleted!")
+            router.back()
+        }).catch(e => console.error(e))
+    }
+
+    const deleteButton = <Button variant="outline-dark"
+                                 style={{marginTop: "1rem", marginBottom: "1rem", marginRight: "1rem"}}
+                                 onClick={handleDelete}>
+        Delete
+    </Button>
 
 
     return (
@@ -65,15 +111,22 @@ export default function PostMain(props) {
             <div className={styles.titleBox}>
                 <Row>
                     <div style={{width: "120px"}}>
-                        <Col><Link href={props.backHref} passHref><h5 className={styles.back}>{`<<`} Back</h5>
-                        </Link></Col>
-                    </div>
-                    <div style={{width: "50px"}}>
-                        <Col><h5 style={{marginTop: "1rem", marginBottom: "1rem", color: "#7BA1C7"}}>|</h5>
+                        <Col>
+                            <Link href={props.backHref} passHref>
+                                <h5 className={styles.back}>{`<<`} Back</h5>
+                            </Link>
                         </Col>
                     </div>
-                    <Col><h5
-                        style={{marginTop: "1rem", marginBottom: "1rem", color: "#7BA1C7"}}>{postTitle}</h5>
+                    <div style={{width: "50px"}}>
+                        <Col>
+                            <h5 style={{marginTop: "1rem", marginBottom: "1rem", color: "#7BA1C7"}}>|</h5>
+                        </Col>
+                    </div>
+                    <Col>
+                        <h5 style={{marginTop: "1rem", marginBottom: "1rem", color: "#7BA1C7"}}>{postTitle}</h5>
+                    </Col>
+                    <Col style={{textAlign: "right"}}>
+                        {show && deleteButton}
                     </Col>
                 </Row>
             </div>
@@ -82,8 +135,8 @@ export default function PostMain(props) {
                     <div className={styles.voteCol}>
                         <Col>
                             <Row>
-                                        <UPVoteSVG type='post' id={parseInt(props.postID)} size={'30'}
-                                                   APIPutPath={props.apiUpVoteUrl} APIMutatePath={props.apiGetUrl + props.postID}/>
+                                <UPVoteSVG type='post' id={parseInt(props.postID)} size={'30'}
+                                           APIPutPath={voteURL} APIMutatePath={getDataURL + props.postID}/>
                             </Row>
                             <Row><h5 className={styles.voteNum}>{postVotes}</h5></Row>
                         </Col>
@@ -109,4 +162,10 @@ export default function PostMain(props) {
             </div>
         </>
     )
+}
+
+PostMain.prototype = {
+    postID: PropTypes.number.isRequired,
+    backHref: PropTypes.string.isRequired,
+    contentType: PropTypes.oneOf(['discussion', 'campusNews'])
 }

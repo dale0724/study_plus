@@ -1,4 +1,4 @@
-const host = 'http://127.0.0.1:5000/api/'
+const host = 'http://192.168.1.121:5000/api/'
 // 'http://127.0.0.1:5000/api/'
 // 'http://192.168.1.104:5000/api/'
 export const API_url = {
@@ -10,6 +10,7 @@ export const API_url = {
     add_todo: host + 'todo',
     update_todo_status: host + 'todo/status/id/',
     add_discussion_post: host + 'discussion',
+    discussion_post: host + 'discussion',
     get_discussion_posts_by_email: host + 'discussion_posts/email/',
     get_all_discussion_posts_meta: host + 'discussion_posts/all',
     get_discussion_post_by_id: host + 'discussion_post/id/',
@@ -22,18 +23,18 @@ export const API_url = {
     get_all_index_swapping_posts: host + 'index_swapping_posts/all',
     get_unread_index_matched_number: host + 'unread_index_record_number/',
     get_index_swapping_post_by_id: host + 'index_swapping_post/id/',
-    discussion_add_vote_number: host + 'discussion_post_votes',
+    discussion_vote: host + 'discussion_post_votes',
     get_discussion_post_reply: host + 'discussion_replies_main/id/',
     add_discussion_post_reply: host + 'discussion_reply_main',
-    discussion_reply_add_vote_number: host + 'discussion_reply_main_votes',
+    discussion_reply_vote: host + 'discussion_reply_main_votes',
     get_my_index_swapping_posts_by_email: host + 'index_swapping_posts/email/',
     get_matched_index_swapping_posts_by_email: host + 'matched_index_swapping_posts/email/',
     get_all_campus_news_post: host + 'campus_news_post/all',
     add_new_campus_post: host + 'campus_news_post',
-    campus_news_add_vote_number: host + 'campus_news_post_votes',
+    campus_news_vote: host + 'campus_news_post_votes',
     get_campus_news_post_reply: host + 'campus_news_replies_main/post_id/',
     add_campus_news_post_reply: host + 'campus_news_replies_main',
-    campus_news_reply_add_vote_number: host + 'campus_news_reply_main_votes',
+    campus_news_reply_vote: host + 'campus_news_reply_main_votes',
     get_campus_news_post_by_id: host + 'campus_news_post/id/',
     get_all_announcement_post: host + 'announcement_post/all',
     add_new_announcement_post: host + 'announcement_post',
@@ -42,3 +43,4 @@ export const API_url = {
 
 
 export const JWT_SECRET = 'DALEisHandsome'
+export const self_host = "http://localhost:3000/"
