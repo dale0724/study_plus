@@ -13,6 +13,7 @@ import {API_url} from "../../app_config";
 import {useLoggedUserData} from "../../tools/helper";
 import DiscussionClient from "../../api_client/discussion/client";
 import {useRouter} from "next/router";
+import CampusNewsClient from "../../api_client/campus_news/client";
 
 export default function PostMain(props) {
     const router = useRouter()
@@ -50,6 +51,7 @@ export default function PostMain(props) {
         case "campusNews":
             getDataURL = API_url.get_campus_news_post_by_id
             voteURL = API_url.campus_news_vote
+            apiClient = new CampusNewsClient()
             break
     }
 
