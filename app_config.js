@@ -43,3 +43,4 @@ export const API_url = {
 
 
 export const JWT_SECRET = 'DALEisHandsome'
+export const self_host = "http://localhost:3000/"

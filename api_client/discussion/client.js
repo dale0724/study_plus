@@ -1,5 +1,4 @@
 import {fetchWrapper} from "../../tools/fetchWrapper";
-import {API_url} from "../../app_config";
 
 export default class DiscussionClient{
 
@@ -8,6 +7,6 @@ export default class DiscussionClient{
         let body = {
             post_id
         }
-        return fetchWrapper.delete(API_url.discussion_post, body)
+        return fetchWrapper.delete(self_host+"api/discussion/post", body)
     }
 }

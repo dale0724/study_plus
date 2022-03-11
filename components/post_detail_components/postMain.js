@@ -12,8 +12,10 @@ import PropTypes from "prop-types";
 import {API_url} from "../../app_config";
 import {useLoggedUserData} from "../../tools/helper";
 import DiscussionClient from "../../api_client/discussion/client";
+import {useRouter} from "next/router";
 
 export default function PostMain(props) {
+    const router = useRouter()
 
     let show = false
     const {user} = useLoggedUserData()
@@ -91,7 +93,10 @@ export default function PostMain(props) {
     }
 
     function handleDelete() {
-        apiClient.delete_post_by_id(props.postID).then(r => alert("deleted!")).catch(e => console.error(e))
+        apiClient.delete_post_by_id(props.postID).then(() => {
+            alert("deleted!")
+            router.back()
+        }).catch(e => console.error(e))
     }
 
     const deleteButton = <Button variant="outline-dark"
