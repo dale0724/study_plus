@@ -1,16 +1,29 @@
 .border{
-    border:2px black solid;
+    border:2px #d8e0eb solid;
     border-radius: 0.25rem;
+    background-color: #d8e0eb;
+}
+
+.cardBorder{
+    border:3px #d8e0eb solid;
+    border-radius: 0.5rem;
+    background-color: #c5d3e6;
 }
 
 .titleCard{
-    flex-direction: row;
+    width: 95%;
+    height: 50px;
+    margin: auto;
     justify-content: space-between;
     align-items: baseline;
+    background-color: #c5d3e6;
+    border:3px #d8e0eb solid;
+    border-radius: 0.5rem;
 }
 
 .titleText{
-    width: fit-content;
+    color: #395075;
+    font-weight: bold;
 }
 
 .addButton{

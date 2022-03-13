@@ -26,7 +26,7 @@ export default function IndexSwappingRequestBox() {
                 //         <IndexSwappingCard metaData={postMetaData}/>
                 //     </ListGroupItem>)
                 boxContent = allRequestData.map(post =>
-                    <ListGroupItem key={ post.id }>
+                    <ListGroupItem key={ post.id } className={styles.cardBorder}>
                         <IndexSwappingCard metaData={post} />
                     </ListGroupItem>
                  )
@@ -42,7 +42,7 @@ export default function IndexSwappingRequestBox() {
             if (myRequestData) {
                 const postMetaDataList = myRequestData['data'].map(jsonData => JSON.parse(jsonData))
                 boxContent = postMetaDataList.map(postMetaData =>
-                    <ListGroupItem key={postMetaData.id}>
+                    <ListGroupItem key={postMetaData.id} className={styles.cardBorder}>
                         <IndexSwappingCard metaData={postMetaData} />
                     </ListGroupItem>)
             } else {
@@ -58,7 +58,7 @@ export default function IndexSwappingRequestBox() {
             if (matchedRequestData) {
                 const postMetaDataList = matchedRequestData['data'].map(jsonData => JSON.parse(jsonData))
                 boxContent = postMetaDataList.map(postMetaData =>
-                    <ListGroupItem key={postMetaData.id}>
+                    <ListGroupItem key={postMetaData.id} className={styles.cardBorder}>
                         <IndexSwappingCard metaData={postMetaData} />
                     </ListGroupItem>)
             } else {
@@ -71,7 +71,7 @@ export default function IndexSwappingRequestBox() {
         <>
             <div className={`mt-3 ${styles.border}`} style={{ height: '70vh' }}>
                 <Row className="m-0">
-                    <Card border="light" className={styles.titleCard}>
+                    <Card className={styles.titleCard}>
                         <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={() => { SetState('all') }}>All Pending Requests</a>
                         <span className={styles.titleText}>{''}|{''}</span>
                         <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={() => { SetState('my') }}>My Requests</a>

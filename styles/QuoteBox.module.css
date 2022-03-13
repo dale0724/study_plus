@@ -1,17 +1,12 @@
-.border label{
-    margin: 0.5rem;
-}
-
 .border{
     border:2px #d8e0eb solid;
     border-radius: 0.25rem;
     background-color: #d8e0eb;
 }
 
-.titleText{
-    width: fit-content;
-    font-size: 18px;
+.content{
+    display: flex;
+    align-items: center;
     color: #395075;
-    padding-top: 0.45rem;
     font-weight: bold;
 }

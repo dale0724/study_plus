@@ -13,7 +13,7 @@ export default class NewsCard extends React.Component {
                     <div style={{ textAlign: 'left', margin: '0', fontSize: '0.5rem'}}>
                         Last seen: <ReactTimeAgo date={new Date()} />
                     </div>
-                    <p style={{ textAlign: 'left', margin: '0' }}>
+                    <p style={{ textAlign: 'left', margin: '0', color: "#395075"}}>
                         <span id='newsTitle'> Did anyone see Xiaohei recently?</span>
                     </p>
                     <p style={{ textAlign: 'left', fontSize: '0.5rem', margin: '0' }}>

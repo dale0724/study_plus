@@ -20,7 +20,7 @@ export default function AnnouncementBox(){
          if (data) {
         const postMetaDataList = data['data'].map(jsonData=>JSON.parse(jsonData))
         boxContent = postMetaDataList.map(postMetaData =>
-            <ListGroupItem key={postMetaData.id}>
+            <ListGroupItem key={postMetaData.id} className={styles.cardBorder}>
                 <AnnouncementCard metaData={postMetaData} />
             </ListGroupItem>)
             //console.log(boxContent)
@@ -34,7 +34,7 @@ export default function AnnouncementBox(){
         <>
             <div className={`mt-3 ${styles.border}`} >
                 <Row className="m-0">
-                    <Card border="light" className={styles.titleCard}>
+                    <Card className={styles.titleCard}>
                         <Link href="/announcement" passHref><a className={styles.titleText}>Announcement</a></Link>
                     </Card>
                 </Row>
