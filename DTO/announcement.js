@@ -1,18 +1,19 @@
-export default class AnnouncementDTO {
-    constructor(id, user_email, title, content, create_time) {
-        this.id = id;
-        this.user_email = user_email;
-        this.title = title;
-        this.content = content;
-        this.create_time = create_time;
-    }
+import BaseDTO from "./dto";
 
+export default class AnnouncementDTO extends BaseDTO{
     static ObjectToInstance(obj){
-        return new AnnouncementDTO(obj.id, obj.user_email, obj.title, obj.content, obj.create_time)
+        var dtoInstance = new AnnouncementDTO()
+        return super.ObjectToInstance(obj, dtoInstance)
     }
 
     static JSONToInstance(json){
-       const obj = JSON.parse(json)
-       return new AnnouncementDTO(obj.id, obj.user_email, obj.title, obj.content, obj.create_time)
+       var dtoInstance = new AnnouncementDTO()
+       return super.JSONToInstance(json, dtoInstance)
     }
 }
+
+AnnouncementDTO.prototype.id = undefined
+AnnouncementDTO.prototype.user_email = undefined
+AnnouncementDTO.prototype.title = undefined
+AnnouncementDTO.prototype.content = undefined
+AnnouncementDTO.prototype.create_time = undefined

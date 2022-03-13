@@ -25,7 +25,7 @@ export default function AnnouncementPostBox(){
          if (data) {
         const postMetaDataList = data['data'].map(jsonData=>JSON.parse(jsonData))
         boxContent = postMetaDataList.map(postMetaData =>
-            <ListGroupItem key={postMetaData.id}>
+            <ListGroupItem key={postMetaData.id} className={styles.cardBorder}>
                 <AnnouncementCard metaData={postMetaData} />
             </ListGroupItem>)
             //console.log(boxContent)

@@ -1,15 +1,30 @@
 .border{
-    border:2px black solid;
+    border:2px #d8e0eb solid;
     border-radius: 0.25rem;
     margin-left: 3rem;
     margin-right: 1rem;
     min-height: 500px;
+    background-color: #d8e0eb;
+}
+
+.cardBorder{
+    width: 98%;
+    margin: auto;
+    border:3px #d8e0eb solid;
+    border-radius: 0.5rem;
+    background-color: #c5d3e6;
 }
 
 .titleCard{
-    display: flex;
+    width: 95%;
+    height: 50px;
+    margin: auto;
     flex-direction: row;
     align-items: baseline;
+    background-color: #c5d3e6;
+    border:3px #d8e0eb solid;
+    border-radius: 0.5rem;
+    padding-top: 0.55rem;
 }
 
 .left {
@@ -17,12 +32,12 @@
 }
 
 .titleText{
-    font-size: 16px;
-    font-weight: bold;
+    font-size: 18px;
     width: fit-content;
-    margin: 0.2rem;
-    color: #7BA1C7;
     text-decoration: none;
+    color: #395075;
+    padding-right: 0.5rem;
+    font-weight: bold;
 }
 
 .addButton{
