@@ -13,18 +13,13 @@ export default function IndexSwappingRequestBox() {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const { data: user } = useSWR('/api/auth', fetcher);
     var boxContent = ''
-    if (displayState == 'all') {
+    if (displayState === 'all') {
         const { data: allRequestData, isLoading, isError: allRequestErr } = IndexSwappingClient.useAllIndexSwappingPosts()
         // const {data:allRequestData, error: allRequestErr} = useSWR(API_url.get_all_index_swapping_posts, fetcher)
         if (allRequestErr) {
             boxContent = "Error"
         } else {
             if (!isLoading) {
-                // const postMetaDataList = allRequestData['data'].map(jsonData => JSON.parse(jsonData))
-                // boxContent = postMetaDataList.map(postMetaData =>
-                //     <ListGroupItem key={postMetaData.id}>
-                //         <IndexSwappingCard metaData={postMetaData}/>
-                //     </ListGroupItem>)
                 boxContent = allRequestData.map(post =>
                     <ListGroupItem key={ post.id } className={styles.cardBorder}>
                         <IndexSwappingCard metaData={post} />
@@ -34,7 +29,7 @@ export default function IndexSwappingRequestBox() {
                 boxContent = <MySpinner></MySpinner>
             }
         }
-    } else if (displayState == 'my') {
+    } else if (displayState === 'my') {
         const { data: myRequestData, error: myRequestErr } = useSWR(() => API_url.get_my_index_swapping_posts_by_email + user.email, fetcher)
         if (myRequestErr) {
             boxContent = "Error"
@@ -50,7 +45,7 @@ export default function IndexSwappingRequestBox() {
             }
         }
     }
-    else if (displayState == 'matched') {
+    else if (displayState === 'matched') {
         const { data: matchedRequestData, error: matchedRequestErr } = useSWR(() => API_url.get_matched_index_swapping_posts_by_email + user.email, fetcher)
         if (matchedRequestErr) {
             boxContent = "Error"

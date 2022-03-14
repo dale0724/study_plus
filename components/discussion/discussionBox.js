@@ -1,41 +1,54 @@
 import styles from "../../styles/discussionBox.module.css";
-import { Card, ListGroup, ListGroupItem, Row, Button } from "react-bootstrap";
+import {Card, ListGroup, ListGroupItem, Pagination, Row} from "react-bootstrap";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import DiscussionCard from "./discussionCard";
 import AddNewModal from "../add_new_modal/addNewModal";
-import { useLoggedUserData } from "../../tools/helper";
-import useSWR from "swr";
-import { API_url } from "../../app_config";
+import {API_url} from "../../app_config";
 import MySpinner from "../mySpinner";
+import DiscussionClient from "../../api_client/discussion/client";
 
 export default function DiscussionBox() {
     const [show, setShow] = useState(false);
+    const [page, setPage] = useState(1)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const quantityPerPage = 10
+    let isLastPage = false
 
-    const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data, error } = useSWR(API_url.get_all_discussion_posts_meta, fetcher)
-    var boxContent
-    if(error){
+    const {
+        data: postMetaDataList,
+        error
+    } = DiscussionClient.use_posts_with_offset_and_quantity_limit((page - 1) * quantityPerPage, quantityPerPage)
+
+    let boxContent;
+
+    if (error) {
         boxContent = "Error"
-    }
-    else{
-         if (data) {
-        const postMetaDataList = data['data'].map(jsonData=>JSON.parse(jsonData))
-        boxContent = postMetaDataList.map(postMetaData =>
-            <ListGroupItem key={postMetaData.id} className={styles.cardBorder}>
-                <DiscussionCard metaData={postMetaData} />
-            </ListGroupItem>)
-            //console.log(boxContent)
-        }
-        else{
-            boxContent = <MySpinner></MySpinner>
+    } else {
+        if (postMetaDataList) {
+            isLastPage = postMetaDataList.length < quantityPerPage;
+
+            boxContent = postMetaDataList.map(postMetaData =>
+                <ListGroupItem key={postMetaData.id}>
+                    <DiscussionCard metaData={postMetaData} className={styles.cardBorder}/>
+                </ListGroupItem>)
+        } else {
+            boxContent = <MySpinner/>
         }
     }
+
+    function handlePageIncrease() {
+        setPage(prevState => prevState + 1)
+    }
+
+    function handlePageDecrease() {
+        setPage(prevState => prevState - 1)
+    }
+
     return (
         <>
-            <div className={`mt-3 ${styles.border}`} >
+            <div className={`mt-3 ${styles.border}`}>
                 <Row className="m-2">
                     <Card className={`justify-content-between border-0 ${styles.titleCard}`}>
                         <div>
@@ -46,18 +59,25 @@ export default function DiscussionBox() {
                             <Link href="#mostVotes" passHref><a className={styles.titleText}>Most Votes</a></Link>
                         </div>
                         <div>
-                            <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={handleShow}>New +</a>
+                            <a className={styles.titleText} style={{cursor: "pointer"}} onClick={handleShow}>New +</a>
                         </div>
                     </Card>
                 </Row>
-                <ListGroup style={{ overflow: 'hidden auto', height: '600px', width: '95%', margin: 'auto' }}>
+                <ListGroup style={{overflow: 'hidden auto', height: '600px', width: '95%', margin: 'auto'}}>
                     {
-                       boxContent
+                        boxContent
                     }
                 </ListGroup>
+                <Row className="mt-2">
+                    <Pagination className='justify-content-center'>
+                        {page !== 1 && <Pagination.Prev onClick={handlePageDecrease}/>}
+                        <Pagination.Item active>{page}</Pagination.Item>
+                        {!isLastPage && <Pagination.Next onClick={handlePageIncrease}/>}
+                    </Pagination>
+                </Row>
                 <AddNewModal show={show} handleClose={handleClose}
-                addURL={API_url.add_discussion_post} mutateURL={API_url.get_all_discussion_posts_meta}
-                imgAllowed={true}/>
+                             addURL={API_url.add_discussion_post} mutateURL={API_url.get_all_discussion_posts_meta}
+                             imgAllowed={true}/>
             </div>
         </>
     );

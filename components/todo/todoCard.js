@@ -16,7 +16,8 @@ function TodoCard(props) {
         mutate(API_url.get_todos_by_email + user.email)
     }
     function handleCheckBoxClick() {
-        fetchWrapper.put(API_url.update_todo_status + props.data.todo_id,
+        console.debug(props.data.id)
+        fetchWrapper.put(API_url.update_todo_status + props.data.id,
             {
                 finished: !props.data.finished
             }).then(() => {
@@ -44,9 +45,10 @@ function TodoCard(props) {
         </>
     );
 }
+
 TodoCard.propTypes = {
     data: PropTypes.shape({
-        todo_id: PropTypes.number,
+        id: PropTypes.number,
         summary: PropTypes.string,
         detail: PropTypes.string,
         finished: PropTypes.bool,

@@ -85,7 +85,7 @@ export default function TodoBox() {
                 <ListGroup style={{ overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto' }}>
                     {
                         todos.map((todo) =>
-                            <ListGroupItem key={todo.todo_id} className={styles.cardBorder}>
+                            <ListGroupItem key={todo.id} className={styles.cardBorder}>
                                 <TodoCard data={todo} />
                             </ListGroupItem>)
                     }
