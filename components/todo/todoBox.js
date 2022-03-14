@@ -65,7 +65,6 @@ export default function TodoBox() {
             )
         }
         else{
-            console.debug(data)
             todos = data['data'].map(todo_json=>JSON.parse(todo_json))
             console.debug(todos)
         }
@@ -76,7 +75,7 @@ export default function TodoBox() {
                 <ListGroup style={{ overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto' }}>
                     {
                         todos.map((todo) =>
-                            <ListGroupItem key={todo.todo_id}>
+                            <ListGroupItem key={todo.id}>
                                 <TodoCard data={todo} />
                             </ListGroupItem>)
                     }
