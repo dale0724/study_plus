@@ -1,5 +1,5 @@
 import styles from "../../styles/discussionSearchBox.module.css";
-import {Col, Row} from "react-bootstrap";
+import { Row} from "react-bootstrap";
 import * as React from "react";
 import Button from 'react-bootstrap/Button';
 import CrossSvg from '../../public/cross.svg';
@@ -20,9 +20,9 @@ export default class DiscussionSearchBox extends React.Component {
     }
 
     handleChange(event) {
-        if (event.target.name=="searchText"){
+        if (event.target.name==="searchText"){
             this.setState({searchText: event.target.value});
-        }else if (event.target.name=="searchTagText"){
+        }else if (event.target.name==="searchTagText"){
             this.setState({searchTagText: event.target.value});
         }
 

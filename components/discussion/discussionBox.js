@@ -1,28 +1,25 @@
 import styles from "../../styles/discussionBox.module.css";
-import { Card, ListGroup, ListGroupItem, Row, Button } from "react-bootstrap";
+import { Card, ListGroup, ListGroupItem, Row } from "react-bootstrap";
 import Link from "next/link";
 import React, { useState } from "react";
 import DiscussionCard from "./discussionCard";
 import AddNewModal from "../add_new_modal/addNewModal";
-import { useLoggedUserData } from "../../tools/helper";
-import useSWR from "swr";
 import { API_url } from "../../app_config";
 import MySpinner from "../mySpinner";
+import DiscussionClient from "../../api_client/discussion/client";
 
 export default function DiscussionBox() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const fetcher = (...args) => fetch(...args).then((res) => res.json())
-    const { data, error } = useSWR(API_url.get_all_discussion_posts_meta, fetcher)
+    const { data: postMetaDataList, error } = DiscussionClient.use_posts_with_offset_and_quantity_limit(0,10)
     var boxContent
     if(error){
         boxContent = "Error"
     }
     else{
-         if (data) {
-        const postMetaDataList = data['data'].map(jsonData=>JSON.parse(jsonData))
+         if (postMetaDataList) {
         boxContent = postMetaDataList.map(postMetaData =>
             <ListGroupItem key={postMetaData.id}>
                 <DiscussionCard metaData={postMetaData} />

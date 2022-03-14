@@ -1,18 +1,22 @@
-export default class DiscussionDTO {
-    constructor(id, user_email, create_time, title, content) {
-        this.id = id;
-        this.user_email = user_email;
-        this.create_time = create_time;
-        this.title = title;
-        this.content = content;
+export default class DiscussionPostDTO {
+    static objectToInstance(obj) {
+        const dtoInstance = new DiscussionPostDTO();
+        for(const k in dtoInstance){
+            if (obj.hasOwnProperty(k)){
+                dtoInstance[k] = obj[k]
+            }
+        }
+        return dtoInstance
     }
 
-    static ObjectToInstance(obj){
-       return new DiscussionDTO(obj.id, obj.user_email, obj.create_time, obj.title, obj.content)
-    }
-
-    static JSONToInstance(json){
-      const obj = JSON.parse(json)
-      return new DiscussionDTO(obj.id, obj.user_email, obj.create_time, obj.title, obj.content)
+    static JSONToInstance(json) {
+        const obj = JSON.parse(json)
+        return this.objectToInstance(obj)
     }
 }
+
+DiscussionPostDTO.prototype.id = undefined
+DiscussionPostDTO.prototype.user_email = undefined
+DiscussionPostDTO.prototype.create_time = undefined
+DiscussionPostDTO.prototype.title = undefined
+DiscussionPostDTO.prototype.content = undefined

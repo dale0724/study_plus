@@ -11,4 +11,19 @@ export default async function handler(req, res) {
             res.end();
         })
     }
+    if(req.method === "GET"){
+        const query_params = req.query
+        if(query_params.hasOwnProperty("offset") && query_params.hasOwnProperty("quantity_limit")){
+            await fetchWrapper.get(API_url.discussion_post+"/offset/"+query_params.offset+"/quantity_limit/"+query_params.quantity_limit).
+            then(resPayload => {
+                res.status(200).json({message: resPayload.message, data: resPayload.data})
+            }).
+            catch(
+                error => {
+                console.error(error)
+                res.status(error.status).json(error);
+                res.end();
+                })
+        }
+    }
 }
