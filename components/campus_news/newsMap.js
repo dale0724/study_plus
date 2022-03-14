@@ -3,7 +3,6 @@ import Map, {Marker, Popup} from 'react-map-gl'
 import 'mapbox-gl/dist/mapbox-gl.css';
 import {Row, Col} from "react-bootstrap";
 import Link from "next/link";
-import Button from "react-bootstrap/Button";
 import styles from "../../styles/newsMap.module.css";
 import useSWR from "swr";
 import { fetchWrapper } from "../../tools/fetchWrapper";

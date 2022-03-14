@@ -77,7 +77,7 @@ export default function NewsAddNewBox(props){
                 <Row>
                     <span>Don't forget to select your post location on the map before you submit!</span>
                 </Row>
-                <Button onClick={addMarker} style={{display:"inline-block", margin:"1em", background:"#7BA1C7"}}>Post a Campus News</Button>
+                <Button onClick={addMarker} style={{display:"inline-block", margin:"1em", background:"#395075"}}>Post a Campus News</Button>
             </Col>
         </>
     )

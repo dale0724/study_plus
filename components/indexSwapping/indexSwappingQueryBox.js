@@ -187,9 +187,9 @@ export default class IndexSwappingQueryBox extends React.Component {
                         </Col>
                     </Row>
 
-                    <Button onClick={this.handleAdd} style={{ display: "inline-block", margin: "1em", background: "#7BA1C7" }}>+</Button>
-                    <Button onClick={this.handleRemove} style={{ display: "inline-block", margin: "1em", background: "#7BA1C7" }}>-</Button><br />
-                    <Button as="input" type="submit" value="Create a new request!" style={{ margin: "1em", background: "#7BA1C7" }} />
+                    <Button onClick={this.handleAdd} style={{ display: "inline-block", margin: "1em", background: "#395075" }}>+</Button>
+                    <Button onClick={this.handleRemove} style={{ display: "inline-block", margin: "1em", background: "#395075" }}>-</Button><br />
+                    <Button as="input" type="submit" value="Create a new request!" style={{ margin: "1em", background: "#395075" }} />
                 </form>
             </div>
         );

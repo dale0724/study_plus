@@ -31,7 +31,7 @@ export default function DiscussionBox() {
 
             boxContent = postMetaDataList.map(postMetaData =>
                 <ListGroupItem key={postMetaData.id}>
-                    <DiscussionCard metaData={postMetaData}/>
+                    <DiscussionCard metaData={postMetaData} className={styles.cardBorder}/>
                 </ListGroupItem>)
         } else {
             boxContent = <MySpinner/>

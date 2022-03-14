@@ -1,20 +1,21 @@
-export default class NewsDTO {
-    constructor(id, user_email, latitude, longitude, votes, title, content) {
-        this.id = id;
-        this.user_email = user_email;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.votes = votes;
-        this.title = title;
-        this.content = content;
-    }
+import BaseDTO from "./dto";
 
+export default class NewsDTO extends BaseDTO{
     static ObjectToInstance(obj){
-        return new NewsDTO(obj.id, obj.user_email, obj.latitude, obj.longitude, obj.votes, obj.title, obj.content)
+        var dtoInstance = new NewsDTO()
+        return super.ObjectToInstance(obj, dtoInstance)
     }
 
     static JSONToInstance(json){
-       const obj = JSON.parse(json)
-       return new NewsDTO(obj.id, obj.user_email, obj.latitude, obj.longitude, obj.votes, obj.title, obj.content)
+       var dtoInstance = new NewsDTO()
+       return super.JSONToInstance(json, dtoInstance)
     }
 }
+
+NewsDTO.prototype.id = 0
+NewsDTO.prototype.user_email = undefined
+NewsDTO.prototype.latitude = undefined
+NewsDTO.prototype.longitude = undefined
+NewsDTO.prototype.votes = 0
+NewsDTO.prototype.title = undefined
+NewsDTO.prototype.content = undefined

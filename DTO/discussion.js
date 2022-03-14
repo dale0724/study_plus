@@ -1,22 +1,19 @@
-export default class DiscussionPostDTO {
-    static objectToInstance(obj) {
-        const dtoInstance = new DiscussionPostDTO();
-        for(const k in dtoInstance){
-            if (obj.hasOwnProperty(k)){
-                dtoInstance[k] = obj[k]
-            }
-        }
-        return dtoInstance
+import BaseDTO from "./dto";
+
+export default class DiscussionDTO extends BaseDTO{
+    static ObjectToInstance(obj){
+        var dtoInstance = new DiscussionDTO()
+        return super.ObjectToInstance(obj, dtoInstance)
     }
 
-    static JSONToInstance(json) {
-        const obj = JSON.parse(json)
-        return this.objectToInstance(obj)
+    static JSONToInstance(json){
+       var dtoInstance = new DiscussionDTO()
+       return super.JSONToInstance(json, dtoInstance)
     }
 }
 
-DiscussionPostDTO.prototype.id = undefined
-DiscussionPostDTO.prototype.user_email = undefined
-DiscussionPostDTO.prototype.create_time = undefined
-DiscussionPostDTO.prototype.title = undefined
-DiscussionPostDTO.prototype.content = undefined
+DiscussionDTO.prototype.id = undefined
+DiscussionDTO.prototype.user_email = undefined
+DiscussionDTO.prototype.create_time = undefined
+DiscussionDTO.prototype.title = undefined
+DiscussionDTO.prototype.content = undefined
