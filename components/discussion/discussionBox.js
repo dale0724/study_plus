@@ -63,7 +63,7 @@ export default function DiscussionBox() {
                         </div>
                     </Card>
                 </Row>
-                <ListGroup style={{overflow: 'hidden auto', height: '600px', width: '95%', margin: 'auto'}}>
+                <ListGroup style={{overflow: 'hidden auto', height: '90%', width: '95%', margin: 'auto'}}>
                     {
                         boxContent
                     }
@@ -75,10 +75,10 @@ export default function DiscussionBox() {
                         {!isLastPage && <Pagination.Next onClick={handlePageIncrease}/>}
                     </Pagination>
                 </Row>
-                <AddNewModal show={show} handleClose={handleClose}
-                             addURL={API_url.add_discussion_post} mutateURL={API_url.get_all_discussion_posts_meta}
-                             imgAllowed={true}/>
             </div>
+            <AddNewModal show={show} handleClose={handleClose}
+                         addURL={API_url.add_discussion_post} mutateURL={API_url.get_all_discussion_posts_meta}
+                         imgAllowed={true}/>
         </>
     );
 }
