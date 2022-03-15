@@ -1,71 +1,53 @@
-import {ListGroup, ListGroupItem, Row, Col} from "react-bootstrap";
+import {ListGroup, ListGroupItem} from "react-bootstrap";
 import styles from "../../styles/TodoBox.module.css";
 import TodoCard from "./todoCard";
-import { useLoggedUserData } from "../../tools/helper";
-import useSWR, {useSWRConfig } from 'swr'
-import { API_url } from "../../app_config";
+import {useSWRConfig} from 'swr'
+import {API_url} from "../../app_config";
 import MySpinner from "../../components/mySpinner";
 import TodoModal from "./todoModal";
-import { useState } from "react";
+import {useState} from "react";
 import {TodoBoxWrapper} from "./todoBoxWrapper";
+import {TodoClient} from "../../api_client/todo/client";
+import {useLoggedUserData} from "../../tools/helper";
 
 export default function TodoBox() {
-    const { user, isLoading } = useLoggedUserData()
+    const {user} = useLoggedUserData()
     const [showAddModal, setShowAddModal] = useState(false)
-    const { mutate } = useSWRConfig()
+    const {mutate} = useSWRConfig()
 
-    function handleAddModalClose(){
+    let boxContent = <MySpinner/>
+
+    function handleAddModalClose() {
         setShowAddModal(false)
         mutate(API_url.get_todos_by_email + user.email)
     }
 
-    function handleAddModalShow(){
+    function handleAddModalShow() {
         setShowAddModal(true)
     }
 
-    let todos = [];
+    const {data: todos, isLoading, isError} = TodoClient.useTodoPosts()
+
     if (!isLoading) {
-        const fetcher = (...args) => fetch(...args).
-            then((res) => {
-                if (res.ok) {
-                    return res.json()
-                } else {
-                    throw new Error('Fetch User Todo Data Failed')
+        if (isError) {
+            boxContent = <h2>Error</h2>
+        } else {
+            boxContent = <ListGroup style={{overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto'}}>
+                {
+                    todos.map((todo) =>
+                        <ListGroupItem key={todo.id} className={styles.cardBorder}>
+                            <TodoCard data={todo}/>
+                        </ListGroupItem>)
                 }
-            })
-        const {data, error} = useSWR(API_url.get_todos_by_email + user.email, fetcher);
-        if (error) {
-            console.error(error)
-            return (
-                <TodoBoxWrapper>
-                    <h2>Error</h2>
-                </TodoBoxWrapper>
-            )
-        }
-        if (!data) {
-            return (
-                <TodoBoxWrapper>
-                    <MySpinner />
-                </TodoBoxWrapper>
-            )
-        }
-        else{
-            console.debug(data)
-            todos = data['data'].map(todo_json=>JSON.parse(todo_json))
-            console.debug(todos)
+            </ListGroup>
         }
     }
+
+
     return (
         <>
             <TodoBoxWrapper handleAddModalShow={handleAddModalShow}>
-                <ListGroup style={{ overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto' }}>
-                    {
-                        todos.map((todo) =>
-                            <ListGroupItem key={todo.id} className={styles.cardBorder}>
-                                <TodoCard data={todo} />
-                            </ListGroupItem>)
-                    }
-                </ListGroup>
+                {boxContent}
             </TodoBoxWrapper>
 
             <TodoModal show={showAddModal} handleClose={handleAddModalClose}/>
