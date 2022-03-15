@@ -7,7 +7,7 @@ import { API_url } from "../../app_config";
 import MySpinner from "../../components/mySpinner";
 import TodoModal from "./todoModal";
 import { useState } from "react";
-import {TodoWrapper} from "./todoWrapper";
+import {TodoBoxWrapper} from "./todoBoxWrapper";
 
 export default function TodoBox() {
     const { user, isLoading } = useLoggedUserData()
@@ -37,16 +37,16 @@ export default function TodoBox() {
         if (error) {
             console.error(error)
             return (
-                <TodoWrapper>
+                <TodoBoxWrapper>
                     <h2>Error</h2>
-                </TodoWrapper>
+                </TodoBoxWrapper>
             )
         }
         if (!data) {
             return (
-                <TodoWrapper>
+                <TodoBoxWrapper>
                     <MySpinner />
-                </TodoWrapper>
+                </TodoBoxWrapper>
             )
         }
         else{
@@ -57,7 +57,7 @@ export default function TodoBox() {
     }
     return (
         <>
-            <TodoWrapper handleAddModalShow={handleAddModalShow}>
+            <TodoBoxWrapper handleAddModalShow={handleAddModalShow}>
                 <ListGroup style={{ overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto' }}>
                     {
                         todos.map((todo) =>
@@ -66,7 +66,7 @@ export default function TodoBox() {
                             </ListGroupItem>)
                     }
                 </ListGroup>
-            </TodoWrapper>
+            </TodoBoxWrapper>
 
             <TodoModal show={showAddModal} handleClose={handleAddModalClose}/>
         </>

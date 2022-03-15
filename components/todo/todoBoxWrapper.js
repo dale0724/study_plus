@@ -2,7 +2,7 @@ import styles from "../../styles/TodoBox.module.css";
 import {Card, Col, Row} from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 
-export function TodoWrapper(props){
+export function TodoBoxWrapper(props){
     const children = props.children
     return (
         <div className={`mt-3 ${styles.border}`} >
