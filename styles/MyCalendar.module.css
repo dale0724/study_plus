@@ -1,5 +1,10 @@
-.border{
-    border:2px #d8e0eb solid;
+
+.wrapper{
     border-radius: 0.25rem;
     background-color: #d8e0eb;
+}
+
+.calendar{
+    border: 0;
+    background-color: #c5d3e6;
 }

@@ -6,12 +6,19 @@ import styles from '../styles/MyCalendar.module.css';
 
 export default function MyCalendar() {
   const [value, onChange] = useState(new Date());
+
+  function handleDateClick(value, event){
+      alert('Clicked day: '+ value)
+  }
   return (
-      <Calendar
-        onChange={onChange}
-        value={value}
-        locale="en-SG"
-        className={`mt-3 rounded-3 ${styles.border}`}
-      />
+      <div className={styles.wrapper}>
+          <Calendar
+              onChange={onChange}
+              value={value}
+              locale="en-SG"
+              className={`mt-3 rounded-3 mx-auto ${styles.calendar }`}
+              onClickDay={handleDateClick}
+          />
+      </div>
   )
 }

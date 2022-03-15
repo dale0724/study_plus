@@ -7,8 +7,7 @@ import AnnouncementBox from "../components/announcement/announcementBox";
 import NewsBox from "../components/campus_news/newsBox";
 import QuoteBox from "../components/quoteBox";
 import DDLBox from "../components/ddlBox";
-import useSWR from 'swr';
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { useLoggedUserData } from "../tools/helper";
 import MySpinner from "../components/mySpinner";
 import registerServiceWorkerAndSubscribeServer, {isSubscribedToServer} from "../tools/subscribe";
@@ -22,7 +21,7 @@ export default function Home() {
     Router.push('/sign_in')
   }
   console.log(isSubscribedToServer)
-  if(!isSubscribedToServer & user){
+  if(!isSubscribedToServer && user){
     registerServiceWorkerAndSubscribeServer(user.email)
   }
   return (
