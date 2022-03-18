@@ -1,12 +1,10 @@
-import {Button, Container} from "react-bootstrap";
-import DiscussionBox from "../components/discussion/discussionBox";
-import {getCurrentDateTimeLocal} from "../tools/helper";
+import {Container} from "react-bootstrap";
+import TodoWithCalendar from "../components/todo/todoWithCalendar";
 
 export default function Test() {
     return (
         <Container className="text-center">
-            <DiscussionBox/>
-            <Button onClick={()=>console.log(getCurrentDateTimeLocal())}></Button>
+            <TodoWithCalendar/>
         </Container>
     )
 }

@@ -8,25 +8,32 @@ import TodoModal from "./todoModal";
 import {useState} from "react";
 import {TodoBoxWrapper} from "./todoBoxWrapper";
 import {TodoClient} from "../../api_client/todo/client";
-import {useLoggedUserData} from "../../tools/helper";
+import {constructUrlWithParams, useLoggedUserData} from "../../tools/helper";
 
-export default function TodoBox() {
+export default function TodoBox(props) {
     const {user} = useLoggedUserData()
     const [showAddModal, setShowAddModal] = useState(false)
     const {mutate} = useSWRConfig()
+
+    const url = constructUrlWithParams(API_url.todo_date, {
+        user_email: user.email,
+        date: props.date
+    })
 
     let boxContent = <MySpinner/>
 
     function handleAddModalClose() {
         setShowAddModal(false)
-        mutate(API_url.get_todos_by_email + user.email)
+        mutate(url)
     }
 
     function handleAddModalShow() {
         setShowAddModal(true)
     }
 
-    const {data: todos, isLoading, isError} = TodoClient.useTodoPosts()
+
+    const {data: todos, isLoading, isError} = TodoClient.useTodoPostsWithDate(url)
+    // const {data: todos, isLoading, isError} = TodoClient.useTodoPosts()
 
     if (!isLoading) {
         if (isError) {
@@ -36,7 +43,7 @@ export default function TodoBox() {
                 {
                     todos.map((todo) =>
                         <ListGroupItem key={todo.id} className={styles.cardBorder}>
-                            <TodoCard data={todo}/>
+                            <TodoCard data={todo} url={url}/>
                         </ListGroupItem>)
                 }
             </ListGroup>

@@ -1,8 +1,6 @@
 import Layout from "../components/layout"
 import SSRProvider from 'react-bootstrap/SSRProvider'
 import { Col, Container, Row } from "react-bootstrap"
-import MyCalendar from "../components/calendar";
-import TodoBox from "../components/todo/todoBox";
 import AnnouncementBox from "../components/announcement/announcementBox";
 import NewsBox from "../components/campus_news/newsBox";
 import QuoteBox from "../components/quoteBox";
@@ -11,6 +9,7 @@ import Router from 'next/router';
 import { useLoggedUserData } from "../tools/helper";
 import MySpinner from "../components/mySpinner";
 import registerServiceWorkerAndSubscribeServer, {isSubscribedToServer} from "../tools/subscribe";
+import TodoWithCalendar from "../components/todo/todoWithCalendar";
 
 export default function Home() {
   const { user, isLoading, isError } = useLoggedUserData()
@@ -32,8 +31,7 @@ export default function Home() {
             <Row>
               <Col className="text-center">
                 <Container fluid className="p-0" >
-                  <MyCalendar />
-                  <TodoBox />
+                  <TodoWithCalendar/>
                 </Container>
               </Col>
               <Col className="text-center" xxl='6' xl='6' lg='5'>
