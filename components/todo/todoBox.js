@@ -33,20 +33,27 @@ export default function TodoBox(props) {
 
 
     const {data: todos, isLoading, isError} = TodoClient.useTodoPostsWithDate(url)
+    console.debug(todos)
     // const {data: todos, isLoading, isError} = TodoClient.useTodoPosts()
 
     if (!isLoading) {
         if (isError) {
             boxContent = <h2>Error</h2>
         } else {
-            boxContent = <ListGroup style={{overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto'}}>
-                {
-                    todos.map((todo) =>
-                        <ListGroupItem key={todo.id} className={styles.cardBorder}>
-                            <TodoCard data={todo} url={url}/>
-                        </ListGroupItem>)
-                }
-            </ListGroup>
+            if(todos){
+                boxContent = <ListGroup style={{overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto'}}>
+                    {
+                        todos.map((todo) =>
+                            <ListGroupItem key={todo.id} className={styles.cardBorder}>
+                                <TodoCard data={todo} url={url}/>
+                            </ListGroupItem>)
+                    }
+                </ListGroup>
+            }
+            else{
+                boxContent = <></>
+            }
+
         }
     }
 

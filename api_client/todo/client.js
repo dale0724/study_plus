@@ -29,10 +29,12 @@ export class TodoClient {
 
     static useTodoPostsWithDate(url){
         const {data, error} = useSWR(url, fetcher)
-        let dto_list = null;
+        let dto_list = undefined;
         if (data) {
-            let postDataList = data['data'].map(jsonData => JSON.parse(jsonData))
-            dto_list = postDataList.map(postMetaData => TodoDTO.ObjectToInstance(postMetaData))
+            if(data['data']){
+                let postDataList = data['data'].map(jsonData => JSON.parse(jsonData))
+                dto_list = postDataList.map(postMetaData => TodoDTO.ObjectToInstance(postMetaData))
+            }
         }
         return {
             data: dto_list,

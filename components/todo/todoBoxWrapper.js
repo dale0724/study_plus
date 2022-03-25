@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 export function TodoBoxWrapper(props){
     const children = props.children
     return (
-        <div className={`mt-3 ${styles.border}`} >
+        <div className={`mt-3 ${styles.border}`} style={{minHeight: '400px'}}>
             <Row className="m-0">
                 <Card className={styles.titleCard}>
                     <Row style={{width: "100%"}}>

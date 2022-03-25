@@ -1,8 +1,10 @@
 import TodoBox from "./todoBox";
 import {useState} from "react";
-import styles from "../../styles/MyCalendar.module.css";
 import Calendar from "react-calendar";
 import {getCurrentDateTimeLocal} from "../../tools/helper";
+import 'react-calendar/dist/Calendar.css';
+import styles from "../../styles/MyCalendar.module.css";
+
 
 export default function TodoWithCalendar(){
 
@@ -24,7 +26,7 @@ export default function TodoWithCalendar(){
 
     function handleDateClick(value, event){
         const date = parseToDatetimeLocalFormat(value)
-        alert(date)
+        setTodoDate(date)
     }
     return (
         <>
