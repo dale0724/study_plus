@@ -5,7 +5,7 @@ import * as yup from 'yup';
 export default MyForm
 
  function MyForm(props) {
-    console.log(props)
+    console.debug(props)
     return (
         <>
             <Formik initialValues={props.initialValues}
@@ -21,7 +21,7 @@ export default MyForm
                         {
                             props.fields.map(field => {
                                 return (
-                                    <Form.Group className="mb-3">
+                                    <Form.Group className="mb-3" key={field.name}>
                                     <Form.Label>{field.label}</Form.Label>
                                     <Form.Control {...field.props}  isInvalid={formik.touched[field.name] && formik.errors[field.name]} {...formik.getFieldProps(field.name)} />
                                     <Form.Control.Feedback type="invalid">

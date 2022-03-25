@@ -1,10 +1,10 @@
 import {Container} from "react-bootstrap";
-import DiscussionBox from "../components/discussion/discussionBox";
+import TodoWithCalendar from "../components/todo/todoWithCalendar";
 
 export default function Test() {
     return (
         <Container className="text-center">
-            <DiscussionBox/>
+            <TodoWithCalendar/>
         </Container>
     )
 }

@@ -10,6 +10,7 @@ export const API_url = {
     modify_todo: host + 'todo/id/',
     get_todos_by_email:  host + 'todo/email/',
     add_todo: host + 'todo',
+    todo_date: host + 'todo/date',
     update_todo_status: host + 'todo/status/id/',
     add_discussion_post: host + 'discussion',
     discussion_post: host + 'discussion',

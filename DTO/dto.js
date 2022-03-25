@@ -1,7 +1,7 @@
 export default class BaseDTO {
     static ObjectToInstance(obj, emptyInstance){
-        var dtoInstance = emptyInstance
-        for(var k in dtoInstance){
+        const dtoInstance = emptyInstance;
+        for(const k in dtoInstance){
             if (obj.hasOwnProperty(k)){
                 dtoInstance[k] = obj[k]
             }
