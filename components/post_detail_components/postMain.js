@@ -66,9 +66,11 @@ export default function PostMain(props) {
         if (postData) {
             console.log('post data:' + postData)
             const postDetail = JSON.parse(postData['data'])
+            console.log(postDetail)
             try {
                 rawContent = JSON.parse(postDetail.content);
             } catch (e) {
+                console.log(e)
                 rawContent = {
                     entityMap: {},
                     blocks: [

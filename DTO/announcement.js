@@ -2,13 +2,13 @@ import BaseDTO from "./dto";
 
 export default class AnnouncementDTO extends BaseDTO{
     static ObjectToInstance(obj){
-        var dtoInstance = new AnnouncementDTO()
+        const dtoInstance = new AnnouncementDTO();
         return super.ObjectToInstance(obj, dtoInstance)
     }
 
     static JSONToInstance(json){
-       var dtoInstance = new AnnouncementDTO()
-       return super.JSONToInstance(json, dtoInstance)
+        const dtoInstance = new AnnouncementDTO();
+        return super.JSONToInstance(json, dtoInstance)
     }
 }
 

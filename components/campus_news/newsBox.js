@@ -15,7 +15,7 @@ export default function NewsBox() {
                         <Row  style={{width: "100%"}}>
                             <div style={{width: "80%", textAlign: "left", marginTop: "0.55rem"}}>
                                 <Col>
-                                    <Link href="/news" passHref><a className={styles.titleText}>News</a></Link>
+                                    <Link href="/campus_news" passHref><a className={styles.titleText}>News</a></Link>
                                 </Col>
                             </div>
                             <Col style={{marginTop: "0.5rem", width: "20%"}}>

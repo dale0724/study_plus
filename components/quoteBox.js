@@ -6,7 +6,7 @@ export default function QuoteBox() {
         <>
             <Card className={styles.border} style={{minHeight: '200px', marginTop:'1rem', alignItems:'center'}}>
                 <Card.Body className={styles.content}>
-                    <span>Good Good Study, Day Day Up!</span>
+                    <span>Live life to the fullest and focus on the positive.</span>
                 </Card.Body>
             </Card>
         </>
