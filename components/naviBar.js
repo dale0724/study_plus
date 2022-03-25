@@ -5,10 +5,9 @@ import React from "react";
 import UserAvatar from './userAvatar';
 import useSWR from 'swr';
 import { API_url } from '../app_config';
-import { useLoggedUserData } from '../tools/helper';
 
 export default function NaviBar() {
-  var unread_records_number = 0
+  let unread_records_number = 0;
   const fetcher = (...args) => fetch(...args).then((res) => res.json())
   const {data: user} = useSWR('/api/auth', fetcher);
   const { data} = useSWR(() => API_url.get_unread_index_matched_number + user.email, fetcher)
@@ -17,7 +16,7 @@ export default function NaviBar() {
 
   return (
     <>
-      <Navbar collapseOnSelect className={styles.bluebg} expand="lg" variant="dark">
+      <Navbar collapseOnSelect className={styles.bluebg} expand="lg" variant="dark" style={{height:'70px'}}>
       <Container fluid>
         <Link href="/" passHref><Navbar.Brand>StudyPlus</Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
