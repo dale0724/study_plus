@@ -1,19 +1,17 @@
-import Link from "next/link";
+
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import useSWR, { useSWRConfig } from 'swr'
+import  { useSWRConfig } from 'swr'
 import TodoModal from "./todoModal";
 import PropTypes from 'prop-types';
 import { API_url } from "../../app_config";
-import { useLoggedUserData } from "../../tools/helper";
 import { fetchWrapper } from "../../tools/fetchWrapper";
 function TodoCard(props) {
-    const { user } = useLoggedUserData()
     const [showModifyModal, setShowModifyModal] = useState(false)
     const { mutate } = useSWRConfig()
     function handleModifyModalClose() {
         setShowModifyModal(false)
-        mutate(API_url.get_todos_by_email + user.email)
+        mutate(props.url)
     }
     function handleCheckBoxClick() {
         console.debug(props.data.id)
@@ -21,7 +19,7 @@ function TodoCard(props) {
             {
                 finished: !props.data.finished
             }).then(() => {
-                mutate(API_url.get_todos_by_email + user.email)
+                mutate(props.url)
             })
             .catch(error => {
                 console.error(error);

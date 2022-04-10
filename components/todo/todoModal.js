@@ -1,10 +1,8 @@
 import { Modal } from "react-bootstrap";
 import { API_url } from "../../app_config";
-import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { Formik } from "formik";
 import * as yup from 'yup';
-import { useLoggedUserData } from "../../tools/helper";
+import {getTodayFirstMinuteDateTimeLocal, getTodayLastMinuteDateTimeLocal, useLoggedUserData} from "../../tools/helper";
 import PropTypes from 'prop-types';
 import { fetchWrapper } from "../../tools/fetchWrapper";
 import MyForm from "../helpers/myForm";
@@ -58,7 +56,7 @@ function TodoModal(props) {
         },
     ]
     function handleSubmit(inputValues) {
-        if (props.mode == "modify") {
+        if (props.mode === "modify") {
             fetchWrapper.put(API_url.modify_todo + props.data.todo_id,
                 {
                     summary: inputValues.summary,
@@ -101,8 +99,12 @@ function TodoModal(props) {
                         formID={formID}
                         initialValues=
                         {
-                            props.mode == 'add' ?
-                                { summary: '', detail: '' } :
+                            props.mode === 'add' ?
+                                { summary: '',
+                                    detail: '',
+                                    start_datetime: getTodayFirstMinuteDateTimeLocal(),
+                                    end_datetime: getTodayLastMinuteDateTimeLocal()
+                                } :
                                 {
                                     summary: props.data.summary,
                                     detail: props.data.detail,
@@ -118,7 +120,7 @@ function TodoModal(props) {
                         Close
                     </Button>
                     <Button form={formID} variant="primary" type="submit">
-                        {props.mode == 'add' ? "Add" : "Save Changes"}
+                        {props.mode === 'add' ? "Add" : "Save Changes"}
                     </Button>
                 </Modal.Footer>
             </Modal>
