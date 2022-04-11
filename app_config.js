@@ -44,7 +44,7 @@ export const API_url = {
     get_announcement_post_by_id: host + 'announcement_post/id/',
     get_deadline_post_by_email: host + 'deadline/email/',
     add_new_deadline_post: host + 'deadline',
-    modify_deadline_post: host + 'deadline/id/',
+    modify_deadline: host + 'deadline/id/',
 }
 
 

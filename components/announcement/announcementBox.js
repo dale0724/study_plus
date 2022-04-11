@@ -29,7 +29,6 @@ export default function AnnouncementBox(){
             boxContent = <MySpinner></MySpinner>
         }
     }
-    const abstract = 'For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.'
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >

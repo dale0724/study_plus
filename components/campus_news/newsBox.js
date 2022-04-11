@@ -4,9 +4,31 @@ import Button from 'react-bootstrap/Button';
 import NewsCard from "./newsCard";
 import Link from "next/link";
 import React from "react";
+import useSWR from "swr";
+import AnnouncementCard from "../announcement/announcementCard";
+import MySpinner from "../mySpinner";
 
 export default function NewsBox() {
     const abstract = 'For the first time in the cinematic history of Spider-Man, our friendly neighborhood hero is unmasked and no longer able to separate his normal life from the high-stakes of being a Super Hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.'
+    const fetcher = (...args) => fetch(...args).then((res) => res.json())
+    const { data, error } = useSWR('http://localhost:3000/api/campus_news/all_posts', fetcher)
+    var boxContent
+    if(error){
+        boxContent = "Error"
+    }
+    else{
+        if (data) {
+            const postMetaDataList = data['data'].map(jsonData=>JSON.parse(jsonData))
+            boxContent = postMetaDataList.map(postMetaData =>
+                <ListGroupItem key={postMetaData.id} className={styles.cardBorder}>
+                    <NewsCard metaData={postMetaData} />
+                </ListGroupItem>)
+            //console.log(boxContent)
+        }
+        else{
+            boxContent = <MySpinner></MySpinner>
+        }
+    }
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >
@@ -18,36 +40,13 @@ export default function NewsBox() {
                                     <Link href="/campus_news" passHref><a className={styles.titleText}>News</a></Link>
                                 </Col>
                             </div>
-                            <Col style={{marginTop: "0.5rem", width: "20%"}}>
-                                <Button variant="outline-dark" size="sm" className={styles.addButton}>
-                                    <div className={styles.addButtonContentContainer}>
-                                        <span>New</span>
-                                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAAAzklEQVRoge3XwQnCMACF4V/x5goOYXtzDufQXXSB3ruIRyfQXlyh53ow0EsDxTT2Wd4HgSA2zQ+hEDAzm0AJNGEUM+8lSQV0YVQ5X7TOuTiwjcwnlzvkZxyixiFqHKLGIWocosYhahyiZhX5vQROpN8hDsAuzF/ALXG9FrgC97EPNPQ3O7XxHNpw7Gh1Y4tnMLi3TeTPR+CM5tG6JK7xlZr+SNQ5X7SYr5ZD1DhEjUPUOESNQ9Q4RI1D1OQOaSPzv1PwuWM/gP3MezGzJXgDqeY/+gVsPlUAAAAASUVORK5CYII="></img>
-                                    </div>
-                                </Button>
-                            </Col>
                         </Row>
                     </Card>
                 </Row>
                 <ListGroup style={{ overflow: 'hidden auto', height: '310px',width: '95%', margin: 'auto'}}>
-                    <ListGroupItem className={styles.cardBorder}>
-                        <NewsCard abstract={abstract}/>
-                    </ListGroupItem>
-                    <ListGroupItem className={styles.cardBorder}>
-                        <NewsCard abstract={abstract}/>
-                    </ListGroupItem>
-                    <ListGroupItem className={styles.cardBorder}>
-                        <NewsCard abstract={abstract}/>
-                    </ListGroupItem>
-                    <ListGroupItem className={styles.cardBorder}>
-                        <NewsCard abstract={abstract}/>
-                    </ListGroupItem>
-                    <ListGroupItem className={styles.cardBorder}>
-                        <NewsCard abstract={abstract}/>
-                    </ListGroupItem>
-                    <ListGroupItem className={styles.cardBorder}>
-                        <NewsCard abstract={abstract}/>
-                    </ListGroupItem>
+                    {
+                        boxContent
+                    }
                 </ListGroup>
             </div>
         </>
