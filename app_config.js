@@ -1,4 +1,4 @@
-const host = 'http://192.168.1.121:5000/api/'
+const host = 'http://127.0.0.1:5000/api/'
 //'http://10.27.85.191:5000/api/'
 //'http://192.168.1.121:5000/api/'
 // 'http://127.0.0.1:5000/api/'
@@ -42,6 +42,9 @@ export const API_url = {
     get_all_announcement_post: host + 'announcement_post/all',
     add_new_announcement_post: host + 'announcement_post',
     get_announcement_post_by_id: host + 'announcement_post/id/',
+    get_deadline_post_by_email: host + 'deadline/email/',
+    add_new_deadline_post: host + 'deadline',
+    modify_deadline: host + 'deadline/id/',
 }
 
 

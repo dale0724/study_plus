@@ -1,28 +1,27 @@
 import React from "react";
-import ReactTimeAgo from "react-time-ago";
+import {Col, Row} from "react-bootstrap";
+import Avatar from "react-avatar";
+import {API_url} from "../../app_config";
+import Link from "next/link";
+import styles from "../../styles/discussionCard.module.css";
 
-export default class NewsCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.length = this.props.abstract.length;
-    }
-    render() {
-        return (
-            <>
-                <div>
-                    <div style={{ textAlign: 'left', margin: '0', fontSize: '0.5rem'}}>
-                        Last seen: <ReactTimeAgo date={new Date()} />
-                    </div>
-                    <p style={{ textAlign: 'left', margin: '0', color: "#395075"}}>
-                        <span id='newsTitle'> Did anyone see Xiaohei recently?</span>
-                    </p>
-                    <p style={{ textAlign: 'left', fontSize: '0.5rem', margin: '0' }}>
-                        {
-                            this.length < 200 ? this.props.abstract : `${this.props.abstract.slice(0, 196)}...`
-                        }
-                    </p>
-                </div>
-            </>
-        );
-    }
+export default function NewsCard(props) {
+    const metaData = props.metaData
+    return (
+        <>
+            <div>
+                <Row>
+                    <Col>
+                        <p style={{textAlign: 'left', margin: '0'}}>
+                            <Link href={`/campus_news/${encodeURIComponent(metaData.id)}`} passHref><a
+                                className={styles.discussionTitle}>{metaData.title}</a></Link>
+                        </p>
+                        <div style={{textAlign: 'left', margin: '0', fontSize: '0.75rem'}}>
+                            {metaData.user_email} created at {metaData.create_time}
+                        </div>
+                    </Col>
+                </Row>
+            </div>
+        </>
+    )
 }

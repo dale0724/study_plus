@@ -19,7 +19,8 @@ export default function NewsAddNewBox(props){
          const user_email = user.email;
          if(longitude&&latitude&&title&&content){
              /*Connect to DB and send data*/
-             const dto = new NewsDTO(0, user_email, latitude, longitude, 0, title, content)
+             const obj = {user_email: user_email, latitude: latitude, longitude: longitude, title: title, content: content}
+             const dto = NewsDTO.ObjectToInstance(obj)
              fetchWrapper.post('http://localhost:3000/api/campus_news/add_new',
                  dto).then(resData => {
                      //console.log(resData.message)
@@ -58,7 +59,7 @@ export default function NewsAddNewBox(props){
                     </Col>
                     <Col style={{textAlign:"left"}}>
                         <label>
-                            <input type="text" name= "newsTitle" value={title} onChange={handleChange} />
+                            <input type="text" name="newsTitle" value={title} onChange={handleChange} />
                         </label>
                     </Col>
                 </Row>
