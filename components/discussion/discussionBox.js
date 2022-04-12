@@ -13,28 +13,44 @@ export default function DiscussionBox() {
     const [page, setPage] = useState(1)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const quantityPerPage = 10
-    let isLastPage = false
+    const recordsPerPage = 10
+    let lastPage = false
+    let boxContent;
 
     const {
         data: postMetaDataList,
-        error
-    } = DiscussionClient.use_posts_with_offset_and_quantity_limit((page - 1) * quantityPerPage, quantityPerPage)
+        isError,
+        isLoading
+    } = DiscussionClient.useAllDiscussionPosts()
 
-    let boxContent;
 
-    if (error) {
-        boxContent = "Error"
-    } else {
-        if (postMetaDataList) {
-            isLastPage = postMetaDataList.length < quantityPerPage;
 
-            boxContent = postMetaDataList.map(postMetaData =>
-                <ListGroupItem key={postMetaData.id}>
-                    <DiscussionCard metaData={postMetaData} className={styles.cardBorder}/>
-                </ListGroupItem>)
+
+    function makeBoxContent(dataList, isLoading, error) {
+        if (error) {
+            return "Error"
         } else {
-            boxContent = <MySpinner/>
+            if (!isLoading) {
+                if (isLastPage(dataList)) {
+                    let start = (page - 1) * recordsPerPage
+                    dataList = dataList.slice(start)
+
+                    lastPage = true
+                } else {
+                    let start = (page - 1) * recordsPerPage
+                    let end = start + recordsPerPage
+                    dataList = dataList.slice(start, end)
+
+                    lastPage = false
+                }
+                return dataList.map(postMetaData =>
+                    <ListGroupItem key={postMetaData.id}>
+                        <DiscussionCard metaData={postMetaData} className={styles.cardBorder}/>
+                    </ListGroupItem>
+                )
+            } else {
+                return <MySpinner/>
+            }
         }
     }
 
@@ -46,17 +62,20 @@ export default function DiscussionBox() {
         setPage(prevState => prevState - 1)
     }
 
+    function isLastPage(data) {
+        return page * recordsPerPage >= data.length
+    }
+
+    boxContent = makeBoxContent(postMetaDataList, isLoading, isError)
+
     return (
         <>
             <div className={`mt-3 ${styles.border}`}>
                 <Row className="m-2">
                     <Card className={`justify-content-between border-0 ${styles.titleCard}`}>
                         <div>
-                            <Link href="#mostRelevant" passHref><a className={styles.titleText}>Most Relevant</a></Link>
-                            <span className={styles.titleText}>{''}|{''}</span>
                             <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Recent</a></Link>
                             <span className={styles.titleText}>{''}|{''}</span>
-                            <Link href="#mostVotes" passHref><a className={styles.titleText}>Most Votes</a></Link>
                         </div>
                         <div>
                             <a className={styles.titleText} style={{cursor: "pointer"}} onClick={handleShow}>New +</a>
@@ -72,7 +91,7 @@ export default function DiscussionBox() {
                     <Pagination className='justify-content-center'>
                         {page !== 1 && <Pagination.Prev onClick={handlePageDecrease}/>}
                         <Pagination.Item active>{page}</Pagination.Item>
-                        {!isLastPage && <Pagination.Next onClick={handlePageIncrease}/>}
+                        {!lastPage && <Pagination.Next onClick={handlePageIncrease}/>}
                     </Pagination>
                 </Row>
             </div>

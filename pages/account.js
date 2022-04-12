@@ -35,7 +35,7 @@ export default function Account() {
                     alert(resData.message)
                 }
                 else {
-                    console.log(resData)
+                    Router.reload()
                 }
             });
     }

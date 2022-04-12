@@ -1,7 +1,8 @@
 import {fetcher, fetchWrapper} from "../../tools/fetchWrapper";
-import { self_host} from "../../app_config";
+import {API_url, self_host} from "../../app_config";
 import useSWR from "swr";
 import DiscussionPostDTO from "../../DTO/discussion";
+import IndexSwappingDTO from "../../DTO/index_swapping";
 
 export default class DiscussionClient{
 
@@ -25,6 +26,21 @@ export default class DiscussionClient{
         let dto_list = null;
         if(data){
             dto_list = data['data'].map(jsonData => DiscussionPostDTO.JSONToInstance(jsonData))
+        }
+        return {
+            data: dto_list,
+            isLoading: !error && !data,
+            isError: error,
+        }
+    }
+
+    static useAllDiscussionPosts(){
+        const {data, error} = useSWR(API_url.get_all_discussion_posts_meta, fetcher)
+        var dto_list = null
+        if(data){
+            let postMetaDataList = data['data'].map(jsonData => JSON.parse(jsonData))
+            dto_list = postMetaDataList.map(postMetaData => DiscussionPostDTO.ObjectToInstance(postMetaData))
+            console.debug("DiscussionPostsAll:" + dto_list)
         }
         return {
             data: dto_list,

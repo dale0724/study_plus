@@ -19,6 +19,7 @@ export default function handler(req, res) {
     }
     if (decodedToken) {
       res.status(200).json(decodedToken);
+      console.debug(`user: ${JSON.stringify(decodedToken)}`)
       return;
     } else {
       res.status(401).json({message: 'Unable to auth'});
