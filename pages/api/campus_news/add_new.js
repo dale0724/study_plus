@@ -8,7 +8,7 @@ export default async function handler(req, res) {
             res.end();
         }).catch(error => {
               console.error(error)
-              res.status(405).json(error);
+              res.status(400).json(error);
               res.end();
         })
 }

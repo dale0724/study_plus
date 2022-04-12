@@ -9,11 +9,15 @@ import MySpinner from "../mySpinner";
 import AnnouncementCard from "./announcementCard";
 import AddNewModal from "../add_new_modal/addNewModal";
 import { API_url } from "../../app_config";
+import {useLoggedUserData} from "../../tools/helper";
 
 export default function AnnouncementPostBox(){
+    const {user} = useLoggedUserData()
     const [show, setShow] = useState(false);
+    const [showAdd, setShowAdd] = useState(user?user.userType==="teacher":false)
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
 
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const { data, error } = useSWR('http://localhost:3000/api/announcement/all_posts', fetcher)
@@ -34,6 +38,7 @@ export default function AnnouncementPostBox(){
             boxContent = <MySpinner></MySpinner>
         }
     }
+
     return (
         <>
             <div className={`mt-3 ${styles.border}`} >
@@ -44,9 +49,13 @@ export default function AnnouncementPostBox(){
                             <span className={styles.titleText}>{''}|{''}</span>
                             <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Recent</a></Link>
                         </div>
-                        <div>
-                            <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={handleShow}>New +</a>
-                        </div>
+                        {
+                            showAdd&&
+                            <div>
+                                <a className={styles.titleText} style={{ cursor: "pointer" }} onClick={handleShow}>New +</a>
+                            </div>
+                        }
+
                     </Card>
                 </Row>
                 <ListGroup style={{ overflow: 'hidden auto', width: '95%', margin: 'auto'}}>

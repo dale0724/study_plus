@@ -25,6 +25,11 @@ export function useLoggedUserData() {
         }
     })
     const {data, error} = useSWR('/api/auth', fetcher);
+    if(data){
+        console.debug("current user email: " + data.email)
+        console.debug("current user name: "+ data.name)
+        console.debug("current user type: " + data.user_type)
+    }
     return {
         user: data,
         isLoading: !error && !data,
