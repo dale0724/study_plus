@@ -20,12 +20,16 @@ export default function DDLBox() {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
     const { data, error } = useSWR(API_url.get_deadline_post_by_email+user.email, fetcher)
     if (data){
-        const deadlines = data['data'].map(jsonData=>JSON.parse(jsonData))
-        console.log(deadlines)
-        boxContent = deadlines.map((deadline) =>
-            <ListGroupItem key={deadline.id} className={styles.cardBorder}>
-                <DeadlineCard data={deadline} url={url}/>
-            </ListGroupItem>)
+        if (data['data']){
+            const deadlines = data['data'].map(jsonData=>JSON.parse(jsonData))
+            console.log(deadlines)
+            boxContent = deadlines.map((deadline) =>
+                <ListGroupItem key={deadline.id} className={styles.cardBorder}>
+                    <DeadlineCard data={deadline} url={url}/>
+                </ListGroupItem>)
+        }else{
+            boxContent = <span style={{textAlign: 'center', margin: 'auto', color: 'grey'}}>You haven't created any deadline yet</span>
+        }
     }
     // fetchWrapper.post(url, user.email).then(resData => {
     //     const deadlines = resData['data'].map(jsonData=>JSON.parse(jsonData))
