@@ -22,6 +22,7 @@ export default function DDLBox() {
     if (data){
         if (data['data']){
             const deadlines = data['data'].map(jsonData=>JSON.parse(jsonData))
+            deadlines.sort((a, b) => a.end_datetime.localeCompare(b.end_datetime));
             console.log(deadlines)
             boxContent = deadlines.map((deadline) =>
                 <ListGroupItem key={deadline.id} className={styles.cardBorder}>
