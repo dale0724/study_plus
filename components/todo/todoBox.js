@@ -51,7 +51,9 @@ export default function TodoBox(props) {
                 </ListGroup>
             }
             else{
-                boxContent = <></>
+                boxContent = <ListGroup style={{overflow: 'hidden auto', height: '300px', width: '95%', margin: 'auto'}}>
+                    <span style={{textAlign: 'center', margin: 'auto', color: 'grey'}}>You haven't created any to-do yet</span>
+                </ListGroup>
             }
 
         }
