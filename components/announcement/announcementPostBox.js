@@ -45,9 +45,9 @@ export default function AnnouncementPostBox(){
                 <Row className="m-0">
                     <Card border="light" className={`justify-content-between border-0 ${styles.titleCard}`}>
                         <div>
-                            <Link href="#mostRelevant" passHref><a className={styles.titleText}>Most Relevant</a></Link>
+                            <Link href="#mostRelevant" passHref><a className={styles.titleText}>Most Recent</a></Link>
                             <span className={styles.titleText}>{''}|{''}</span>
-                            <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Recent</a></Link>
+                            <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Urgent</a></Link>
                         </div>
                         {
                             showAdd&&

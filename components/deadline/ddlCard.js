@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import  { useSWRConfig } from 'swr'
-import DeadlineModal from "./deadline/deadlineModal";
+import DeadlineModal from "./deadlineModal";
 import PropTypes from 'prop-types';
-import { API_url } from "../app_config";
-import { fetchWrapper } from "../tools/fetchWrapper";
+import { API_url } from "../../app_config";
+import { fetchWrapper } from "../../tools/fetchWrapper";
 import {Row, Col} from "react-bootstrap";
 import ReactTimeAgo from "react-time-ago";
 

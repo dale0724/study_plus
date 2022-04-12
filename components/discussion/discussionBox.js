@@ -76,6 +76,7 @@ export default function DiscussionBox() {
                         <div>
                             <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Recent</a></Link>
                             <span className={styles.titleText}>{''}|{''}</span>
+                            <Link href="#mostRecent" passHref><a className={styles.titleText}>Most Votes</a></Link>
                         </div>
                         <div>
                             <a className={styles.titleText} style={{cursor: "pointer"}} onClick={handleShow}>New +</a>

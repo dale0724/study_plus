@@ -4,7 +4,7 @@ import { Col, Container, Row } from "react-bootstrap"
 import AnnouncementBox from "../components/announcement/announcementBox";
 import NewsBox from "../components/campus_news/newsBox";
 import QuoteBox from "../components/quoteBox";
-import DDLBox from "../components/ddlBox";
+import DDLBox from "../components/deadline/ddlBox";
 import Router from 'next/router';
 import { useLoggedUserData } from "../tools/helper";
 import MySpinner from "../components/mySpinner";

@@ -1,14 +1,13 @@
 import {Card, ListGroup, ListGroupItem, Row, Col} from "react-bootstrap";
-import styles from "../styles/DDLBox.module.css";
+import styles from "../../styles/DDLBox.module.css";
 import Button from 'react-bootstrap/Button';
 import DeadlineCard from "./ddlCard";
-import {useLoggedUserData} from "../tools/helper";
+import {useLoggedUserData} from "../../tools/helper";
 import {useState} from "react";
 import useSWR, {useSWRConfig} from "swr";
-import MySpinner from "./mySpinner";
-import {fetchWrapper} from "../tools/fetchWrapper";
-import {API_url} from "../app_config";
-import DeadlineModal from "./deadline/deadlineModal";
+import MySpinner from "../mySpinner";
+import {API_url} from "../../app_config";
+import DeadlineModal from "./deadlineModal";
 
 export default function DDLBox() {
     const {user} = useLoggedUserData()

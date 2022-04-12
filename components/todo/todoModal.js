@@ -57,7 +57,7 @@ function TodoModal(props) {
     ]
     function handleSubmit(inputValues) {
         if (props.mode === "modify") {
-            fetchWrapper.put(API_url.modify_todo + props.data.todo_id,
+            fetchWrapper.put(API_url.modify_todo + props.data.id,
                 {
                     summary: inputValues.summary,
                     detail: inputValues.detail,
