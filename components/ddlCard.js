@@ -20,7 +20,14 @@ function DeadlineCard(props) {
     return (
         <>
             <div>
-                <Row>
+                <Row style={{ color: (() => {
+                        if ((Date.parse(props.data.end_datetime) - Date.now())/1000/60/60<=24) {
+                            return "red";
+                        } else {
+                            return "black";
+                        }
+                    })()
+                }}>
                     <Col><a style={{ cursor: "pointer" }} onClick={handleTextClick}>{props.data.title}</a></Col>
                     <Col>due <ReactTimeAgo future date={props.data.end_datetime} timeStyle="mini-minute"/></Col>
                 </Row>
