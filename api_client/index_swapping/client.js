@@ -38,8 +38,10 @@ export class IndexSwappingClient {
         const {data, error} = useSWR(API_url.get_my_index_swapping_posts_by_email + email, fetcher)
         var dto_list = null
         if(data){
-            let postMetaDataList = data['data'].map(jsonData => JSON.parse(jsonData))
-            dto_list = postMetaDataList.map(postMetaData => IndexSwappingDTO.objectToInstance(postMetaData))
+            if(data['data']){
+                let postMetaDataList = data['data'].map(jsonData => JSON.parse(jsonData))
+                dto_list = postMetaDataList.map(postMetaData => IndexSwappingDTO.objectToInstance(postMetaData))
+            }
         }
         return {
             data: dto_list,
@@ -56,8 +58,10 @@ export class IndexSwappingClient {
         const {data, error} = useSWR(API_url.get_matched_index_swapping_posts_by_email + email, fetcher)
         var dto_list = null
         if(data){
-            let postMetaDataList = data['data'].map(jsonData => JSON.parse(jsonData))
-            dto_list = postMetaDataList.map(postMetaData => IndexSwappingDTO.objectToInstance(postMetaData))
+            if(data['data']){
+                let postMetaDataList = data['data'].map(jsonData => JSON.parse(jsonData))
+                dto_list = postMetaDataList.map(postMetaData => IndexSwappingDTO.objectToInstance(postMetaData))
+            }
         }
         return {
             data: dto_list,
