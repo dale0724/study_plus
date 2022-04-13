@@ -7,7 +7,7 @@ export default function AvatarByEmail(props){
         // Keep cached source failures for up to 7 days
         sourceTTL: 0,
         // Keep a maximum of 20 entries in the source cache
-        sourceSize: 20
+        sourceSize: 0
     });
     return <Avatar src={API_url.avatar+props.email}  {...props} cache={cache}/>
 }

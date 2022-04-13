@@ -20,6 +20,9 @@ export default function IndexSwappingRequestBox() {
         if (error) {
             return "Error"
         } else {
+            if(!dataList){
+                return ''
+            }
             if (!isLoading) {
                 if (isLastPage(dataList)) {
                     let start = (page - 1) * recordsPerPage
